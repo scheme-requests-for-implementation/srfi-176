@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>SRFI nnn</title>
+</head>
+<body>
+  <h1>SRFI nnn</h1>
+  <h2>Title</h2>
+  <p><strong>Version flag</strong></p>
+  <h2>Author</h2>
+  <p>Lassi Kortela</p>
+  <h2>Status</h2>
+  <p>Draft</p>
+  <h2>Abstract</h2>
+  <p>This SRFI defines a standard command-line flag to get version
+  information from a Scheme implementation. The output is
+  Line-oriented S-expressions which are easy to parse from Scheme,
+  C, and shell scripts and can co-exist with non-S-expression
+  output. A standard vocabulary is defined; extensions are easy to
+  make.</p>
+  <h2>Table of contents</h2>
+  <ul>
+    <li>
+      <a href="#_title">Title</a>
+    </li>
+    <li>
+      <a href="#_author">Author</a>
+    </li>
+    <li>
+      <a href="#_status">Status</a>
+    </li>
+    <li>
+      <a href="#_abstract">Abstract</a>
+    </li>
+    <li>
+      <a href="#_table_of_contents">Table of contents</a>
+    </li>
+    <li>
+      <a href="#_rationale">Rationale</a>
+      <ul>
+        <li>
+          <a href="#_introduction">Introduction</a>
+        </li>
+        <li>
+          <a href="#_part_1_which_version_flag">Part 1: Which
+          version flag</a>
+        </li>
+        <li>
+          <a href="#_part_2_line_oriented_s_expressions_lose">Part
+          2: Line-oriented S-expressions (LOSE)</a>
+        </li>
+        <li>
+          <a href="#_part_3_backward_compatibility">Part 3:
+          Backward compatibility</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="#_specification">Specification</a>
+      <ul>
+        <li>
+          <a href="#_character_set_and_encoding">Character set and
+          encoding</a>
+        </li>
+        <li>
+          <a href=
+          "#_line_oriented_s_expressions_lose">Line-oriented
+          S-expressions (LOSE)</a>
+        </li>
+        <li>
+          <a href="#_version_flag">Version flag</a>
+        </li>
+        <li>
+          <a href=
+          "#_effect_of_other_flags_on_version_output">Effect of
+          other flags on version output</a>
+        </li>
+        <li>
+          <a href="#_use_of_color_and_other_display_attributes">Use
+          of color and other display attributes</a>
+        </li>
+        <li>
+          <a href="#_standard_properties">Standard properties</a>
+        </li>
+        <li>
+          <a href="#_standard_identification_properties">Standard
+          identification properties</a>
+        </li>
+        <li>
+          <a href="#_standard_version_properties">Standard version
+          properties</a>
+        </li>
+        <li>
+          <a href="#_standard_runtime_properties">Standard runtime
+          properties</a>
+        </li>
+        <li>
+          <a href="#_standard_build_properties">Standard build
+          properties</a>
+        </li>
+        <li>
+          <a href="#_standard_boot_image_properties">Standard boot
+          image properties</a>
+        </li>
+        <li>
+          <a href="#_standard_pathname_properties">Standard
+          pathname properties</a>
+        </li>
+        <li>
+          <a href="#_standard_platform_properties">Standard
+          platform properties</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href=
+      "#_implementation_defined_properties">Implementation-defined
+      properties</a>
+    </li>
+    <li>
+      <a href="#_complete_example">Complete example</a>
+    </li>
+    <li>
+      <a href="#_implementation">Implementation</a>
+    </li>
+  </ul>
+  <h2>Rationale</h2>
+  <p>The implementation of this SRFI boils down to a few
+  <strong>write</strong> calls. But careful planning has gone into
+  the details of those calls.</p>
+  <h3>Introduction</h3>
+  <p>There is a long tradition of complex command line programs
+  having a version flag. This flag skips the normal operation of
+  the program; instead, it writes version information to standard
+  output and immediately exits. The flag is useful for:</p>
+  <ul>
+    <li>
+      <p>Checking that the desired program is installed, and not
+      another program by the same name. For example, several
+      Schemes have command name conflicts. <code>csc</code>
+      conflicts with the C# compiler. <code>gsc</code> conflicts
+      with the GhostScript interpreter. <code>scheme</code>
+      conflicts between Chez Scheme and MIT Scheme.</p>
+    </li>
+    <li>
+      <p>Checking that the version and configuration of the program
+      are compatible with your goals.</p>
+    </li>
+    <li>
+      <p>Finding out how old the program is (i.e. what year it was
+      made) and how to contact the maintainer.</p>
+    </li>
+    <li>
+      <p>Giving general information to include in build logs and
+      bug reports.</p>
+    </li>
+    <li>
+      <p>Doing all of the above in a fast, simple, standard way. A
+      version flag is often faster than starting a REPL, running a
+      script or evaluating an expression since the implementation
+      can skip loading most or all Scheme libraries.</p>
+    </li>
+  </ul>
+  <h3>Part 1: Which version flag</h3>
+  <h4>Survey of existing version flags</h4>
+  <p>Existing Scheme implementations with an
+  <strong>upper-case</strong> <code>-V</code> version flag:</p>
+  <ul>
+    <li>
+      <p>Chibi (<code>chibi-scheme -V</code>)</p>
+    </li>
+    <li>
+      <p>Gauche (<code>gosh -V</code>)</p>
+    </li>
+    <li>
+      <p>Mosh (<code>mosh -V</code> and <code>nmosh -V</code>)</p>
+    </li>
+    <li>
+      <p>Racket (<code>racket -V</code>)</p>
+    </li>
+    <li>
+      <p>Schemik (<code>schemik -V</code>)</p>
+    </li>
+    <li>
+      <p>Vicare (<code>vicare -V</code>)</p>
+    </li>
+  </ul>
+  <p>Existing Scheme implementations with a conflicting use for
+  <strong>upper-case</strong> <code>-V</code>:</p>
+  <ul>
+    <li>
+      <p>None known. Racket uses <code>-V</code> as an alias for
+      <code>--no-yield</code> but makes an exception and treats
+      <code>racket -V</code> with no other arguments as a version
+      flag.</p>
+    </li>
+  </ul>
+  <p>Existing Scheme implementations with a
+  <strong>lower-case</strong> <code>-v</code> version flag:</p>
+  <ul>
+    <li>
+      <p>Cyclone (<code>cyclone -v</code> and <code>icyc
+      -v</code>)</p>
+    </li>
+    <li>
+      <p>Dfsch (<code>dfsch-repl -v</code>)</p>
+    </li>
+    <li>
+      <p>Gambit (<code>gsc -v</code> and <code>gsi -v</code>)</p>
+    </li>
+    <li>
+      <p>Guile (<code>guile -v</code>)</p>
+    </li>
+    <li>
+      <p>KSi (<code>ksi -v</code>)</p>
+    </li>
+    <li>
+      <p>Mosh (<code>mosh -v</code> and <code>nmosh -v</code>)</p>
+    </li>
+    <li>
+      <p>Oaklisp (<code>oaklisp -v</code>)</p>
+    </li>
+    <li>
+      <p>Owl Lisp (<code>ol -v</code>)</p>
+    </li>
+    <li>
+      <p>Racket (<code>racket -v</code>)</p>
+    </li>
+    <li>
+      <p>Sagittarius (<code>sagittarius -v</code> and <code>sash
+      -v</code>)</p>
+    </li>
+    <li>
+      <p>Shoe (<code>shoe -v</code>)</p>
+    </li>
+    <li>
+      <p>STklos (<code>stklos -v</code>)</p>
+    </li>
+  </ul>
+  <p>Existing Scheme implementations with a conflicting use for
+  <strong>lower-case</strong> <code>-v</code>:</p>
+  <ul>
+    <li>
+      <p>Bigloo (<code>bigloo -v</code>) — verbose</p>
+    </li>
+    <li>
+      <p>Chicken (<code>csc -v</code>) — verbose</p>
+    </li>
+    <li>
+      <p>Vicare (<code>vicare -v</code>) — verbose</p>
+    </li>
+  </ul>
+  <p>Other version flags in existing Scheme implementations:</p>
+  <ul>
+    <li>
+      <p><code>--version</code> with <strong>two dashes</strong>
+      (Chez Scheme, Foment, Guile, Kawa, Ksi, Larceny, MIT Scheme,
+      Oaklisp, Owl Lisp, Racket, Sagittarius, Schemik, SCM, Shoe,
+      STklos, Vicare, Ypsilon)</p>
+    </li>
+    <li>
+      <p><code>-version</code> with <strong>one dash</strong>
+      (Bigloo, Chicken, Ksi, Larceny, Oaklisp, STklos)</p>
+    </li>
+    <li>
+      <p>Version number only: <code>-vn</code> (Cyclone),
+      <code>--version-only</code> (Vicare)</p>
+    </li>
+  </ul>
+  <p>Additionally, a few Schemes have flags to <em>change</em> the
+  version by loading another version of the same Scheme. Changing
+  the version is not addressed by this SRFI.</p>
+  <h4>Which flag to choose</h4>
+  <p>From the above survey we note that the most popular flags are
+  <strong>lower-case</strong> <code>-v</code>, as well as
+  <code>--version</code> with two dashes.
+  <strong>Upper-case</strong> <code>-V</code> and
+  <code>-version</code> with one dash are also each supported by
+  several implementations.</p>
+  <p>The first problem is that long options (<code>-version</code>
+  and <code>--version</code>) do not have a universally agreed-upon
+  syntax. Perhaps most programs now adhere to the GNU-style
+  two-dash syntax. However, many prominent ones such as C compilers
+  and fundamental X Window System utilities continue to use the
+  one-dash syntax. There are many Schemes supporting only one of
+  those variants, and many that do not have long options at
+  all.</p>
+  <p>One-letter options are much more standardized; so much in
+  fact, that almost all Unix programs have supported them ever
+  since Unix was first published. While programs disagree on
+  whether to interpret a group of letters after one dash as a
+  single one-word option or as multiple one-letter options, there
+  is no ambiguity when only one letter follows the dash. The
+  convention is especially strong when the flag is the only
+  argument after the program name.</p>
+  <p>So we are left with <strong>upper-case</strong>
+  <code>-V</code> and <strong>lower-case</strong> <code>-v</code>
+  as candidates. Lower-case is more popular among Schemes, but
+  upper-case is a stronger standard among Unix programs in general.
+  Upper-case is also much less ambiguous. Lower-case
+  <code>-v</code> is very often used as the "verbose" flag to make
+  a program’s output more detailed. Some Scheme implementations
+  also adopt that usage. By contrast, upper-case <code>-V</code>
+  does not have any other standard meaning besides version
+  information, and has no known conflicting uses among Scheme
+  implementations.</p>
+  <p>Finally, <a href=
+  "http://www.catb.org/esr/writings/taoup/html/ch10s05.html#id2948149">
+  <em>The Art of Unix Programming</em>, Chapter 10</a> has this to
+  say about the <strong>upper-case</strong> <code>-V</code>
+  flag:</p>
+  <blockquote>
+    <p><code>-V</code>: Version (without argument). Display
+    program’s version on standard output and exit (often also
+    prints compiled-in configuration details as well). Examples:
+    gcc(1), flex(1), hostname(1), many others. It would be quite
+    surprising for this switch to be used in any other way.</p>
+  </blockquote>
+  <p><strong>Hence this SRFI uses the upper-case <code>-V</code>
+  flag.</strong></p>
+  <p>Other flags (e.g. lower-case <code>-v</code>, the word
+  <code>-version</code> with one dash, and/or the word
+  <code>--version</code> with two dashes) may be implemented as
+  well, but are not required.</p>
+  <h4>Parser-friendly output format</h4>
+  <p>Many Scheme/Lisp implementations and other Unix tools output
+  version information in a format that is quite stable. The idea is
+  that the information can be parsed by other programs and scripts.
+  Often the output format is almost regular but not quite. Some of
+  the more complex formats, while stable, are not self-consistent
+  since they evolved over time from an ad-hoc syntax; outside of
+  Scheme, <code>clisp --version</code> and <code>gcc -v</code> are
+  good examples.</p>
+  <p>This SRFI mandates a very simple S-expression syntax that is a
+  subset of Scheme’s standard syntax. Implementations can easily
+  write out the information using the standard
+  <strong>write</strong> procedure as long as the expressions given
+  to <strong>write</strong> are suitably constrained. Version
+  output is naturally represented as an association list of
+  properties and their values. Each association shall be written as
+  a separate S-expression; the full list is implicit. The precise
+  output format is slightly unconventional and is thoroughly
+  presented in the next part.</p>
+  <h3>Part 2: Line-oriented S-expressions (LOSE)</h3>
+  <h4>Background</h4>
+  <p>The Lisp tradition is gifted with the easy handling of nested
+  data. Most languages are otherwise.</p>
+  <p>In particular, Unix shell scripts generally parse their input
+  using the traditional tools <code>awk</code>, <code>grep</code>,
+  and <code>sed</code> that are based around <em>regular
+  expressions</em>. Regexps are notoriously unable to handle nested
+  structure. Perhaps for that reason, Unix shells also make it
+  difficult to store nested data in variables. Even string list
+  handling is clumsy and error-prone.</p>
+  <p>The other classic Unix programming environment, the C
+  language, makes it easy to <em>represent</em> nested data. But
+  <em>handling</em> it is difficult due to the lack of standard
+  tools. Almost all of the data processing functions in the
+  standard library are string functions. Thus we come back to the
+  same situation as with shell scripts: only strings are easy to
+  process from standard C.</p>
+  <h4>Example</h4>
+  <p>The following S-expression:</p>
+  <pre>(version "1.2.3")</pre>
+  <p>Can be easily parsed even with ancient versions of
+  <code>grep</code> and <code>sed</code>:</p>
+  <pre>grep '^(version ".*".*)$'      \
+    | sed -e 's/^(version "//' \
+          -e 's/".*//'</pre>
+  <p>The <code>sed</code> command <code>s/whatever//</code>
+  replaces <code>whatever</code> with the empty string.
+  <code>whatever</code> is a regular expression.</p>
+  <p>An equivalent parser can be written in <code>awk</code>. It’s
+  a bit more verbose but avoids using a shell pipeline:</p>
+  <pre>awk -F '[()]' \
+    '/^\(version .*\)$/ {
+        sub(/^[a-z-]+ /, "", $2);
+        gsub(/"/, "", $2);
+        print $2
+    }'</pre>
+  <p>Again, the Awk command <code>sub(/whatever/, "",
+  $variable)</code> replaces the regular expression
+  <code>whatever</code> with the empty string. <code>gsub</code>
+  replaces all occurrences on the line whereas <code>sub</code>
+  replaces only the first. Awk splits each line into numbered input
+  fields at the separator <code>[()]</code>.</p>
+  <p>These commands should work with the POSIX standard versions of
+  these tools. They have been tested with the bare-bones versions
+  in BusyBox, which gives confidence that they are quite
+  conservative.</p>
+  <p>Parsing from C is surprisingly easy as well:</p>
+  <pre>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+static char output[1024];
+
+static const char *parse_version(void)
+{
+    const char prefix[] = "\n(version \"";
+    char *start;
+    char *limit;
+
+    if ((start = strstr(output, prefix)) == NULL) {
+        return "";
+    }
+    start += strlen(prefix);
+    for (limit = start; *limit != '"'; limit++) {
+        if ((*limit == '\0') || (*limit == '\n') || (*limit == '\\')) {
+            return "";
+        }
+    }
+    *limit = '\0';
+    return start;
+}
+
+int main(void)
+{
+    output[0] = '\n';
+    fread(&amp;output[1], 1, sizeof(output) - 2, stdin);
+    printf("%s\n", parse_version());
+    return 0;
+}</pre>
+  <p>When reading this code, note that C implicitly initializes the
+  <code>output</code> buffer to all all zero bytes. In order to
+  find <code>(version "1.2.3")</code> when it is the first line of
+  output, a newline character <code>\n</code> is artificially
+  prepended to the real output. When reading we additionally leave
+  one zero byte at the end of the output buffer to ensure the
+  buffer is null-terminated. The <code>parse_version</code>
+  function mutates the output buffer by replacing the closing
+  double-quote in <code>(version "1.2.3")</code> with a null byte.
+  Then we can easily handle the substring <code>1.2.3</code> as a
+  null-terminated string.</p>
+  <h4>Assumptions made</h4>
+  <p>In order for the above S-expression parsing to be robust, it
+  relies on some concessions from the program writing the
+  output:</p>
+  <ul>
+    <li>
+      <p>Each top-level S-expression begins at the first character
+      of a line.</p>
+    </li>
+    <li>
+      <p>There is no extraneous whitespace after closing
+      parentheses, or between tokens.</p>
+    </li>
+    <li>
+      <p>Any nested multi-line S-expressions have whitespace for
+      indentation at the beginning of each continuation line. That
+      distinguishes those lines from lines that begin a top-level
+      S-expression. Simple parsers will skip multi-line expressions
+      since those expressions don’t match a single-line pattern of
+      a complete S-expression with open and close parentheses.</p>
+    </li>
+    <li>
+      <p>The output does not have multi-line comments, so the
+      parser does not have to figure out which lines are inside a
+      comment.</p>
+    </li>
+    <li>
+      <p>The output has no null bytes.</p>
+    </li>
+    <li>
+      <p>The output uses a character encoding where the bytes
+      1..127 map to ASCII characters (e.g. UTF-8 or ISO-8859).</p>
+    </li>
+  </ul>
+  <p>At first glance, this looks like a big list of restrictions.
+  But in practice, they are not hard to conform to for simple
+  data.</p>
+  <h4>Hacks for lists</h4>
+  <p>We noted above that writing nested data to be read by these
+  tools is pretty much out of the question. C can represent a true
+  recursive-descent S-expression parser, but writing such elaborate
+  code in a low-level language is an ordeal and does not help the
+  shell scripts that remain stuck with their regexp-based parsing
+  aids.</p>
+  <p>The classic Unix tools <code>awk</code>, <code>grep</code> and
+  <code>sed</code> are not only regexp-based but
+  <em>line-oriented</em>. If something is easy to do to one line,
+  it is just as easy to do to many lines. On the contrary,
+  <em>limiting</em> an action to <em>only</em> one line is
+  difficult.</p>
+  <p>So the natural way to represent lists to these tools is to
+  have one list entry per line. S-expressions naturally represent a
+  list between one pair of parentheses. We could write the list</p>
+  <pre>(cities london milan paris tokyo)</pre>
+  <p>split to lines like this:</p>
+  <pre>(
+cities
+london
+milan
+paris
+tokyo
+)</pre>
+  <p>But the Unix tools prefer to treat each line identically,
+  storing different types of data in whole different files instead.
+  Since we have to parse output from one stream and would prefer to
+  avoid resorting to temporary files, we have to think of something
+  else.</p>
+  <p>Luckily, <code>grep</code> and <code>awk</code> can easily
+  filter lines to keep only the interesting ones. So if we break
+  from the usual Lisp customs and write one list as multiple
+  S-expressions, we can arrive at a format that is still
+  S-expression-based, but where it is also easy for line-oriented
+  tools to parse heterogeneous data from one stream. We essentially
+  have a traditional Lisp association list, but with duplicate
+  properties. And their values have to be merged to arrive at the
+  complete values. Thankfully a merging S-expression reader is easy
+  to express in Scheme:</p>
+  <pre>(define (read-merged-alist port)
+  (let loop ((alist '()))
+    (let ((new (read port)))
+      (cond ((eof-object? new) (reverse alist))
+            ((not (pair? new)) (loop alist))
+            (else (let ((old (assoc (car new) alist)))
+                    (cond (old  (set-cdr! old (append (cdr old) (cdr new)))
+                                (loop alist))
+                          (else (loop (cons new alist))))))))))</pre>
+  <h4>Wrapping up</h4>
+  <p>So we have arrived at an association list of property-value
+  pairs:</p>
+  <pre>(sweets chocolate)
+(sweets candy)
+(sweets cake)
+
+(covers fabric)
+(covers cellophane)
+(covers tinfoil)
+(covers paper)</pre>
+  <p>Within each property, we can group the values to arbitrary
+  lists:</p>
+  <pre>(sweets chocolate)
+(covers fabric)
+(covers cellophane tinfoil paper)
+(sweets candy cake)</pre>
+  <p>And still end up with the same merged association list:</p>
+  <pre>((sweets chocolate candy cake)
+ (covers fabric cellophane tinfoil paper))</pre>
+  <h3>Part 3: Backward compatibility</h3>
+  <p>To let implementations keep their existing version output for
+  backward-compatibility, LOSE parsing starts at the first line
+  with a left parenthesis <code>(</code> at the first column. This
+  means that any amount of other text can come before the
+  S-expression part. Some Unix programs write a multi-paragraph
+  copyright, warranty and version message; all of that can be
+  preserved if desired.</p>
+  <p>This simple arrangement makes all of the following work
+  naturally:</p>
+  <ul>
+    <li>
+      <p>Only S-expression info: If the very first character in the
+      output is a <code>(</code> then the entire output is parsed
+      as the association list.</p>
+    </li>
+    <li>
+      <p>No S-expression info: If no line starts with a
+      <code>(</code> then the parser simply returns an empty
+      association list. This means that all known Scheme
+      implementations with an existing <code>-V</code> flag are
+      already compatible with this SRFI. It’s just a matter of
+      adding output, not changing anything.</p>
+    </li>
+    <li>
+      <p>No info at all: If the output if completely blank, in that
+      case the parser also returns an empty association list.</p>
+    </li>
+  </ul>
+  <h3>Conclusion</h3>
+  <p>The best argument for using S-expressions generally is that
+  people keep re-inventing them in less consistent and flexible
+  formats without an objective reason. We will save time and effort
+  by using time-tested syntax from the beginning. Easy
+  interoperability with Scheme/Lisp is an obvious plus.</p>
+  <p>The main arguments against S-expressions is that they look
+  foreign to non-Lisp programmers and require too many parentheses.
+  The nesting implied by the parentheses makes them a poor fit for
+  line-oriented tools. All the classic Unix text processing
+  utilities are line-oriented. To interoperate with these tools we
+  need we need a compromise. The easiest compromise is to write
+  each association list entry on its own line, which leaves most
+  lines with only one pair parentheses and no nesting. Nested lists
+  in the output will be rare. To allow multi-value properties, and
+  long lines to be broken into multiple lines, the easiest thing is
+  to merge duplicate properties.</p>
+  <p>We could take this even further by using implied parentheses
+  around each line of text, so that no parentheses are needed for
+  most output lines. This should make the output completely
+  un-scary even for Unix programmers who know nothing about Lisp.
+  Unfortunately this syntax would make it hard to provide
+  backward-compatibility with the many existing output formats for
+  version info. Having a left parenthesis in the first column is a
+  very simple and unambiguous rule. If there are no such syntactic
+  markers, parsing will be a lot harder. Most natural candidates
+  for a syntactic marker are also more ambiguous than a left
+  parenthesis. For example, <code>property: value</code> pairs are
+  harder to detect and easier to confuse with other things.</p>
+  <h2>Specification</h2>
+  <h3>Character set and encoding</h3>
+  <p>The version output should be in an ASCII superset character
+  encoding, so that bytes <code>#x01..#x7e</code> correspond to
+  those ASCII codepoints. The encoding of bytes outside this range
+  is unspecified; UTF-8 is recommended where possible.</p>
+  <p>ASCII space (<code>#x20</code>), carriage return
+  (<code>#x0d</code>) and line feed (<code>#x0a</code>) characters
+  are recognized as whitespace. Only line feed is recognized as a
+  newline character. But since carriage return is whitespace, CR/LF
+  newlines work as well as LF newlines.</p>
+  <h3>Line-oriented S-expressions (LOSE)</h3>
+  <p>The version output shall conform to the following subset of
+  Scheme syntax:</p>
+  <ul>
+    <li>
+      <p>Symbol: Written plainly as <code>foo</code> with the first
+      character being one of <code>[A-Za-z]</code> and any
+      subsequent characters among
+      <code>[A-Za-z0-9_/*+.-]</code>.</p>
+    </li>
+    <li>
+      <p>String: <code>"string"</code> with support for the
+      backslash escapes <code>\"</code> and <code>\\</code>. Other
+      backslash escapes do not work reliably and should be avoided.
+      Strings cannot contain newlines. Non-graphic characters do
+      not work reliably and should be avoided.</p>
+    </li>
+    <li>
+      <p>Integer: <code>123</code> and <code>-123</code>. There is
+      no support for other numbers; if they are desired, they have
+      to be written as strings.</p>
+    </li>
+    <li>
+      <p>List: <code>() (a) (a b) (a b c)</code></p>
+    </li>
+  </ul>
+  <p>There shall be no whitespace between parentheses and the
+  things they wrap on the same line. There shall be exactly one
+  space between list elements on the same line.</p>
+  <p>Top-level S-expressions must all be lists, and the opening
+  parenthesis must fall on the first column of a line. Multi-line
+  S-expressions should generally be avoided; if required, then
+  continuation lines of nested expressions must start with one
+  space.</p>
+  <p>Missing features:</p>
+  <ul>
+    <li>
+      <p><code>#t</code> and <code>#f</code> (due to
+      interoperability concerns with other Lisps).</p>
+    </li>
+    <li>
+      <p>Vertical-bar symbols (use strings instead).</p>
+    </li>
+    <li>
+      <p>Improper lists (i.e. consing dot).</p>
+    </li>
+    <li>
+      <p>Vectors and bytevectors.</p>
+    </li>
+    <li>
+      <p>Real numbers, ratios, complex numbers.</p>
+    </li>
+    <li>
+      <p>Comments.</p>
+    </li>
+  </ul>
+  <p>It is recommended to work around the lack of booleans by using
+  enumerations or sets. For example, instead of <code>(linux?
+  #t)</code> we recommend <code>(platform-os linux)</code> or
+  <code>(features ...​ linux ...​)</code>.</p>
+  <h3>Version flag</h3>
+  <p>For an imaginary Scheme invoked as
+  <code>fantastic-scheme</code>, the command line
+  <code>fantastic-scheme -V</code> (i.e.
+  <strong>upper-case</strong> <code>V</code> preceded by one dash)
+  must conform to the version output format in this SRFI.</p>
+  <p>This SRFI guarantees only that the above simple invocation,
+  with <code>-V</code> as the first command-line argument and no
+  other arguments, has the intended effect. The implementation
+  should also support the <code>-V</code> flag in other argument
+  positions if it makes sense, but that is not required.</p>
+  <p>If the implementation has separate interpreter and compiler
+  commands, both of those must support the <code>-V</code> flag.
+  Other commands may support it. The version output may differ
+  between these commands.</p>
+  <p>When used with the <code>-V</code> flag, Scheme shall exit
+  with a success exit code if it successfully retrieved at least
+  some of the information, successfully wrote all that information
+  to the <strong>standard output</strong> port and flushed its
+  output buffer. Otherwise it shall exit with a failure exit code.
+  On Unix and Windows, exit code 0 means success and codes 1..100
+  are safe to use for indicating failure.</p>
+  <h3>Effect of other flags on version output</h3>
+  <p>The <code>-V</code> output may change if other flags are also
+  given on the command line. For example, <code>fantastic-scheme -V
+  -r r6rs</code> and <code>fantastic-scheme -V -r r7rs</code> could
+  give different output describing the R6RS and R7RS modes of
+  Fantastic Scheme, and <code>fantastic-scheme -V</code> could give
+  yet different output describing both of them or have less
+  information.</p>
+  <h3>Use of color and other display attributes</h3>
+  <p>ANSI, HTML or other in-band color and text attribute markup
+  shall not be used in the S-expression part, since it will confuse
+  parsers.</p>
+  <p>Out-of-band color markup (e.g. Windows console API character
+  attributes) may be used.</p>
+  <h3>Standard properties</h3>
+  <p>Below is a large set of proposed standard properties. This set
+  was designed based on actual information currently reported by
+  various Scheme implementations in their version output.</p>
+  <p>All properties are optional. This means that any Scheme
+  implementation with a <code>-V</code> version flag writing only
+  to standard output and exiting with code zero, with no output
+  lines starting with <code>(</code> conforms to this SRFI.</p>
+  <h3>Standard identification properties</h3>
+  <p>(<strong>command</strong> <em>string…​</em>)</p>
+  <p>The command names for some Schemes differ on different
+  operating systems and installations. Implementors typically
+  desire a canonical command name for each command shipping with
+  their implementation, but compromises sometimes need to be made
+  due to name conflicts or multiple versions of the same command
+  that need to be able to co-exist. This property gives the
+  canonical name suggested by the implementor without any optional
+  version number.</p>
+  <p>If the executable being invoked is a multi-call binary (i.e.
+  it can behave like more than one program depending on which
+  argv[0] is given) or otherwise is known by more than one
+  canonical name, then more than one string may be given.</p>
+  <p>Examples:</p>
+  <pre><code>(command "csi")
+(command "gsc")
+(command "isc")
+(command "scheme" "mit-scheme")</code></pre>
+  <p>(<strong>scheme-id</strong> <em>symbol</em>)</p>
+  <p>A symbol identifying which Scheme implementation provides this
+  executable. Together with <strong>command</strong> this can be
+  used to figure out which command of which implementation was
+  invoked, even in cases where two implementations use the same
+  command name.</p>
+  <p>At the time of writing, there is no central registry for
+  scheme-id’s.</p>
+  <p>Examples:</p>
+  <pre><code>(scheme-id fantastic-scheme)</code></pre>
+  <p>(<strong>language</strong> <em>symbol…​</em>)</p>
+  <p>The set of programming languages supported by the
+  implementation. Symbols denote set membership.</p>
+  <p>The distinctions between <em>language</em>, <em>language
+  standard</em>, <em>language family</em> and <em>dialect</em> are
+  muddy. For the purposes of this property, they are all
+  equivalent, and any of them may be represented by a symbol in
+  this property. For example, <code>r7rs</code> is a member of
+  <code>scheme</code> and both should be given. Non-Scheme
+  languages could also be listed. If a unified Scheme and Common
+  Lisp implementation is ever made, it would list both
+  languages.</p>
+  <p>This property means that the implementation aspires to conform
+  to these languages to a useful degree, and if it does not, you
+  can open issues in the issue tracker to discuss it. Guarantees
+  about conformance and pedantry about language definitions are not
+  the point. In particular, any executable usefully characterized
+  as a Scheme implementation should list <code>scheme</code> even
+  if it does not fully conform to any R<sup>n</sup>RS report.</p>
+  <p>Standard symbols include <code>r3rs</code>, <code>r4rs</code>,
+  <code>r5rs</code>, <code>r6rs</code>, <code>r7rs</code>,
+  <code>r7rs-large</code>, <code>scheme</code>. Please coordinate
+  with other implementors about coining symbols for other Scheme
+  derivatives and non-Scheme languages.</p>
+  <p>Examples:</p>
+  <pre><code>(language scheme r6rs r7rs)</code></pre>
+  <p>(<strong>website</strong> <em>string</em>)</p>
+  <p>A URL that starts with <code>http://</code> or
+  <code>https://</code>.</p>
+  <h3>Standard version properties</h3>
+  <p>(<strong>version</strong> <em>string</em>)</p>
+  <p>A free-form version string in the native format preferred by
+  the implementor. No portable information can be reliably parsed
+  from the string, but version strings should be sortable in order
+  from oldest to newest using typical "version sort"
+  algorithms.</p>
+  <p>In practice, most Scheme implementations use release version
+  numbers in <em>major.minor.patch</em> format. Other information
+  such as distributor patchlevel or version control commit may be
+  appended.</p>
+  <p>Examples:</p>
+  <pre><code>(version "1.2.3")
+(version "1.11.6")
+(version "0.9.9_pre1")
+(version "1.0.188-a4a79d5")</code></pre>
+  <p>(<strong>release</strong> <em>string</em>)</p>
+  <p>The most recent released version of the implementation based
+  on which this build was made. If this <em>is</em> that release
+  version, then <strong>version</strong> is identical to this. If
+  this has patches on top, then the two versions are different.</p>
+  <p>(<strong>release-date</strong> <em>iso-date-string</em>)</p>
+  <p>The <code>YYYY-MM-DD</code> date on which the release was
+  made.</p>
+  <p>Examples:</p>
+  <pre><code>(release-date "2019-08-06")</code></pre>
+  <p>(<strong>release-name</strong> <em>string</em>)</p>
+  <p>A codename for the release.</p>
+  <p>Examples:</p>
+  <pre><code>(release-name "Grain Alcohol and Rainwater")
+(release-name "oxygen")</code></pre>
+  <p>(<strong>revision</strong> <em>string</em>)</p>
+  <p>A free-form revision string that can be used to check out the
+  version control commit on which this build is based. For Git, we
+  recommend the output of <code>git describe --dirty
+  --always</code> which includes the latest tag, the commit hash in
+  case commits have been made on top of that tag, and a mark if
+  uncommitted changes have been made on top of the mentioned
+  commit.</p>
+  <p>Examples:</p>
+  <pre><code>(revision "8e62f718")
+(revision "3.0-0-g39797ea94")
+(revision "v0.16-DEV-166-g6574540c")</code></pre>
+  <h3>Standard runtime properties</h3>
+  <p>(<strong>features</strong> <em>symbol…​</em>)</p>
+  <p>The symbols should correspond to the feature list for
+  <strong>cond-expand</strong>.</p>
+  <p>Examples:</p>
+  <pre><code>(features 64bit dload ptables)
+(features utf-8 pthreads linux r7rs)
+
+(features chibi r7rs ratios complex uvector threads full-unicode)
+(features modules dynamic-loading darwin bsd macosx little-endian)</code></pre>
+  <h3>Standard build properties</h3>
+  <p>(<strong>configure</strong> <em>string</em>…​)</p>
+  <p>Command line arguments given to the configure script before
+  building this Scheme implementation. A configure script a very
+  common means for build-time configuration of programs on
+  Unix-like operating systems. It is useful to save the options
+  given to that script for run time; it helps in replicating builds
+  and debugging problems with the implementation if the options are
+  known.</p>
+  <p>Each command line argument is given as one string.
+  S-expression string escapes are used; since the double-quoted
+  string syntax used with S-expressions is largely compatible with
+  Unix shells, the resulting syntax can generally be pasted to a
+  shell with no changes.</p>
+  <p>The name of the configure script is not given. It is almost
+  always <code>configure</code>, though that is not required.</p>
+  <p>Examples:</p>
+  <pre><code>(configure "--enable-single-host")
+(configure "--prefix=/home/wiley/.local" "CC=gcc-9")</code></pre>
+  <p>(<strong>platform</strong> <em>string</em>)</p>
+  <p>A free-form string identifying the computer architecture,
+  operating system, and/or other aspects of the computing platform
+  for which the executable was built. This is the platform string
+  in the implementation’s native format; there is no portable
+  information that can be reliably parsed. Often this is a
+  GNU-style <code>computer-kernel-userland</code> triple; just as
+  often it is not.</p>
+  <p>Examples:</p>
+  <pre><code>(platform "DarwinX8664")
+(platform "x86_64-apple-darwin18.7.0")
+(platform "macosx-unix-clang-x86-64")</code></pre>
+  <p>(<strong>build-date</strong> <em>iso-date-string</em>
+  [<em>iso-time-string</em>])</p>
+  <p>The date, with optional time-of-day, when this executable was
+  built.</p>
+  <p><em>iso-date-string</em> is always a string in ISO
+  <code>YYYY-MM-DD</code> format.</p>
+  <p><em>iso-time-string</em> (when given) is always a string that
+  starts with <code>HH:MM</code>. It may contain more stuff for
+  extra precision, according to the ISO 8601 time format, but it’s
+  questionable whether a precision exceeding one minute is
+  useful.</p>
+  <p>These should be UTC, not local time. It is
+  implementation-dependent whether the timestamp is nearer to the
+  start or end of the build.</p>
+  <p>Unix commands to generate this property:</p>
+  <pre><code>date -u '+(build-date "%Y-%m-%d")'
+date -u '+(build-date "%Y-%m-%d" "%H:%M")'</code></pre>
+  <p>Examples:</p>
+  <pre><code>(build-date "2018-09-30")
+(build-date "2018-09-30" "02:07")
+(build-date "2018-09-30" "02:07:07.1234")</code></pre>
+  <h3>Standard boot image properties</h3>
+  <p>(<strong>image-date</strong> <em>iso-date-string</em>
+  [<em>iso-time-string</em>])</p>
+  <p>If this is an image-based Scheme system, the date and time
+  when the active boot image was saved. Details as for
+  <strong>build-date</strong>.</p>
+  <p>This may vary by command line options and environment
+  variables if those can be used to select a different boot
+  image.</p>
+  <p>(<strong>image-file</strong> <em>filename</em>)</p>
+  <p>If images can be loaded by filename, this gives the filename
+  that is used to load the active boot image.</p>
+  <h3>Standard pathname properties</h3>
+  <p>(<strong>install-dir</strong> <em>string</em>)</p>
+  <p>Root directory of the Scheme installation, if it has one.
+  Typically, this is the directory that has <code>bin</code> and
+  <code>lib</code> subdirectories, but the meaning is
+  implementation-dependent.</p>
+  <p>(<strong>library-path</strong> <em>string…​</em>)</p>
+  <p>List of directories to search for imported libraries.</p>
+  <h3>Standard platform properties</h3>
+  <p>(<strong>platform-os</strong> <em>symbol</em>…​)</p>
+  <p>The operating system(s) for which the executable was built.
+  Symbols denote set membership.</p>
+  <p>Examples:</p>
+  <pre><code>(platform-os aros amigaos)
+(platform-os dragonflybsd bsd unix)
+(platform-os freebsd bsd unix)
+(platform-os haiku beos)
+(platform-os linux unix)
+(platform-os netbsd bsd unix)
+(platform-os openbsd bsd unix)
+(platform-os solaris unix)
+(platform-os windows)</code></pre>
+  <p>(<strong>platform-computer</strong> <em>symbol</em>…​)</p>
+  <p>The computer architecture(s) and CPUs for which the executable
+  was built. Symbols denote set membership.</p>
+  <p>Examples:</p>
+  <pre><code>(platform-computer x86 x86-64 intel)
+(platform-computer x86 x86-64 amd)
+(platform-computer arm32)
+(platform-computer arm64)
+(platform-computer ppc)
+(platform-computer mips)
+(platform-computer sparc)</code></pre>
+  <p>(<strong>platform-bits</strong> <em>integer</em>…​)</p>
+  <p><em>integer</em> is a positive exact integer giving the
+  address width of the host computer in bits; almost always 32 or
+  64.</p>
+  <h2>Implementation-defined properties</h2>
+  <p>The names of implementation-defined properties should start
+  with the implementation’s scheme-id and a dash. For example, if
+  Fantastic Scheme builds varied by the phase of the moon, it could
+  have:</p>
+  <pre>
+  <code>(fantastic-scheme-phase-of-the-moon waxing-crescent)</code></pre>
+  <h2>Complete example</h2>
+  <p>If <code>fantastic-scheme-1.2.3 -V</code> gives the following
+  output:</p>
+  <pre><code>Fantastic Scheme version 2.95
+Copyright (C) 2003 Pyrrhic Ventures
+This is free software; always read the label. There is NO warranty;
+not even for buoyancy or fitness for high-velocity landings at sea.
+
+"Shoot for the moon. Even if you miss, you'll crash on impact."
+
+(command "fantastic-scheme")
+(scheme-id fantastic-scheme)
+(language scheme r6rs r7rs)
+(website "https://example.com/scheme/")
+(version "2.96_pre1")
+(release "2.95")
+(release-date "2003-06-24")
+(release-name "Sheer lunacy")
+(revision "2.95-23-gc0f6340c")
+(features r7rs ratios exact-complex full-unicode gnu-linux little-endian)
+(features fantastic-scheme fantastic-scheme-1.0 space-ship-control-system)
+(configure "--prefix=/home/wiley/.local")
+(configure "--with-space-ship-control-system")
+(platform "aarch64_be-linux-gnu_ilp32")
+(platform-os ubuntu linux unix)
+(platform-computer arm arm64)
+(platform-bits 64)
+(build-date "2019-10-05" "13:52:01")
+(image-date "2019-10-05" "17:10:00")
+(image-file "/home/wiley/fantastic.image")
+(install-dir "/home/wiley/.local")
+(library-path "/home/wiley/.local/share/fantastic")
+(library-path "/home/wiley/fantastic")
+(fantastic-scheme-phase-of-the-moon waxing-crescent)</code></pre>
+  <p>It is parsed into the following merged association list:</p>
+  <pre><code>((command "fantastic-scheme")
+ (scheme-id fantastic-scheme)
+ (language scheme r6rs r7rs)
+ (website "https://example.com/scheme/")
+ (version "2.96_pre1")
+ (release "2.95")
+ (release-date "2003-06-24")
+ (release-name "Sheer lunacy")
+ (revision "2.95-23-gc0f6340c")
+ (features
+  r7rs
+  ratios
+  exact-complex
+  full-unicode
+  gnu-linux
+  little-endian
+  fantastic-scheme
+  fantastic-scheme-1.0
+  space-ship-control-system)
+ (configure "--prefix=/home/wiley/.local" "--with-space-ship-control-system")
+ (platform "aarch64_be-linux-gnu_ilp32")
+ (platform-os ubuntu linux unix)
+ (platform-computer arm arm64)
+ (platform-bits 64)
+ (build-date "2019-10-05" "13:52:01")
+ (image-date "2019-10-05" "17:10:00")
+ (image-file "/home/wiley/fantastic.image")
+ (install-dir "/home/wiley/.local")
+ (library-path "/home/wiley/.local/share/fantastic" "/home/wiley/fantastic")
+ (fantastic-scheme-phase-of-the-moon waxing-crescent))</code></pre>
+  <h2>Implementation</h2>
+  <p>Writing the version information is as simple as calling
+  <strong>write</strong> or equivalent with suitable input.</p>
+  <p>The following is a fully functional parser.
+  <strong>read-version-alist-from-command</strong> is specific to
+  Gambit and needs to be rewritten for other Schemes.</p>
+  <pre><code>(define (read-merged-alist in)
+  (let loop ((alist '()))
+    (let ((new (read in)))
+      (cond ((eof-object? new) (reverse alist))
+            ((not (pair? new)) (loop alist))
+            (else (let ((old (assoc (car new) alist)))
+                    (cond (old  (set-cdr! old (append (cdr old) (cdr new)))
+                                (loop alist))
+                          (else (loop (cons new alist))))))))))
+
+(define (skip-to-line-starting char in)
+  (let loop ((prev #\newline))
+    (let ((c (peek-char in)))
+      (unless (or (eof-object? c)
+                  (and (char=? #\newline prev) (char=? char c)))
+        (loop (read-char in))))))
+
+(define (read-version-alist in)
+  (skip-to-line-starting #\( in)
+  (read-merged-alist in))
+
+(define (read-version-alist-from-string string)
+  (call-with-port (open-input-string string) read-version-alist))
+
+(define (read-version-alist-from-command command)
+  (let* ((result (shell-command (string-append command " -V") #t))
+         (status (car result))
+         (output (cdr result)))
+      (read-version-alist-from-string (if (= status 0) output ""))))</code></pre>
+  <h2>Acknowledgements</h2>
+  <p>Thanks to Marc Feeley for discussing S-expressions that can be
+  parsed from portable shell scripts. Thanks to Arthur Gleckler for
+  questioning why the output of existing version flags is extended
+  instead of making a new flag exclusively for machine-parseable
+  output.</p>
+  <p>This SRFI started off as one of those "what if we made this
+  simple tweak" hunches. It has now reached a ludicrous length
+  considering the triviality of the topic. I am grateful to anyone
+  who may want to use LOSE for another application. It will do at
+  least a little to justify the effort spent.</p>
+  <h2>Copyright</h2>
+  <p>Copyright © Lassi Kortela (2019)</p>
+  <p>Permission is hereby granted, free of charge, to any person
+  obtaining a copy of this software and associated documentation
+  files (the “Software”), to deal in the Software without
+  restriction, including without limitation the rights to use,
+  copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the
+  Software is furnished to do so, subject to the following
+  conditions:</p>
+  <p>The above copyright notice and this permission notice
+  (including the next paragraph) shall be included in all copies or
+  substantial portions of the Software.</p>
+  <p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY
+  KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+  AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+  HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+  OTHER DEALINGS IN THE SOFTWARE.</p>
+</body>
+</html>
