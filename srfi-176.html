@@ -14,7 +14,7 @@
   <p>SRFI 176: <strong>Version flag</strong></p>
   <h2>Author</h2>
   <p>Lassi Kortela</p>
-  <h1>Status</h1>
+  <h2>Status</h2>
   <p>This SRFI is currently in <em>draft</em> status. Here is
   <a href="https://srfi.schemers.org/srfi-process.html">an
   explanation</a> of each status that a SRFI can hold. To provide
@@ -729,7 +729,7 @@ tokyo
   implementation with a <code>-V</code> version flag writing only
   to standard output and exiting with code zero, with no output
   lines starting with <code>(</code>, conforms to this SRFI.</p>
-  <h3>Standard identification properties</h3>
+  <h4>Identification properties</h4>
   <p>(<strong>command</strong> <em>string…​</em>)</p>
   <p>The command names for some Schemes differ on different
   operating systems and installations. Implementors typically
@@ -787,7 +787,7 @@ tokyo
   <p>(<strong>website</strong> <em>string</em>)</p>
   <p>A URL that starts with <code>http://</code> or
   <code>https://</code>.</p>
-  <h3>Standard version properties</h3>
+  <h4>Version properties</h4>
   <p>(<strong>version</strong> <em>string</em>)</p>
   <p>A free-form version string in the native format preferred by
   the implementor. No portable information can be reliably parsed
@@ -830,7 +830,7 @@ tokyo
   <pre><code>(revision "8e62f718")
 (revision "3.0-0-g39797ea94")
 (revision "v0.16-DEV-166-g6574540c")</code></pre>
-  <h3>Standard runtime properties</h3>
+  <h4>Standard runtime properties</h4>
   <p>(<strong>features</strong> <em>symbol…​</em>)</p>
   <p>The symbols should correspond to the feature list for
   <strong>cond-expand</strong>.</p>
@@ -840,7 +840,7 @@ tokyo
 
 (features chibi r7rs ratios complex uvector threads full-unicode)
 (features modules dynamic-loading darwin bsd macosx little-endian)</code></pre>
-  <h3>Standard build properties</h3>
+  <h4>Build properties</h4>
   <p>(<strong>configure</strong> <em>string</em>…​)</p>
   <p>Command line arguments given to the configure script before
   building this Scheme implementation. A configure script is a very
@@ -892,7 +892,7 @@ date -u '+(build-date "%Y-%m-%d" "%H:%M")'</code></pre>
   <pre><code>(build-date "2018-09-30")
 (build-date "2018-09-30" "02:07")
 (build-date "2018-09-30" "02:07:07.1234")</code></pre>
-  <h3>Standard boot image properties</h3>
+  <h4>Boot image properties</h4>
   <p>(<strong>image-date</strong> <em>iso-date-string</em>
   [<em>iso-time-string</em>])</p>
   <p>If this is an image-based Scheme system, the date and time
@@ -904,7 +904,7 @@ date -u '+(build-date "%Y-%m-%d" "%H:%M")'</code></pre>
   <p>(<strong>image-file</strong> <em>filename</em>)</p>
   <p>If images can be loaded by filename, this gives the filename
   that is used to load the active boot image.</p>
-  <h3>Standard pathname properties</h3>
+  <h4>Pathname properties</h4>
   <p>(<strong>install-dir</strong> <em>string</em>)</p>
   <p>Root directory of the Scheme installation, if it has one.
   Typically, this is the directory that has <code>bin</code> and
@@ -912,7 +912,7 @@ date -u '+(build-date "%Y-%m-%d" "%H:%M")'</code></pre>
   implementation-dependent.</p>
   <p>(<strong>library-path</strong> <em>string…​</em>)</p>
   <p>List of directories to search for imported libraries.</p>
-  <h3>Standard platform properties</h3>
+  <h4>Platform properties</h4>
   <p>(<strong>platform-os</strong> <em>symbol</em>…​)</p>
   <p>The operating system(s) for which the executable was built.
   Symbols denote set membership.</p>
@@ -941,7 +941,7 @@ date -u '+(build-date "%Y-%m-%d" "%H:%M")'</code></pre>
   <p><em>integer</em> is a positive exact integer giving the
   address width of the host computer in bits; almost always 32 or
   64.</p>
-  <h2>Implementation-defined properties</h2>
+  <h3>Implementation-defined properties</h3>
   <p>The names of implementation-defined properties should start
   with the implementation’s scheme-id and a dash. For example, if
   Fantastic Scheme builds varied by the phase of the moon, it could
