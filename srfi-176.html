@@ -329,7 +329,7 @@
   that the information can be parsed by other programs and scripts.
   Often the output format is almost regular but not quite. Some of
   the more complex formats, while stable, are not self-consistent
-  since they evolved over time from an ad-hoc syntax; outside of
+  since they evolved over time from an <em>ad hoc</em> syntax; outside of
   Scheme, <code>clisp --version</code> and <code>gcc -v</code> are
   good examples.</p>
   <p>This SRFI mandates a very simple S-expression syntax that is a
@@ -710,7 +710,7 @@ tokyo
   <p>All properties are optional. This means that any Scheme
   implementation with a <code>-V</code> version flag writing only
   to standard output and exiting with code zero, with no output
-  lines starting with <code>(</code> conforms to this SRFI.</p>
+  lines starting with <code>(</code>, conforms to this SRFI.</p>
   <h3>Standard identification properties</h3>
   <p>(<strong>command</strong> <em>string…​</em>)</p>
   <p>The command names for some Schemes differ on different
@@ -718,7 +718,7 @@ tokyo
   desire a canonical command name for each command shipping with
   their implementation, but compromises sometimes need to be made
   due to name conflicts or multiple versions of the same command
-  that need to be able to co-exist. This property gives the
+  that need to be able to coexist. This property gives the
   canonical name suggested by the implementor without any optional
   version number.</p>
   <p>If the executable being invoked is a multi-call binary (i.e.
@@ -825,7 +825,7 @@ tokyo
   <h3>Standard build properties</h3>
   <p>(<strong>configure</strong> <em>string</em>…​)</p>
   <p>Command line arguments given to the configure script before
-  building this Scheme implementation. A configure script a very
+  building this Scheme implementation. A configure script is a very
   common means for build-time configuration of programs on
   Unix-like operating systems. It is useful to save the options
   given to that script for run time; it helps in replicating builds
