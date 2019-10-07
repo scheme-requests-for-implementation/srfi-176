@@ -40,21 +40,6 @@
   <h2>Table of contents</h2>
   <ul>
     <li>
-      <a href="#_title">Title</a>
-    </li>
-    <li>
-      <a href="#_author">Author</a>
-    </li>
-    <li>
-      <a href="#_status">Status</a>
-    </li>
-    <li>
-      <a href="#_abstract">Abstract</a>
-    </li>
-    <li>
-      <a href="#_table_of_contents">Table of contents</a>
-    </li>
-    <li>
       <a href="#_rationale">Rationale</a>
       <ul>
         <li>
@@ -63,14 +48,49 @@
         <li>
           <a href="#_part_1_which_version_flag">Part 1: Which
           version flag</a>
+          <ul>
+            <li>
+              <a href="#_survey_of_existing_version_flags">Survey
+              of existing version flags</a>
+            </li>
+            <li>
+              <a href="#_which_flag_to_choose">Which flag to
+              choose</a>
+            </li>
+            <li>
+              <a href=
+              "#_parser_friendly_output_format">Parser-friendly
+              output format</a>
+            </li>
+          </ul>
         </li>
         <li>
           <a href="#_part_2_line_oriented_s_expressions_lose">Part
           2: Line-oriented S-expressions (LOSE)</a>
+          <ul>
+            <li>
+              <a href="#_background">Background</a>
+            </li>
+            <li>
+              <a href="#_example">Example</a>
+            </li>
+            <li>
+              <a href="#_assumptions_made">Assumptions made</a>
+            </li>
+            <li>
+              <a href="#_hacks_for_lists">Hacks for lists</a>
+            </li>
+            <li>
+              <a href="#_wrapping_up">Wrapping up</a>
+            </li>
+          </ul>
         </li>
         <li>
           <a href="#_part_3_backward_compatibility">Part 3:
           Backward compatibility</a>
+        </li>
+        <li>
+          <a href="#_conclusion">Conclusion</a>
         </li>
       </ul>
     </li>
@@ -100,41 +120,41 @@
         </li>
         <li>
           <a href="#_standard_properties">Standard properties</a>
+          <ul>
+            <li>
+              <a href="#_identification_properties">Identification
+              properties</a>
+            </li>
+            <li>
+              <a href="#_version_properties">Version properties</a>
+            </li>
+            <li>
+              <a href="#_standard_runtime_properties">Standard
+              runtime properties</a>
+            </li>
+            <li>
+              <a href="#_build_properties">Build properties</a>
+            </li>
+            <li>
+              <a href="#_boot_image_properties">Boot image
+              properties</a>
+            </li>
+            <li>
+              <a href="#_pathname_properties">Pathname
+              properties</a>
+            </li>
+            <li>
+              <a href="#_platform_properties">Platform
+              properties</a>
+            </li>
+          </ul>
         </li>
         <li>
-          <a href="#_standard_identification_properties">Standard
-          identification properties</a>
-        </li>
-        <li>
-          <a href="#_standard_version_properties">Standard version
+          <a href=
+          "#_implementation_defined_properties">Implementation-defined
           properties</a>
-        </li>
-        <li>
-          <a href="#_standard_runtime_properties">Standard runtime
-          properties</a>
-        </li>
-        <li>
-          <a href="#_standard_build_properties">Standard build
-          properties</a>
-        </li>
-        <li>
-          <a href="#_standard_boot_image_properties">Standard boot
-          image properties</a>
-        </li>
-        <li>
-          <a href="#_standard_pathname_properties">Standard
-          pathname properties</a>
-        </li>
-        <li>
-          <a href="#_standard_platform_properties">Standard
-          platform properties</a>
         </li>
       </ul>
-    </li>
-    <li>
-      <a href=
-      "#_implementation_defined_properties">Implementation-defined
-      properties</a>
     </li>
     <li>
       <a href="#_complete_example">Complete example</a>
@@ -142,12 +162,18 @@
     <li>
       <a href="#_implementation">Implementation</a>
     </li>
+    <li>
+      <a href="#_acknowledgements">Acknowledgements</a>
+    </li>
+    <li>
+      <a href="#_copyright">Copyright</a>
+    </li>
   </ul>
-  <h2>Rationale</h2>
+  <h2 id="_rationale">Rationale</h2>
   <p>The implementation of this SRFI boils down to a few
   <strong>write</strong> calls. But careful planning has gone into
   the details of those calls.</p>
-  <h3>Introduction</h3>
+  <h3 id="_introduction">Introduction</h3>
   <p>There is a long tradition of complex command line programs
   having a version flag. This flag skips the normal operation of
   the program; instead, it writes version information to standard
@@ -180,8 +206,10 @@
       can skip loading most or all Scheme libraries.</p>
     </li>
   </ul>
-  <h3>Part 1: Which version flag</h3>
-  <h4>Survey of existing version flags</h4>
+  <h3 id="_part_1_which_version_flag">Part 1: Which version
+  flag</h3>
+  <h4 id="_survey_of_existing_version_flags">Survey of existing
+  version flags</h4>
   <p>Existing Scheme implementations with an
   <strong>upper-case</strong> <code>-V</code> version flag:</p>
   <ul>
@@ -289,7 +317,7 @@
   <p>Additionally, a few Schemes have flags to <em>change</em> the
   version by loading another version of the same Scheme. Changing
   the version is not addressed by this SRFI.</p>
-  <h4>Which flag to choose</h4>
+  <h4 id="_which_flag_to_choose">Which flag to choose</h4>
   <p>From the above survey we note that the most popular flags are
   <strong>lower-case</strong> <code>-v</code>, as well as
   <code>--version</code> with two dashes.
@@ -341,7 +369,8 @@
   <code>-version</code> with one dash, and/or the word
   <code>--version</code> with two dashes) may be implemented as
   well, but are not required.</p>
-  <h4>Parser-friendly output format</h4>
+  <h4 id="_parser_friendly_output_format">Parser-friendly output
+  format</h4>
   <p>Many Scheme/Lisp implementations and other Unix tools output
   version information in a format that is quite stable. The idea is
   that the information can be parsed by other programs and scripts.
@@ -360,8 +389,9 @@
   a separate S-expression; the full list is implicit. The precise
   output format is slightly unconventional and is thoroughly
   presented in the next part.</p>
-  <h3>Part 2: Line-oriented S-expressions (LOSE)</h3>
-  <h4>Background</h4>
+  <h3 id="_part_2_line_oriented_s_expressions_lose">Part 2:
+  Line-oriented S-expressions (LOSE)</h3>
+  <h4 id="_background">Background</h4>
   <p>The Lisp tradition is gifted with the easy handling of nested
   data. Most languages are otherwise.</p>
   <p>In particular, Unix shell scripts generally parse their input
@@ -378,7 +408,7 @@
   standard library are string functions. Thus we come back to the
   same situation as with shell scripts: only strings are easy to
   process from standard C.</p>
-  <h4>Example</h4>
+  <h4 id="_example">Example</h4>
   <p>The following S-expression:</p>
   <pre>(version "1.2.3")</pre>
   <p>Can be easily parsed even with ancient versions of
@@ -450,7 +480,7 @@ int main(void)
   double-quote in <code>(version "1.2.3")</code> with a null byte.
   Then we can easily handle the substring <code>1.2.3</code> as a
   null-terminated string.</p>
-  <h4>Assumptions made</h4>
+  <h4 id="_assumptions_made">Assumptions made</h4>
   <p>In order for the above S-expression parsing to be robust, it
   relies on some concessions from the program writing the
   output:</p>
@@ -487,7 +517,7 @@ int main(void)
   <p>At first glance, this looks like a big list of restrictions.
   But in practice, they are not hard to conform to for simple
   data.</p>
-  <h4>Hacks for lists</h4>
+  <h4 id="_hacks_for_lists">Hacks for lists</h4>
   <p>We noted above that writing nested data to be read by these
   tools is pretty much out of the question. C can represent a true
   recursive-descent S-expression parser, but writing such elaborate
@@ -536,7 +566,7 @@ tokyo
                     (cond (old  (set-cdr! old (append (cdr old) (cdr new)))
                                 (loop alist))
                           (else (loop (cons new alist))))))))))</pre>
-  <h4>Wrapping up</h4>
+  <h4 id="_wrapping_up">Wrapping up</h4>
   <p>So we have arrived at an association list of property-value
   pairs:</p>
   <pre>(sweets chocolate)
@@ -556,7 +586,8 @@ tokyo
   <p>And still end up with the same merged association list:</p>
   <pre>((sweets chocolate candy cake)
  (covers fabric cellophane tinfoil paper))</pre>
-  <h3>Part 3: Backward compatibility</h3>
+  <h3 id="_part_3_backward_compatibility">Part 3: Backward
+  compatibility</h3>
   <p>To let implementations keep their existing version output for
   backward-compatibility, LOSE parsing starts at the first line
   with a left parenthesis <code>(</code> at the first column. This
@@ -585,7 +616,7 @@ tokyo
       case the parser also returns an empty association list.</p>
     </li>
   </ul>
-  <h3>Conclusion</h3>
+  <h3 id="_conclusion">Conclusion</h3>
   <p>The best argument for using S-expressions generally is that
   people keep re-inventing them in less consistent and flexible
   formats without an objective reason. We will save time and effort
@@ -614,8 +645,9 @@ tokyo
   for a syntactic marker are also more ambiguous than a left
   parenthesis. For example, <code>property: value</code> pairs are
   harder to detect and easier to confuse with other things.</p>
-  <h2>Specification</h2>
-  <h3>Character set and encoding</h3>
+  <h2 id="_specification">Specification</h2>
+  <h3 id="_character_set_and_encoding">Character set and
+  encoding</h3>
   <p>The version output should be in an ASCII superset character
   encoding, so that bytes <code>#x01..#x7e</code> correspond to
   those ASCII codepoints. The encoding of bytes outside this range
@@ -625,7 +657,8 @@ tokyo
   are recognized as whitespace. Only line feed is recognized as a
   newline character. But since carriage return is whitespace, CR/LF
   newlines work as well as LF newlines.</p>
-  <h3>Line-oriented S-expressions (LOSE)</h3>
+  <h3 id="_line_oriented_s_expressions_lose">Line-oriented
+  S-expressions (LOSE)</h3>
   <p>The version output shall conform to the following subset of
   Scheme syntax:</p>
   <ul>
@@ -685,7 +718,7 @@ tokyo
   enumerations or sets. For example, instead of <code>(linux?
   #t)</code> we recommend <code>(platform-os linux)</code> or
   <code>(features ...​ linux ...​)</code>.</p>
-  <h3>Version flag</h3>
+  <h3 id="_version_flag">Version flag</h3>
   <p>For an imaginary Scheme invoked as
   <code>fantastic-scheme</code>, the command line
   <code>fantastic-scheme -V</code> (i.e.
@@ -707,7 +740,8 @@ tokyo
   output buffer. Otherwise it shall exit with a failure exit code.
   On Unix and Windows, exit code 0 means success and codes 1..100
   are safe to use for indicating failure.</p>
-  <h3>Effect of other flags on version output</h3>
+  <h3 id="_effect_of_other_flags_on_version_output">Effect of other
+  flags on version output</h3>
   <p>The <code>-V</code> output may change if other flags are also
   given on the command line. For example, <code>fantastic-scheme -V
   -r r6rs</code> and <code>fantastic-scheme -V -r r7rs</code> could
@@ -715,13 +749,14 @@ tokyo
   Fantastic Scheme, and <code>fantastic-scheme -V</code> could give
   yet different output describing both of them or have less
   information.</p>
-  <h3>Use of color and other display attributes</h3>
+  <h3 id="_use_of_color_and_other_display_attributes">Use of color
+  and other display attributes</h3>
   <p>ANSI, HTML or other in-band color and text attribute markup
   shall not be used in the S-expression part, since it will confuse
   parsers.</p>
   <p>Out-of-band color markup (e.g. Windows console API character
   attributes) may be used.</p>
-  <h3>Standard properties</h3>
+  <h3 id="_standard_properties">Standard properties</h3>
   <p>Below is a large set of proposed standard properties. This set
   was designed based on actual information currently reported by
   various Scheme implementations in their version output.</p>
@@ -729,7 +764,8 @@ tokyo
   implementation with a <code>-V</code> version flag writing only
   to standard output and exiting with code zero, with no output
   lines starting with <code>(</code>, conforms to this SRFI.</p>
-  <h4>Identification properties</h4>
+  <h4 id="_identification_properties">Identification
+  properties</h4>
   <p>(<strong>command</strong> <em>string…​</em>)</p>
   <p>The command names for some Schemes differ on different
   operating systems and installations. Implementors typically
@@ -787,7 +823,7 @@ tokyo
   <p>(<strong>website</strong> <em>string</em>)</p>
   <p>A URL that starts with <code>http://</code> or
   <code>https://</code>.</p>
-  <h4>Version properties</h4>
+  <h4 id="_version_properties">Version properties</h4>
   <p>(<strong>version</strong> <em>string</em>)</p>
   <p>A free-form version string in the native format preferred by
   the implementor. No portable information can be reliably parsed
@@ -830,7 +866,8 @@ tokyo
   <pre><code>(revision "8e62f718")
 (revision "3.0-0-g39797ea94")
 (revision "v0.16-DEV-166-g6574540c")</code></pre>
-  <h4>Standard runtime properties</h4>
+  <h4 id="_standard_runtime_properties">Standard runtime
+  properties</h4>
   <p>(<strong>features</strong> <em>symbol…​</em>)</p>
   <p>The symbols should correspond to the feature list for
   <strong>cond-expand</strong>.</p>
@@ -840,7 +877,7 @@ tokyo
 
 (features chibi r7rs ratios complex uvector threads full-unicode)
 (features modules dynamic-loading darwin bsd macosx little-endian)</code></pre>
-  <h4>Build properties</h4>
+  <h4 id="_build_properties">Build properties</h4>
   <p>(<strong>configure</strong> <em>string</em>…​)</p>
   <p>Command line arguments given to the configure script before
   building this Scheme implementation. A configure script is a very
@@ -892,7 +929,7 @@ date -u '+(build-date "%Y-%m-%d" "%H:%M")'</code></pre>
   <pre><code>(build-date "2018-09-30")
 (build-date "2018-09-30" "02:07")
 (build-date "2018-09-30" "02:07:07.1234")</code></pre>
-  <h4>Boot image properties</h4>
+  <h4 id="_boot_image_properties">Boot image properties</h4>
   <p>(<strong>image-date</strong> <em>iso-date-string</em>
   [<em>iso-time-string</em>])</p>
   <p>If this is an image-based Scheme system, the date and time
@@ -904,7 +941,7 @@ date -u '+(build-date "%Y-%m-%d" "%H:%M")'</code></pre>
   <p>(<strong>image-file</strong> <em>filename</em>)</p>
   <p>If images can be loaded by filename, this gives the filename
   that is used to load the active boot image.</p>
-  <h4>Pathname properties</h4>
+  <h4 id="_pathname_properties">Pathname properties</h4>
   <p>(<strong>install-dir</strong> <em>string</em>)</p>
   <p>Root directory of the Scheme installation, if it has one.
   Typically, this is the directory that has <code>bin</code> and
@@ -912,7 +949,7 @@ date -u '+(build-date "%Y-%m-%d" "%H:%M")'</code></pre>
   implementation-dependent.</p>
   <p>(<strong>library-path</strong> <em>string…​</em>)</p>
   <p>List of directories to search for imported libraries.</p>
-  <h4>Platform properties</h4>
+  <h4 id="_platform_properties">Platform properties</h4>
   <p>(<strong>platform-os</strong> <em>symbol</em>…​)</p>
   <p>The operating system(s) for which the executable was built.
   Symbols denote set membership.</p>
@@ -941,14 +978,15 @@ date -u '+(build-date "%Y-%m-%d" "%H:%M")'</code></pre>
   <p><em>integer</em> is a positive exact integer giving the
   address width of the host computer in bits; almost always 32 or
   64.</p>
-  <h3>Implementation-defined properties</h3>
+  <h3 id="_implementation_defined_properties">
+  Implementation-defined properties</h3>
   <p>The names of implementation-defined properties should start
   with the implementation’s scheme-id and a dash. For example, if
   Fantastic Scheme builds varied by the phase of the moon, it could
   have:</p>
   <pre>
   <code>(fantastic-scheme-phase-of-the-moon waxing-crescent)</code></pre>
-  <h2>Complete example</h2>
+  <h2 id="_complete_example">Complete example</h2>
   <p>If <code>fantastic-scheme-2.95 -V</code> gives the following
   output:</p>
   <pre><code>Fantastic Scheme version 2.95
@@ -1013,7 +1051,7 @@ not even for buoyancy or fitness for high-velocity landings at sea.
  (install-dir "/home/wiley/.local")
  (library-path "/home/wiley/.local/share/fantastic" "/home/wiley/fantastic")
  (fantastic-scheme-phase-of-the-moon waxing-crescent))</code></pre>
-  <h2>Implementation</h2>
+  <h2 id="_implementation">Implementation</h2>
   <p>Writing the version information is as simple as calling
   <strong>write</strong> or equivalent with suitable input.</p>
   <p>The following is a fully functional parser.
@@ -1048,7 +1086,7 @@ not even for buoyancy or fitness for high-velocity landings at sea.
          (status (car result))
          (output (cdr result)))
       (read-version-alist-from-string (if (= status 0) output ""))))</code></pre>
-  <h2>Acknowledgements</h2>
+  <h2 id="_acknowledgements">Acknowledgements</h2>
   <p>Thanks to Marc Feeley for discussing S-expressions that can be
   parsed from portable shell scripts. Thanks to Arthur Gleckler for
   questioning why the output of existing version flags is extended
@@ -1059,7 +1097,7 @@ not even for buoyancy or fitness for high-velocity landings at sea.
   considering the triviality of the topic. I am grateful to anyone
   who may want to use LOSE for another application. It will do at
   least a little to justify the effort spent.</p>
-  <h2>Copyright</h2>
+  <h2 id="_copyright">Copyright</h2>
   <p>Copyright © Lassi Kortela (2019)</p>
   <p>Permission is hereby granted, free of charge, to any person
   obtaining a copy of this software and associated documentation
