@@ -786,12 +786,13 @@ tokyo
   <p>(<strong>features</strong> <em>symbol…​</em>)</p>
   <p>The symbols should correspond to the feature list for
   <strong>cond-expand</strong>.</p>
-  <p>Note that only symbols conforming to the LOSE symbol syntax can
-  be listed for compatibility reasons. Other symbols from the feature
-  list need to be filtered out. In particular, Scheme symbols cannot
-  portably start with digits so LOSE does not allow it either. This is
-  not generally a problem since Scheme implementations do not have
-  such feature identifiers, but some of them may.</p>
+  <p>Note that only symbols conforming to the LOSE symbol syntax
+  can be listed for compatibility reasons. Other symbols from the
+  feature list need to be filtered out. In particular, Scheme
+  symbols cannot portably start with digits so LOSE does not allow
+  it either. This is not generally a problem since Scheme
+  implementations do not have such feature identifiers, but some of
+  them may.</p>
   <p>Examples:</p>
   <pre><code>(features)
 (features dload ptables)
@@ -1008,11 +1009,13 @@ not even for buoyancy or fitness for high-velocity landings at sea.
          (output (cdr result)))
       (read-version-alist-from-string (if (= status 0) output ""))))</code></pre>
   <h2 id="_acknowledgements">Acknowledgements</h2>
-  <p>Thanks to Marc Feeley for discussing S-expressions that can be
-  parsed from portable shell scripts. Thanks to Arthur Gleckler for
-  questioning why the output of existing version flags is extended
-  instead of making a new flag exclusively for machine-parseable
-  output.</p>
+  <p>Thanks to John Cowan for detailed feedback on all aspects of
+  this SRFI.</p>
+  <p>Thanks to Marc Feeley and John for detailed discussions of
+  S-expressions that can be parsed from portable shell scripts.</p>
+  <p>Thanks to Arthur Gleckler for questioning why the output of
+  existing version flags is extended instead of making a new flag
+  exclusively for machine-parseable output.</p>
   <p>This SRFI started off as one of those "what if we made this
   simple tweak" hunches. It has now reached a ludicrous length
   considering the triviality of the topic. I am grateful to anyone
