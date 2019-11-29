@@ -772,12 +772,14 @@ tokyo
 (release-name "oxygen")</code></pre>
   <p>(<strong>revision</strong> <em>string</em>)</p>
   <p>A free-form revision string that can be used to check out the
-  version control commit on which this build is based. For Git, we
-  recommend the output of <code>git describe --dirty
-  --always</code> which includes the latest tag, the commit hash in
-  case commits have been made on top of that tag, and a mark if
-  uncommitted changes have been made on top of the mentioned
-  commit.</p>
+  version control commit on which this build is based.</p>
+  <p>For Git we recommend the output of</p>
+  <pre>
+git describe --always --tags --dirty 2&gt;/dev/null || true</pre>which
+includes the latest tag (if any), the commit hash in case commits
+have been made since the last tag, and a mention if the repository
+has uncommitted changes. If Git is not installed on the system, the
+revision will be <code>unknown</code>.
   <p>Examples:</p>
   <pre><code>(revision "8e62f718")
 (revision "3.0-0-g39797ea94")
