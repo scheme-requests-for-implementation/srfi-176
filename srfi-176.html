@@ -175,32 +175,22 @@
   the program; instead, it writes version information to standard
   output and immediately exits. The flag is useful for:</p>
   <ul>
-    <li>
-      <p>Checking that the desired program is installed, and not
-      another program by the same name. For example, several
-      Schemes have command name conflicts. <code>csc</code>
-      conflicts with the C# compiler. <code>gsc</code> conflicts
-      with the GhostScript interpreter. <code>scheme</code>
-      conflicts between Chez Scheme and MIT Scheme.</p>
-    </li>
-    <li>
-      <p>Checking that the version and configuration of the program
-      are compatible with your goals.</p>
-    </li>
-    <li>
-      <p>Finding out how old the program is (i.e. what year it was
-      made) and how to contact the maintainer.</p>
-    </li>
-    <li>
-      <p>Giving general information to include in build logs and
-      bug reports.</p>
-    </li>
-    <li>
-      <p>Doing all of the above in a fast, simple, standard way. A
-      version flag is often faster than starting a REPL, running a
-      script or evaluating an expression since the implementation
-      can skip loading most or all Scheme libraries.</p>
-    </li>
+    <li>Checking that the desired program is installed, and not
+    another program by the same name. For example, several Schemes
+    have command name conflicts. <code>csc</code> conflicts with
+    the C# compiler. <code>gsc</code> conflicts with the
+    GhostScript interpreter. <code>scheme</code> conflicts between
+    Chez Scheme and MIT Scheme.</li>
+    <li>Checking that the version and configuration of the program
+    are compatible with your goals.</li>
+    <li>Finding out how old the program is (i.e. what year it was
+    made) and how to contact the maintainer.</li>
+    <li>Giving general information to include in build logs and bug
+    reports.</li>
+    <li>Doing all of the above in a fast, simple, standard way. A
+    version flag is often faster than starting a REPL, running a
+    script or evaluating an expression since the implementation can
+    skip loading most or all Scheme libraries.</li>
   </ul>
   <h3 id="_part_1_which_flag">Part 1: Which flag</h3>
   <h4 id="_survey_of_existing_version_flags">Survey of existing
@@ -208,110 +198,58 @@
   <p>Existing Scheme implementations with an
   <strong>upper-case</strong> <code>-V</code> version flag:</p>
   <ul>
-    <li>
-      <p>Chibi (<code>chibi-scheme -V</code>)</p>
-    </li>
-    <li>
-      <p>Gauche (<code>gosh -V</code>)</p>
-    </li>
-    <li>
-      <p>Mosh (<code>mosh -V</code> and <code>nmosh -V</code>)</p>
-    </li>
-    <li>
-      <p>Racket (<code>racket -V</code>)</p>
-    </li>
-    <li>
-      <p>Schemik (<code>schemik -V</code>)</p>
-    </li>
-    <li>
-      <p>Vicare (<code>vicare -V</code>)</p>
-    </li>
+    <li>Chibi (<code>chibi-scheme -V</code>)</li>
+    <li>Gauche (<code>gosh -V</code>)</li>
+    <li>Mosh (<code>mosh -V</code> and <code>nmosh -V</code>)</li>
+    <li>Racket (<code>racket -V</code>)</li>
+    <li>Schemik (<code>schemik -V</code>)</li>
+    <li>Vicare (<code>vicare -V</code>)</li>
   </ul>
   <p>Existing Scheme implementations with a conflicting use for
   <strong>upper-case</strong> <code>-V</code>:</p>
   <ul>
-    <li>
-      <p>None known. Racket uses <code>-V</code> as an alias for
-      <code>--no-yield</code> but makes an exception and treats
-      <code>racket -V</code> with no other arguments as a version
-      flag.</p>
-    </li>
+    <li>None known. Racket uses <code>-V</code> as an alias for
+    <code>--no-yield</code> but makes an exception and treats
+    <code>racket -V</code> with no other arguments as a version
+    flag.</li>
   </ul>
   <p>Existing Scheme implementations with a
   <strong>lower-case</strong> <code>-v</code> version flag:</p>
   <ul>
-    <li>
-      <p>Cyclone (<code>cyclone -v</code> and <code>icyc
-      -v</code>)</p>
-    </li>
-    <li>
-      <p>Dfsch (<code>dfsch-repl -v</code>)</p>
-    </li>
-    <li>
-      <p>Gambit (<code>gsc -v</code> and <code>gsi -v</code>)</p>
-    </li>
-    <li>
-      <p>Guile (<code>guile -v</code>)</p>
-    </li>
-    <li>
-      <p>KSi (<code>ksi -v</code>)</p>
-    </li>
-    <li>
-      <p>Mosh (<code>mosh -v</code> and <code>nmosh -v</code>)</p>
-    </li>
-    <li>
-      <p>Oaklisp (<code>oaklisp -v</code>)</p>
-    </li>
-    <li>
-      <p>Owl Lisp (<code>ol -v</code>)</p>
-    </li>
-    <li>
-      <p>Racket (<code>racket -v</code>)</p>
-    </li>
-    <li>
-      <p>Sagittarius (<code>sagittarius -v</code> and <code>sash
-      -v</code>)</p>
-    </li>
-    <li>
-      <p>Shoe (<code>shoe -v</code>)</p>
-    </li>
-    <li>
-      <p>STklos (<code>stklos -v</code>)</p>
-    </li>
+    <li>Cyclone (<code>cyclone -v</code> and <code>icyc
+    -v</code>)</li>
+    <li>Dfsch (<code>dfsch-repl -v</code>)</li>
+    <li>Gambit (<code>gsc -v</code> and <code>gsi -v</code>)</li>
+    <li>Guile (<code>guile -v</code>)</li>
+    <li>KSi (<code>ksi -v</code>)</li>
+    <li>Mosh (<code>mosh -v</code> and <code>nmosh -v</code>)</li>
+    <li>Oaklisp (<code>oaklisp -v</code>)</li>
+    <li>Owl Lisp (<code>ol -v</code>)</li>
+    <li>Racket (<code>racket -v</code>)</li>
+    <li>Sagittarius (<code>sagittarius -v</code> and <code>sash
+    -v</code>)</li>
+    <li>Shoe (<code>shoe -v</code>)</li>
+    <li>STklos (<code>stklos -v</code>)</li>
   </ul>
   <p>Existing Scheme implementations with a conflicting use for
   <strong>lower-case</strong> <code>-v</code>:</p>
   <ul>
-    <li>
-      <p>Bigloo (<code>bigloo -v</code>) — verbose</p>
-    </li>
-    <li>
-      <p>Chicken (<code>csc -v</code>) — verbose</p>
-    </li>
-    <li>
-      <p>Gauche (<code>gosh -v</code>) - run another version of
-      Gauche</p>
-    </li>
-    <li>
-      <p>Vicare (<code>vicare -v</code>) — verbose</p>
-    </li>
+    <li>Bigloo (<code>bigloo -v</code>) — verbose</li>
+    <li>Chicken (<code>csc -v</code>) — verbose</li>
+    <li>Gauche (<code>gosh -v</code>) - run another version of
+    Gauche</li>
+    <li>Vicare (<code>vicare -v</code>) — verbose</li>
   </ul>
   <p>Other version flags in existing Scheme implementations:</p>
   <ul>
-    <li>
-      <p><code>--version</code> with <strong>two dashes</strong>
-      (Chez Scheme, Foment, Guile, Kawa, Ksi, Larceny, MIT Scheme,
-      Oaklisp, Owl Lisp, Racket, Sagittarius, Schemik, SCM, Shoe,
-      STklos, Vicare, Ypsilon)</p>
-    </li>
-    <li>
-      <p><code>-version</code> with <strong>one dash</strong>
-      (Bigloo, Chicken, Ksi, Larceny, Oaklisp, STklos)</p>
-    </li>
-    <li>
-      <p>Version number only: <code>-vn</code> (Cyclone),
-      <code>--version-only</code> (Vicare)</p>
-    </li>
+    <li><code>--version</code> with <strong>two dashes</strong>
+    (Chez Scheme, Foment, Guile, Kawa, Ksi, Larceny, MIT Scheme,
+    Oaklisp, Owl Lisp, Racket, Sagittarius, Schemik, SCM, Shoe,
+    STklos, Vicare, Ypsilon)</li>
+    <li><code>-version</code> with <strong>one dash</strong>
+    (Bigloo, Chicken, Ksi, Larceny, Oaklisp, STklos)</li>
+    <li>Version number only: <code>-vn</code> (Cyclone),
+    <code>--version-only</code> (Vicare)</li>
   </ul>
   <p>Additionally, a few Schemes have flags to <em>change</em> the
   version by loading another version of the same Scheme. Changing
@@ -484,34 +422,22 @@ int main(void)
   relies on some concessions from the program writing the
   output:</p>
   <ul>
-    <li>
-      <p>Each top-level S-expression begins at the first character
-      of a line.</p>
-    </li>
-    <li>
-      <p>There is no extraneous whitespace after closing
-      parentheses, or between tokens.</p>
-    </li>
-    <li>
-      <p>Any nested multi-line S-expressions have whitespace for
-      indentation at the beginning of each continuation line. That
-      distinguishes those lines from lines that begin a top-level
-      S-expression. Simple parsers will skip multi-line expressions
-      since those expressions don’t match a single-line pattern of
-      a complete S-expression with open and close parentheses.</p>
-    </li>
-    <li>
-      <p>The output does not have multi-line comments, so the
-      parser does not have to figure out which lines are inside a
-      comment.</p>
-    </li>
-    <li>
-      <p>The output has no null bytes.</p>
-    </li>
-    <li>
-      <p>The output uses a character encoding where the bytes
-      1..127 map to ASCII characters (e.g. UTF-8 or ISO-8859).</p>
-    </li>
+    <li>Each top-level S-expression begins at the first character
+    of a line.</li>
+    <li>There is no extraneous whitespace after closing
+    parentheses, or between tokens.</li>
+    <li>Any nested multi-line S-expressions have whitespace for
+    indentation at the beginning of each continuation line. That
+    distinguishes those lines from lines that begin a top-level
+    S-expression. Simple parsers will skip multi-line expressions
+    since those expressions don’t match a single-line pattern of a
+    complete S-expression with open and close parentheses.</li>
+    <li>The output does not have multi-line comments, so the parser
+    does not have to figure out which lines are inside a
+    comment.</li>
+    <li>The output has no null bytes.</li>
+    <li>The output uses a character encoding where the bytes 1..127
+    map to ASCII characters (e.g. UTF-8 or ISO-8859).</li>
   </ul>
   <p>At first glance, this looks like a big list of restrictions.
   But in practice, they are not hard to conform to for simple
@@ -597,23 +523,17 @@ tokyo
   <p>This simple arrangement makes all of the following work
   naturally:</p>
   <ul>
-    <li>
-      <p>Only S-expression info: If the very first character in the
-      output is a <code>(</code> then the entire output is parsed
-      as the association list.</p>
-    </li>
-    <li>
-      <p>No S-expression info: If no line starts with a
-      <code>(</code> then the parser simply returns an empty
-      association list. This means that all known Scheme
-      implementations with an existing <code>-V</code> flag are
-      already compatible with this SRFI. It’s just a matter of
-      adding output, not changing anything.</p>
-    </li>
-    <li>
-      <p>No info at all: If the output if completely blank, in that
-      case the parser also returns an empty association list.</p>
-    </li>
+    <li>Only S-expression info: If the very first character in the
+    output is a <code>(</code> then the entire output is parsed as
+    the association list.</li>
+    <li>No S-expression info: If no line starts with a
+    <code>(</code> then the parser simply returns an empty
+    association list. This means that all known Scheme
+    implementations with an existing <code>-V</code> flag are
+    already compatible with this SRFI. It’s just a matter of adding
+    output, not changing anything.</li>
+    <li>No info at all: If the output if completely blank, in that
+    case the parser also returns an empty association list.</li>
   </ul>
   <h3 id="_conclusion">Conclusion</h3>
   <p>The best argument for using S-expressions generally is that
@@ -661,27 +581,18 @@ tokyo
   <p>The version output shall conform to the following subset of
   Scheme syntax:</p>
   <ul>
-    <li>
-      <p>Symbol: Written plainly as <code>foo</code> with the first
-      character being one of <code>[A-Za-z]</code> and any
-      subsequent characters among
-      <code>[A-Za-z0-9_/*+.-]</code>.</p>
-    </li>
-    <li>
-      <p>String: <code>"string"</code> with support for the
-      backslash escapes <code>\"</code> and <code>\\</code>. Other
-      backslash escapes do not work reliably and should be avoided.
-      Strings cannot contain newlines. Non-graphic characters do
-      not work reliably and should be avoided.</p>
-    </li>
-    <li>
-      <p>Integer: <code>123</code> and <code>-123</code>. There is
-      no support for other numbers; if they are desired, they have
-      to be written as strings.</p>
-    </li>
-    <li>
-      <p>List: <code>() (a) (a b) (a b c)</code></p>
-    </li>
+    <li>Symbol: Written plainly as <code>foo</code> with the first
+    character being one of <code>[A-Za-z]</code> and any subsequent
+    characters among <code>[A-Za-z0-9_/*+.-]</code>.</li>
+    <li>String: <code>"string"</code> with support for the
+    backslash escapes <code>\"</code> and <code>\\</code>. Other
+    backslash escapes do not work reliably and should be avoided.
+    Strings cannot contain newlines. Non-graphic characters do not
+    work reliably and should be avoided.</li>
+    <li>Integer: <code>123</code> and <code>-123</code>. There is
+    no support for other numbers; if they are desired, they have to
+    be written as strings.</li>
+    <li>List: <code>() (a) (a b) (a b c)</code></li>
   </ul>
   <p>There shall be no whitespace between parentheses and the
   things they wrap on the same line. There shall be exactly one
@@ -693,25 +604,13 @@ tokyo
   space.</p>
   <p>Missing features:</p>
   <ul>
-    <li>
-      <p><code>#t</code> and <code>#f</code> (due to
-      interoperability concerns with other Lisps).</p>
-    </li>
-    <li>
-      <p>Vertical-bar symbols (use strings instead).</p>
-    </li>
-    <li>
-      <p>Improper lists (i.e. consing dot).</p>
-    </li>
-    <li>
-      <p>Vectors and bytevectors.</p>
-    </li>
-    <li>
-      <p>Real numbers, ratios, complex numbers.</p>
-    </li>
-    <li>
-      <p>Comments.</p>
-    </li>
+    <li><code>#t</code> and <code>#f</code> (due to
+    interoperability concerns with other Lisps).</li>
+    <li>Vertical-bar symbols (use strings instead).</li>
+    <li>Improper lists (i.e. consing dot).</li>
+    <li>Vectors and bytevectors.</li>
+    <li>Real numbers, ratios, complex numbers.</li>
+    <li>Comments.</li>
   </ul>
   <p>It is recommended to work around the lack of booleans by using
   enumerations or sets. For example, instead of <code>(linux?
