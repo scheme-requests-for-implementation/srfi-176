@@ -669,6 +669,10 @@ tokyo
   <p>ANSI, HTML or other in-band color and text attribute markup
   shall not be used in the S-expression part, since it will confuse
   parsers.</p>
+  <p>An exception is if the implementation can be sure that the
+  output is going to a terminal (instead of a file, pipe, etc.) On
+  Unix, <code>isatty(STDOUT_FILENO)</code> is an adequate
+  check.</p>
   <p>Out-of-band markup (e.g. Windows console character attributes)
   may be used.</p>
   <h3 id="_standard_properties">Standard properties</h3>
