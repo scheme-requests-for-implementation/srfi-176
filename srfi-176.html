@@ -902,6 +902,47 @@ date -u '+(build-date "%Y-%m-%d" "%H:%M")'</code></pre>
   <p><em>integer</em> is a positive exact integer giving the
   address width of the host computer in bits; almost always 32 or
   64.</p>
+  <p>(<strong>c-type-bits</strong> (<em>symbol</em>
+  <em>integer</em>) …​)</p>
+  <p>If the Scheme implementation is written in the C programming
+  language or has a C foreign function interface, this tells the
+  sizes of C data types. Each <em>symbol</em> is the name of a C
+  type and <em>integer</em> is a positive integer giving the width
+  of the type in bits. The size of type <code>t</code> can be
+  determined in C using <code>sizeof(t) * CHAR_BIT</code>.</p>
+  <p>Each C type name is converted to a <em>symbol</em> as
+  follows:</p>
+  <ul>
+    <li><code>void *</code> becomes <code>pointer</code> and
+    <code>void (*)()</code> becomes
+    <code>function-pointer</code></li>
+    <li>Any other <code>*</code> becomes <code>-pointer</code></li>
+    <li>Spaces are converted to dashes</li>
+    <li>Underscores are preserved</li>
+    <li>Letter case is preserved</li>
+  </ul>
+  <p>While qualifiers like <code>const</code> and
+  <code>unsigned</code> are permitted, they are generally
+  superfluous since the unqualified type is the same size. All
+  pointer types are generally the same size as a void pointer, but
+  the C standard does not guarantee that.</p>
+  <p>It's completely up to the implementation to decide which types
+  are listed. The list can include non-standard types from the
+  operating system and third-party libraries as well as internal
+  types used only by the implementation. Types do not need to be
+  sorted by <em>symbol</em> or <em>integer</em>.</p>
+  <p>Examples (for completenesss, some silly ones are
+  included):</p>
+  <pre><code>(c-type-bits)
+(c-type-bits (pointer 32))
+(c-type-bits (int 32) (long 64) (float 32) (double 64) (pointer 64) (size_t 64))
+(c-type-bits (struct-timespec 16) (struct-timespec-pointer 8) (time_t 8))
+(c-type-bits (long 8) (long-long 8) (intmax_t 8) (intmax_t-pointer 8))
+(c-type-bits (long-double 16) (long-double-pointer 8))
+(c-type-bits (char-pointer-pointer 8) (jmp_buf 256))
+(c-type-bits (TCHAR 2) (DWORD 4) (WIN32_FIND_DATA 4736))
+(c-type-bits (struct-__Foo_BAR__12_-pointer-pointer 8))
+</code></pre>
   <h3 id="_implementation_defined_properties">
   Implementation-defined properties</h3>
   <p>The names of implementation-defined properties should start
