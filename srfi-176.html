@@ -941,12 +941,15 @@ date -u '+(build-date "%Y-%m-%d" "%H:%M")'</code></pre>
 </code></pre>
   <h3 id="_implementation_defined_properties">
   Implementation-defined properties</h3>
-  <p>The names of implementation-defined properties should start
-  with the implementation’s scheme-id and a dash. For example, if
-  Fantastic Scheme builds varied by the phase of the moon, it could
-  have:</p>
+  <p>Implementations are free to have any number of custom
+  properties.</p>
+  <p>The names of implementation-defined properties shall start
+  with the implementation’s <strong>scheme-id</strong> and a
+  <strong>slash</strong>.</p>
+  <p>For example, if Fantastic Scheme builds varied by the phase of
+  the moon, it could have:</p>
   <pre>
-  <code>(fantastic-scheme-phase-of-the-moon waxing-crescent)</code></pre>
+<code>(fantastic-scheme/phase-of-the-moon waxing-crescent)</code></pre>
   <h2 id="_complete_example">Complete example</h2>
   <p>If <code>fantastic-scheme-2.95 -V</code> gives the following
   output:</p>
@@ -979,7 +982,7 @@ not even for buoyancy or fitness for high-velocity landings at sea.
 (install-dir "/home/wiley/.local")
 (library-path "/home/wiley/.local/share/fantastic")
 (library-path "/home/wiley/fantastic")
-(fantastic-scheme-phase-of-the-moon waxing-crescent)</code></pre>
+(fantastic-scheme/phase-of-the-moon waxing-crescent)</code></pre>
   <p>It is parsed into the following merged association list:</p>
   <pre><code>((command "fantastic-scheme")
  (scheme-id fantastic-scheme)
@@ -1009,7 +1012,7 @@ not even for buoyancy or fitness for high-velocity landings at sea.
  (image-file "/home/wiley/fantastic.image")
  (install-dir "/home/wiley/.local")
  (library-path "/home/wiley/.local/share/fantastic" "/home/wiley/fantastic")
- (fantastic-scheme-phase-of-the-moon waxing-crescent))</code></pre>
+ (fantastic-scheme/phase-of-the-moon waxing-crescent))</code></pre>
   <h2 id="_implementation">Implementation</h2>
   <p>Writing the version information is as simple as calling
   <strong>write</strong> or equivalent with suitable input.</p>
