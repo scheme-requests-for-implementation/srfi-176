@@ -699,10 +699,10 @@ tokyo
   argv[0] is given) or otherwise is known by more than one
   canonical name, then more than one string may be given.</p>
   <p>Examples:</p>
-  <pre><code>(command "csi")
+  <pre>(command "csi")
 (command "gsc")
 (command "isc")
-(command "scheme" "mit-scheme")</code></pre>
+(command "scheme" "mit-scheme")</pre>
   <p>(<strong>scheme-id</strong> <em>symbol</em>)</p>
   <p>A symbol identifying which Scheme implementation provides this
   executable. Together with <strong>command</strong> this can be
@@ -712,7 +712,7 @@ tokyo
   <p>At the time of writing, there is no central registry for
   scheme-id’s.</p>
   <p>Examples:</p>
-  <pre><code>(scheme-id fantastic-scheme)</code></pre>
+  <pre>(scheme-id fantastic-scheme)</pre>
   <p>(<strong>languages</strong> <em>symbol…​</em>)</p>
   <p>The set of programming languages supported by the
   implementation. Symbols denote set membership.</p>
@@ -738,7 +738,7 @@ tokyo
   with other implementors about coining symbols for other Scheme
   derivatives and non-Scheme languages.</p>
   <p>Examples:</p>
-  <pre><code>(languages scheme r6rs r7rs)</code></pre>
+  <pre>(languages scheme r6rs r7rs)</pre>
   <p>(<strong>website</strong> <em>string</em>)</p>
   <p>A URL that starts with <code>http://</code> or
   <code>https://</code>.</p>
@@ -754,11 +754,11 @@ tokyo
   such as distributor patchlevel or version control commit may be
   appended.</p>
   <p>Examples:</p>
-  <pre><code>(version "1.2.3")
+  <pre>(version "1.2.3")
 (version "1.11.6")
 (version "0.9.9_pre1")
 (version "1.0.188-a4a79d5")
-(version "4.3f")</code></pre>
+(version "4.3f")</pre>
   <p>(<strong>release</strong> <em>string</em>)</p>
   <p>The most recent released version of the implementation based
   on which this build was made. If this <em>is</em> that release
@@ -768,12 +768,12 @@ tokyo
   <p>The <code>YYYY-MM-DD</code> date on which the release was
   made.</p>
   <p>Examples:</p>
-  <pre><code>(release-date "2019-08-06")</code></pre>
+  <pre>(release-date "2019-08-06")</pre>
   <p>(<strong>release-name</strong> <em>string</em>)</p>
   <p>A codename for the release.</p>
   <p>Examples:</p>
-  <pre><code>(release-name "Grain Alcohol and Rainwater")
-(release-name "oxygen")</code></pre>
+  <pre>(release-name "Grain Alcohol and Rainwater")
+(release-name "oxygen")</pre>
   <p>(<strong>revision</strong> <em>string</em>)</p>
   <p>A free-form revision string that can be used to check out the
   version control commit on which this build is based.</p>
@@ -785,9 +785,9 @@ have been made since the last tag, and a mention if the repository
 has uncommitted changes. If Git is not installed on the system, the
 revision will be <code>unknown</code>.
   <p>Examples:</p>
-  <pre><code>(revision "8e62f718")
+  <pre>(revision "8e62f718")
 (revision "3.0-0-g39797ea94")
-(revision "v0.16-DEV-166-g6574540c")</code></pre>
+(revision "v0.16-DEV-166-g6574540c")</pre>
   <h4 id="_runtime_properties">Runtime properties</h4>
   <p>(<strong>features</strong> <em>symbol…​</em>)</p>
   <p>The symbols should correspond to the feature list for
@@ -800,11 +800,11 @@ revision will be <code>unknown</code>.
   implementations do not have such feature identifiers, but some of
   them may.</p>
   <p>Examples:</p>
-  <pre><code>(features)
+  <pre>(features)
 (features dload ptables)
 (features utf-8 pthreads linux r7rs)
 (features chibi r7rs ratios complex uvector threads full-unicode)
-(features modules dynamic-loading darwin bsd macosx little-endian)</code></pre>
+(features modules dynamic-loading darwin bsd macosx little-endian)</pre>
   <h4 id="_build_properties">Build properties</h4>
   <p>(<strong>configure</strong> <em>string</em>…​)</p>
   <p>Command line arguments given to the configure script before
@@ -822,8 +822,8 @@ revision will be <code>unknown</code>.
   <p>The name of the configure script is not given. It is almost
   always <code>configure</code>, though that is not required.</p>
   <p>Examples:</p>
-  <pre><code>(configure "--enable-single-host")
-(configure "--prefix=/home/wiley/.local" "CC=gcc-9")</code></pre>
+  <pre>(configure "--enable-single-host")
+(configure "--prefix=/home/wiley/.local" "CC=gcc-9")</pre>
   <p>(<strong>platform</strong> <em>string</em>)</p>
   <p>A free-form string identifying the computer architecture,
   operating system, and/or other aspects of the computing platform
@@ -833,9 +833,9 @@ revision will be <code>unknown</code>.
   GNU-style <code>computer-kernel-userland</code> triple; just as
   often it is not.</p>
   <p>Examples:</p>
-  <pre><code>(platform "DarwinX8664")
+  <pre>(platform "DarwinX8664")
 (platform "x86_64-apple-darwin18.7.0")
-(platform "macosx-unix-clang-x86-64")</code></pre>
+(platform "macosx-unix-clang-x86-64")</pre>
   <p>(<strong>build-date</strong> <em>iso-date-string</em>
   [<em>iso-time-string</em>])</p>
   <p>The date, with optional time-of-day, when this executable was
@@ -851,12 +851,12 @@ revision will be <code>unknown</code>.
   implementation-dependent whether the timestamp is nearer to the
   start or end of the build.</p>
   <p>Unix commands to generate this property:</p>
-  <pre><code>date -u '+(build-date "%Y-%m-%d")'
-date -u '+(build-date "%Y-%m-%d" "%H:%M")'</code></pre>
+  <pre>date -u '+(build-date "%Y-%m-%d")'
+date -u '+(build-date "%Y-%m-%d" "%H:%M")'</pre>
   <p>Examples:</p>
-  <pre><code>(build-date "2018-09-30")
+  <pre>(build-date "2018-09-30")
 (build-date "2018-09-30" "02:07")
-(build-date "2018-09-30" "02:07:07.1234")</code></pre>
+(build-date "2018-09-30" "02:07:07.1234")</pre>
   <h4 id="_boot_image_properties">Boot image properties</h4>
   <p>(<strong>image-date</strong> <em>iso-date-string</em>
   [<em>iso-time-string</em>])</p>
@@ -882,7 +882,7 @@ date -u '+(build-date "%Y-%m-%d" "%H:%M")'</code></pre>
   <p>The operating system(s) for which the executable was built.
   Symbols denote set membership.</p>
   <p>Examples:</p>
-  <pre><code>(platform-os aros amigaos)
+  <pre>(platform-os aros amigaos)
 (platform-os dragonflybsd bsd unix)
 (platform-os freebsd bsd unix)
 (platform-os haiku beos)
@@ -890,18 +890,18 @@ date -u '+(build-date "%Y-%m-%d" "%H:%M")'</code></pre>
 (platform-os netbsd bsd unix)
 (platform-os openbsd bsd unix)
 (platform-os solaris unix)
-(platform-os windows)</code></pre>
+(platform-os windows)</pre>
   <p>(<strong>platform-computer</strong> <em>symbol</em>…​)</p>
   <p>The computer architecture(s) and CPUs for which the executable
   was built. Symbols denote set membership.</p>
   <p>Examples:</p>
-  <pre><code>(platform-computer x86 x86-64 intel)
+  <pre>(platform-computer x86 x86-64 intel)
 (platform-computer x86 x86-64 amd)
 (platform-computer arm32)
 (platform-computer arm64)
 (platform-computer ppc)
 (platform-computer mips)
-(platform-computer sparc)</code></pre>
+(platform-computer sparc)</pre>
   <p>(<strong>c-type-bits</strong> (<em>symbol</em>
   <em>integer</em>) …​)</p>
   <p>If the Scheme implementation is written in the C programming
@@ -932,7 +932,7 @@ date -u '+(build-date "%Y-%m-%d" "%H:%M")'</code></pre>
   types used only by the implementation. Types do not need to be
   sorted by <em>symbol</em> or <em>integer</em>.</p>
   <p>Examples (for completeness, some silly ones are included):</p>
-  <pre><code>(c-type-bits)
+  <pre>(c-type-bits)
 (c-type-bits (pointer 32))
 (c-type-bits (int 32) (long 64) (float 32) (double 64) (pointer 64) (size_t 64))
 (c-type-bits (struct-timespec 16) (struct-timespec-pointer 8) (time_t 8))
@@ -941,7 +941,7 @@ date -u '+(build-date "%Y-%m-%d" "%H:%M")'</code></pre>
 (c-type-bits (char-pointer-pointer 8) (jmp_buf 256))
 (c-type-bits (TCHAR 2) (DWORD 4) (WIN32_FIND_DATA 4736))
 (c-type-bits (struct-__Foo_BAR__12_-pointer-pointer 8))
-</code></pre>
+</pre>
   <h3 id="_implementation_defined_properties">
   Implementation-defined properties</h3>
   <p>Implementations are free to have any number of custom
@@ -951,12 +951,11 @@ date -u '+(build-date "%Y-%m-%d" "%H:%M")'</code></pre>
   <strong>slash</strong>.</p>
   <p>For example, if Fantastic Scheme builds varied by the phase of
   the moon, it could have:</p>
-  <pre>
-<code>(fantastic-scheme/phase-of-the-moon waxing-crescent)</code></pre>
+  <pre>(fantastic-scheme/phase-of-the-moon waxing-crescent)</pre>
   <h2 id="_complete_example">Complete example</h2>
   <p>If <code>fantastic-scheme-2.95 -V</code> gives the following
   output:</p>
-  <pre><code>Fantastic Scheme version 2.95
+  <pre>Fantastic Scheme version 2.95
 Copyright (C) 2003 Pyrrhic Ventures
 This is free software; always read the label. There is NO warranty;
 not even for buoyancy or fitness for high-velocity landings at sea.
@@ -985,9 +984,9 @@ not even for buoyancy or fitness for high-velocity landings at sea.
 (install-dir "/home/wiley/.local")
 (library-path "/home/wiley/.local/share/fantastic")
 (library-path "/home/wiley/fantastic")
-(fantastic-scheme/phase-of-the-moon waxing-crescent)</code></pre>
+(fantastic-scheme/phase-of-the-moon waxing-crescent)</pre>
   <p>It is parsed into the following merged association list:</p>
-  <pre><code>((command "fantastic-scheme")
+  <pre>((command "fantastic-scheme")
  (scheme-id fantastic-scheme)
  (languages scheme r6rs r7rs)
  (website "https://example.com/scheme/")
@@ -1015,14 +1014,14 @@ not even for buoyancy or fitness for high-velocity landings at sea.
  (image-file "/home/wiley/fantastic.image")
  (install-dir "/home/wiley/.local")
  (library-path "/home/wiley/.local/share/fantastic" "/home/wiley/fantastic")
- (fantastic-scheme/phase-of-the-moon waxing-crescent))</code></pre>
+ (fantastic-scheme/phase-of-the-moon waxing-crescent))</pre>
   <h2 id="_implementation">Implementation</h2>
   <p>Writing the version information is as simple as calling
   <strong>write</strong> or equivalent with suitable input.</p>
   <p>The following is a fully functional parser.
   <strong>read-version-alist-from-command</strong> is specific to
   Gambit and needs to be rewritten for other Schemes.</p>
-  <pre><code>(define (read-merged-alist in)
+  <pre>(define (read-merged-alist in)
   (let loop ((alist '()))
     (let ((new (read in)))
       (cond ((eof-object? new) (reverse alist))
@@ -1050,7 +1049,7 @@ not even for buoyancy or fitness for high-velocity landings at sea.
   (let* ((result (shell-command (string-append command " -V") #t))
          (status (car result))
          (output (cdr result)))
-      (read-version-alist-from-string (if (= status 0) output ""))))</code></pre>
+      (read-version-alist-from-string (if (= status 0) output ""))))</pre>
   <h2 id="_acknowledgements">Acknowledgements</h2>
   <p>Thanks to John Cowan for detailed feedback on all aspects of
   this SRFI.</p>
