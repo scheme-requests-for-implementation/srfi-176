@@ -804,8 +804,7 @@ tokyo
   version, then <strong>version</strong> is identical to this. If
   this has patches on top, then the two versions are different.</p>
   <p>(<strong>release-date</strong> <em>iso-date-string</em>)</p>
-  <p>The <code>YYYY-MM-DD</code> date on which the release was
-  made.</p>
+  <p>The date on which the release was made.</p>
   <p>Examples:</p>
   <pre>(release-date "2019-08-06")</pre>
   <p>(<strong>release-name</strong> <em>string</em>)</p>
@@ -875,36 +874,27 @@ revision will be <code>unknown</code>.
   <pre>(platform "DarwinX8664")
 (platform "x86_64-apple-darwin18.7.0")
 (platform "macosx-unix-clang-x86-64")</pre>
-  <p>(<strong>build-date</strong> <em>iso-date-string</em>
-  [<em>iso-time-string</em>])</p>
-  <p>The date, with optional time-of-day, when this executable was
-  built.</p>
-  <p><em>iso-date-string</em> is always a string in ISO
-  <code>YYYY-MM-DD</code> format.</p>
-  <p><em>iso-time-string</em> (when given) is always a string that
-  starts with <code>HH:MM</code>. It may contain more stuff for
-  extra precision, according to the ISO 8601 time format, but it’s
-  questionable whether a precision exceeding one minute is
-  useful.</p>
-  <p>These should be UTC, not local time. It is
-  implementation-dependent whether the timestamp is nearer to the
-  start or end of the build.</p>
-  <p>Unix commands to generate this property:</p>
-  <pre>date -u '+(build-date "%Y-%m-%d")'
-date -u '+(build-date "%Y-%m-%d" "%H:%M")'</pre>
+  <p>(<strong>build-date</strong> <em>iso-date-string</em>)</p>
+  <p>The date and time when this executable was built.</p>
+  <p>It is implementation-dependent whether the timestamp is nearer
+  to the start or end of the build.</p>
   <p>Examples:</p>
   <pre>(build-date "2018-09-30")
-(build-date "2018-09-30" "02:07")
-(build-date "2018-09-30" "02:07:07.1234")</pre>
+(build-date "2018-09-30T02:07Z")
+(build-date "2018-09-30T02:07+02:00")
+(build-date "2018-09-30T02:07-05:30")</pre>
   <h4 id="_boot_image_properties">Boot image properties</h4>
-  <p>(<strong>image-date</strong> <em>iso-date-string</em>
-  [<em>iso-time-string</em>])</p>
+  <p>(<strong>image-date</strong> <em>iso-date-string</em>)</p>
   <p>If this is an image-based Scheme system, the date and time
-  when the active boot image was saved. Details as for
-  <strong>build-date</strong>.</p>
+  when the active boot image was saved.</p>
   <p>This may vary by command line options and environment
   variables if those can be used to select a different boot
   image.</p>
+  <p>Examples:</p>
+  <pre>(image-date "2018-09-30")
+(image-date "2018-09-30T02:07Z")
+(image-date "2018-09-30T02:07+02:00")
+(image-date "2018-09-30T02:07-05:30")</pre>
   <p>(<strong>image-file</strong> <em>filename</em>)</p>
   <p>If images can be loaded by filename, this gives the filename
   that is used to load the active boot image.</p>
@@ -1017,8 +1007,8 @@ not even for buoyancy or fitness for high-velocity landings at sea.
 (platform "aarch64_be-linux-gnu_ilp32")
 (platform-os ubuntu linux unix)
 (platform-computer arm arm64)
-(build-date "2019-10-05" "13:52:01")
-(image-date "2019-10-05" "17:10:00")
+(build-date "2019-10-05T13:52:01")
+(image-date "2019-10-05T17:10:00")
 (image-file "/home/wiley/fantastic.image")
 (install-dir "/home/wiley/.local")
 (library-path "/home/wiley/.local/share/fantastic")
@@ -1048,8 +1038,8 @@ not even for buoyancy or fitness for high-velocity landings at sea.
  (platform "aarch64_be-linux-gnu_ilp32")
  (platform-os ubuntu linux unix)
  (platform-computer arm arm64)
- (build-date "2019-10-05" "13:52:01")
- (image-date "2019-10-05" "17:10:00")
+ (build-date "2019-10-05T13:52:01Z")
+ (image-date "2019-10-05T17:10:00Z")
  (image-file "/home/wiley/fantastic.image")
  (install-dir "/home/wiley/.local")
  (library-path "/home/wiley/.local/share/fantastic" "/home/wiley/fantastic")
