@@ -119,6 +119,9 @@
           of color and other display attributes</a>
         </li>
         <li>
+          <a href="#_date_and_time">Date and time</a>
+        </li>
+        <li>
           <a href="#_standard_properties">Standard properties</a>
           <ul>
             <li>
@@ -675,6 +678,40 @@ tokyo
   check.</p>
   <p>Out-of-band markup (e.g. Windows console character attributes)
   may be used.</p>
+  <h3 id="_date_and_time">Date and time</h3>
+  <p>In standard properties, dates and times are written in
+  <a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a>
+  format. It is a restricted form of the international standard
+  date format specified in <a href=
+  "https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>.</p>
+  <p>We always use uppercase <code>T</code> for the date/time
+  separator and uppercase <code>Z</code> for the UTC time zone
+  marker.</p>
+  <p>Examples:</p>
+  <ul>
+    <li><code>2019-12-14</code> (local date only)</li>
+    <li><code>2019-12-14T20:00+02:00</code> (local date and
+    time)</li>
+    <li><code>2019-12-14T18:00Z</code> (UTC date and time)</li>
+  </ul>
+  <p>Unix shell commands to output the current date and time in
+  these formats:</p>
+  <ul>
+    <li><code>date '+%Y-%m-%d'</code></li>
+    <li><code>date '+%Y-%m-%dT%H:%M%z' | sed
+    's@^.\{19\}@&amp;:@'</code></li>
+    <li><code>date -u '+%Y-%m-%dT%H:%MZ'</code></li>
+  </ul>
+  <p>The <code>%z</code> conversion specification is the only
+  non-POSIX feature in these commands. <code>%z</code> gives a
+  <code>±HHMM</code> time zone offset under every modern Unix-like
+  operating system. The <code>sed</code> command converts that to
+  <code>±HH:MM</code>. The ISO C99 <code>strftime()</code> function
+  standardizes <code>%z</code> with the same format. C code to
+  output the above date formats is included with the sample
+  implementation of this SRFI. Most popular programming languages
+  have a ready-made library function to parse RFC 3339
+  timestamps.</p>
   <h3 id="_standard_properties">Standard properties</h3>
   <p>Below is a large set of proposed standard properties. This set
   was designed based on actual information currently reported by
