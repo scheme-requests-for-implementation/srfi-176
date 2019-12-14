@@ -15,13 +15,13 @@ static void local_date_only(time_t t) {
 
 static void local_date_and_time(time_t t) {
   char buf[32];
-  char *zone = &buf[19];
+  char *zone = &buf[16];
   size_t n;
 
-  n = strftime(buf, sizeof(buf), "%Y-%m-%dT%H:%M:%S%z", localtime(&t));
-  if (n == 19) {
+  n = strftime(buf, sizeof(buf), "%Y-%m-%dT%H:%M%z", localtime(&t));
+  if (n == 16) {
     snprintf(zone, sizeof(buf) - (zone - buf), "-00:00");
-  } else if (n == 24) {
+  } else if (n == 21) {
     memmove(&zone[4], &zone[3], sizeof(buf) - (&zone[4] - buf));
     zone[3] = ':';
   } else {
@@ -34,8 +34,8 @@ static void utc_date_and_time(time_t t) {
   char buf[24];
   size_t n;
 
-  n = strftime(buf, sizeof(buf), "%Y-%m-%dT%H:%M:%SZ", gmtime(&t));
-  if (n != 20) {
+  n = strftime(buf, sizeof(buf), "%Y-%m-%dT%H:%MZ", gmtime(&t));
+  if (n != 17) {
     memset(buf, 0, sizeof(buf));
   }
   printf("%s\n", buf);
