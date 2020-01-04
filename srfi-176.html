@@ -1124,9 +1124,10 @@ revision will be <code>unknown</code>.
     <li><code>void *</code> becomes <code>pointer</code> and
     <code>void (*)()</code> becomes
     <code>function-pointer</code></li>
-    <li>Any other <code>*</code> becomes <code>-pointer</code></li>
+    <li>Any other type <code>foo *</code> becomes
+    <code>foo-pointer</code></li>
     <li>Spaces are converted to dashes</li>
-    <li>Underscores are preserved</li>
+    <li>Underscores remain underscores</li>
     <li>Letter case is preserved</li>
   </ul>
   <p>While qualifiers like <code>const</code> and
