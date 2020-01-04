@@ -198,66 +198,239 @@
   <h3 id="_part_1_which_flag">Part 1: Which flag</h3>
   <h4 id="_survey_of_existing_version_flags">Survey of existing
   version flags</h4>
-  <p>Existing Scheme implementations with an
-  <strong>upper-case</strong> <code>-V</code> version flag:</p>
-  <ul>
-    <li>Chibi (<code>chibi-scheme -V</code>)</li>
-    <li>Gauche (<code>gosh -V</code>)</li>
-    <li>Mosh (<code>mosh -V</code> and <code>nmosh -V</code>)</li>
-    <li>Racket (<code>racket -V</code>)</li>
-    <li>Schemik (<code>schemik -V</code>)</li>
-    <li>Vicare (<code>vicare -V</code>)</li>
-  </ul>
-  <p>Existing Scheme implementations with a conflicting use for
-  <strong>upper-case</strong> <code>-V</code>:</p>
-  <ul>
-    <li>None known. Racket uses <code>-V</code> as an alias for
-    <code>--no-yield</code> but makes an exception and treats
-    <code>racket -V</code> with no other arguments as a version
-    flag.</li>
-  </ul>
-  <p>Existing Scheme implementations with a
-  <strong>lower-case</strong> <code>-v</code> version flag:</p>
-  <ul>
-    <li>Cyclone (<code>cyclone -v</code> and <code>icyc
-    -v</code>)</li>
-    <li>Dfsch (<code>dfsch-repl -v</code>)</li>
-    <li>Gambit (<code>gsc -v</code> and <code>gsi -v</code>)</li>
-    <li>Guile (<code>guile -v</code>)</li>
-    <li>KSi (<code>ksi -v</code>)</li>
-    <li>Mosh (<code>mosh -v</code> and <code>nmosh -v</code>)</li>
-    <li>Oaklisp (<code>oaklisp -v</code>)</li>
-    <li>Owl Lisp (<code>ol -v</code>)</li>
-    <li>Racket (<code>racket -v</code>)</li>
-    <li>Sagittarius (<code>sagittarius -v</code> and <code>sash
-    -v</code>)</li>
-    <li>Shoe (<code>shoe -v</code>)</li>
-    <li>STklos (<code>stklos -v</code>)</li>
-  </ul>
-  <p>Existing Scheme implementations with a conflicting use for
-  <strong>lower-case</strong> <code>-v</code>:</p>
-  <ul>
-    <li>Bigloo (<code>bigloo -v</code>) — verbose</li>
-    <li>Chicken (<code>csc -v</code>) — verbose</li>
-    <li>Gauche (<code>gosh -v</code>) - run another version of
-    Gauche</li>
-    <li>Vicare (<code>vicare -v</code>) — verbose</li>
-  </ul>
-  <p>Other version flags in existing Scheme implementations:</p>
-  <ul>
-    <li><code>--version</code> with <strong>two dashes</strong>
-    (Chez Scheme, Foment, Guile, Kawa, Ksi, Larceny, MIT Scheme,
-    Oaklisp, Owl Lisp, Racket, Sagittarius, Schemik, SCM, Shoe,
-    STklos, Vicare, Ypsilon)</li>
-    <li><code>-version</code> with <strong>one dash</strong>
-    (Bigloo, Chicken, Ksi, Larceny, Oaklisp, STklos)</li>
-    <li>Version number only: <code>-vn</code> (Cyclone),
-    <code>--version-only</code> (Vicare)</li>
-  </ul>
+  <table>
+    <tr>
+      <th>Implementation</th>
+      <td><code>-V</code></td>
+      <td><code>-v</code></td>
+      <td><code>-version</code></td>
+      <td><code>--version</code></td>
+    </tr>
+    <tr>
+      <td>Bigloo (<code>bigloo</code>)</td>
+      <td></td>
+      <td>(verbose)</td>
+      <td>x</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Chez Scheme (<code>scheme</code>)</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>x</td>
+    </tr>
+    <tr>
+      <td>Chibi-Scheme (<code>chibi-scheme</code>)</td>
+      <td>x</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Chicken (<code>csc</code>)</td>
+      <td></td>
+      <td>(verbose)</td>
+      <td>x</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Chicken (<code>csi</code>)</td>
+      <td></td>
+      <td></td>
+      <td>x</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Cyclone (<code>cyclone</code>)</td>
+      <td></td>
+      <td>x</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Cyclone (<code>icyc</code>)</td>
+      <td></td>
+      <td>x</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Dfsch (<code>dfsch-repl</code>)</td>
+      <td></td>
+      <td>x</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Foment (<code>foment</code>)</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>x</td>
+    </tr>
+    <tr>
+      <td>Gambit (<code>gsc</code>)</td>
+      <td></td>
+      <td>x</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Gambit (<code>gsi</code>)</td>
+      <td></td>
+      <td>x</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Gauche (<code>gosh</code>)</td>
+      <td>x</td>
+      <td>(run another version)</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Guile (<code>guile</code>)</td>
+      <td></td>
+      <td>x</td>
+      <td></td>
+      <td>x</td>
+    </tr>
+    <tr>
+      <td>Kawa (<code>kawa</code>)</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>x</td>
+    </tr>
+    <tr>
+      <td>KSi (<code>ksi</code>)</td>
+      <td></td>
+      <td>x</td>
+      <td>x</td>
+      <td>x</td>
+    </tr>
+    <tr>
+      <td>Larceny (<code>larceny</code>)</td>
+      <td></td>
+      <td></td>
+      <td>x</td>
+      <td>x</td>
+    </tr>
+    <tr>
+      <td>MIT Scheme (<code>scheme</code>)</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>x</td>
+    </tr>
+    <tr>
+      <td>Mosh (<code>mosh</code>)</td>
+      <td>x</td>
+      <td>x</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Mosh (<code>nmosh</code>)</td>
+      <td>x</td>
+      <td>x</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Oaklisp (<code>oaklisp</code>)</td>
+      <td></td>
+      <td>x</td>
+      <td>x</td>
+      <td>x</td>
+    </tr>
+    <tr>
+      <td>Owl Lisp (<code>ol</code>)</td>
+      <td></td>
+      <td>x</td>
+      <td></td>
+      <td>x</td>
+    </tr>
+    <tr>
+      <td>Racket (<code>racket</code>)</td>
+      <td>x</td>
+      <td>x</td>
+      <td></td>
+      <td>x</td>
+    </tr>
+    <tr>
+      <td>Sagittarius (<code>sagittarius</code>)</td>
+      <td></td>
+      <td>x</td>
+      <td>x</td>
+      <td>x</td>
+    </tr>
+    <tr>
+      <td>Sagittarius (<code>sash</code>)</td>
+      <td></td>
+      <td>x</td>
+      <td>x</td>
+      <td>x</td>
+    </tr>
+    <tr>
+      <td>Schemik (<code>schemik</code>)</td>
+      <td>x</td>
+      <td></td>
+      <td></td>
+      <td>x</td>
+    </tr>
+    <tr>
+      <td>SCM (<code>scm</code>)</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>x</td>
+    </tr>
+    <tr>
+      <td>Shoe (<code>shoe</code>)</td>
+      <td></td>
+      <td>x</td>
+      <td></td>
+      <td>x</td>
+    </tr>
+    <tr>
+      <td>STklos (<code>stklos</code>)</td>
+      <td></td>
+      <td>x</td>
+      <td>x</td>
+      <td>x</td>
+    </tr>
+    <tr>
+      <td>Vicare (<code>vicare</code>)</td>
+      <td>x</td>
+      <td>(verbose)</td>
+      <td></td>
+      <td>x</td>
+    </tr>
+    <tr>
+      <td>Ypsilon (<code>ypsilon</code>)</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>x</td>
+    </tr>
+  </table>
+  <p>Additionally, there's a "version number only" flag in Cyclone
+  (<code>-vn</code>) and Vicare (<code>--version-only</code>).</p>
   <p>Additionally, a few Schemes have flags to <em>change</em> the
   version by loading another version of the same Scheme. Changing
   the version is not addressed by this SRFI.</p>
   <h4 id="_which_flag_to_choose">Which flag to choose</h4>
+  <p>From the table we can see that <strong>lower-case</strong>
+  <code>-v</code> is popular but has conflicts.</p>
+  <p><strong>Upper-case</strong> <code>-V</code> is less popular
+  but has no known conflicting uses among Scheme implementations.
+  (Racket uses <code>-V</code> as an alias for
+  <code>--no-yield</code> but makes an exception and treats
+  <code>racket -V</code> with no other arguments as a version
+  flag.)</p>
   <p>From the above survey we note that the most popular flags are
   <strong>lower-case</strong> <code>-v</code>, as well as
   <code>--version</code> with two dashes.
