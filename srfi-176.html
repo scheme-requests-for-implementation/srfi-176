@@ -1113,6 +1113,11 @@ revision will be <code>unknown</code>.
   type and <em>integer</em> is a positive integer giving the width
   of the type in bits. The size of type <code>t</code> can be
   determined in C using <code>sizeof(t) * CHAR_BIT</code>.</p>
+  <p>It's completely up to the implementation to decide which types
+  are listed. The list can include non-standard types from the
+  operating system and third-party libraries as well as custom
+  types used only by the implementation. Types do not need to be
+  sorted by <em>symbol</em> or <em>integer</em>.</p>
   <p>Each C type name is converted to a <em>symbol</em> as
   follows:</p>
   <ul>
