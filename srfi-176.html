@@ -1347,43 +1347,38 @@ not even for buoyancy or fitness for high-velocity landings at sea.
  (scheme/path "/home/wiley/.local/share/fantastic" "/home/wiley/fantastic")
  (fantastic-scheme/phase-of-the-moon waxing-crescent))</pre>
   <h2 id="_implementation">Implementation</h2>
-  <p>A sample implementation is available at:</p>
-  <p><a class="eponymous" href=
-  "https://github.com/scheme-requests-for-implementation/srfi-176">github.com/scheme-requests-for-implementation/srfi-176</a></p>
   <p>Writing the version information is as simple as calling
   <strong>write</strong> or equivalent with suitable input.</p>
-  <p>The following is a fully functional parser.
-  <strong>read-version-alist-from-command</strong> is specific to
-  Gambit and needs to be rewritten for other Schemes.</p>
-  <pre>(define (read-merged-alist in)
-  (let loop ((alist '()))
-    (let ((new (read in)))
-      (cond ((eof-object? new) (reverse alist))
-            ((not (pair? new)) (loop alist))
-            (else (let ((old (assoc (car new) alist)))
-                    (cond (old  (set-cdr! old (append (cdr old) (cdr new)))
-                                (loop alist))
-                          (else (loop (cons new alist))))))))))
-
-(define (skip-to-line-starting char in)
-  (let loop ((prev #\newline))
-    (let ((c (peek-char in)))
-      (unless (or (eof-object? c)
-                  (and (char=? #\newline prev) (char=? char c)))
-        (loop (read-char in))))))
-
+  <p>The following is a fully functional parser.</p>
+  <pre>
 (define (read-version-alist in)
-  (skip-to-line-starting #\( in)
-  (read-merged-alist in))
-
-(define (read-version-alist-from-string string)
-  (call-with-port (open-input-string string) read-version-alist))
-
-(define (read-version-alist-from-command command)
-  (let* ((result (shell-command (string-append command " -V") #t))
-         (status (car result))
-         (output (cdr result)))
-      (read-version-alist-from-string (if (= status 0) output ""))))</pre>
+  (let skip-until-paren ((line-start? #t))
+    (let ((c (peek-char in)))
+      (if (not (or (eof-object? c) (and line-start? (char=? c #\())))
+          (skip-until-paren (eqv? #\newline (read-char in)))
+          (let read-all ((xs '()))
+            (let ((x (read in)))
+              (if (eof-object? x) (reverse xs) (read-all (cons x xs))))))))))</pre>
+  <p>A full sample implementation is available at:</p>
+  <p><a class="eponymous" href=
+  "https://github.com/scheme-requests-for-implementation/srfi-176">github.com/scheme-requests-for-implementation/srfi-176</a></p>
+  <p>It has plenty of code to gather, read and write version
+  information in common situations:</p>
+  <ul>
+    <li>Code to read the complete version alist from Scheme (R6RS
+    and R7RS), Common Lisp, Clojure, NewLisp, and Emacs Lisp.</li>
+    <li>Code to read specific version items from C, awk, grep|sed,
+    and PowerShell.</li>
+    <li>Code to produce date/timestamps in the correct format from
+    C and Unix shell.</li>
+    <li>A sample main program for a Scheme implementation,
+    Fantastic Scheme, written in C, and a Unix build script to
+    write various information about the build environment into a C
+    file during the build process. The main program collects all
+    version information into into a Scheme alist, which is
+    validated for LOSE compatibility and then written to
+    stdout.</li>
+  </ul>
   <h2 id="_acknowledgements">Acknowledgements</h2>
   <p>Thanks to John Cowan for detailed feedback on all aspects of
   this SRFI.</p>
