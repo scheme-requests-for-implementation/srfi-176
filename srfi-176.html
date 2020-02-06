@@ -1101,7 +1101,7 @@ git describe --always --tags --dirty 2&gt;/dev/null || true
   <pre>(build/platform "DarwinX8664")
 (build/platform "x86_64-apple-darwin18.7.0")
 (build/platform "macosx-unix-clang-x86-64")</pre>
-  <p>(<strong>configure</strong> <em>string</em>…​)</p>
+  <p>(<strong>build/configure</strong> <em>string</em>…​)</p>
   <p>Command line arguments given to the configure script before
   building this Scheme implementation. A configure script is a
   common means for build-time configuration of programs on
@@ -1116,8 +1116,8 @@ git describe --always --tags --dirty 2&gt;/dev/null || true
   <p>The name of the configure script is not given. It is almost
   always <code>configure</code>, though that is not required.</p>
   <p>Examples:</p>
-  <pre>(configure "--enable-single-host")
-(configure "--prefix=/home/wiley/.local" "CC=gcc-9")</pre>
+  <pre>(build/configure "--enable-single-host")
+(build/configure "--prefix=/home/wiley/.local" "CC=gcc-9")</pre>
   <h4 id="_boot_image_properties">Boot image properties</h4>
   <p>(<strong>image/date</strong> <em>iso-date-string</em>)</p>
   <p>If this is an image-based Scheme system, the date and time
@@ -1298,8 +1298,8 @@ not even for buoyancy or fitness for high-velocity landings at sea.
 (revision "2.95-23-gc0f6340c")
 (features r7rs ratios exact-complex full-unicode gnu-linux little-endian)
 (features fantastic-scheme fantastic-scheme-1.0 space-ship-control-system)
-(configure "--prefix=/home/wiley/.local")
-(configure "--with-space-ship-control-system")
+(build/configure "--prefix=/home/wiley/.local")
+(build/configure "--with-space-ship-control-system")
 (build/platform "aarch64_be-linux-gnu_ilp32")
 (platform-os ubuntu linux unix)
 (platform-computer arm arm64)
@@ -1330,7 +1330,7 @@ not even for buoyancy or fitness for high-velocity landings at sea.
   fantastic-scheme
   fantastic-scheme-1.0
   space-ship-control-system)
- (configure "--prefix=/home/wiley/.local" "--with-space-ship-control-system")
+ (build/configure "--prefix=/home/wiley/.local" "--with-space-ship-control-system")
  (build/platform "aarch64_be-linux-gnu_ilp32")
  (platform-os ubuntu linux unix)
  (platform-computer arm arm64)
