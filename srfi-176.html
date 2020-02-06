@@ -144,10 +144,6 @@
               properties</a>
             </li>
             <li>
-              <a href="#_platform_properties">Platform
-              properties</a>
-            </li>
-            <li>
               <a href="#_scheme_language_properties">Scheme
               language properties</a>
             </li>
@@ -804,8 +800,9 @@ tokyo
   </ul>
   <p>It is recommended to work around the lack of booleans by using
   enumerations or sets. For example, instead of <code>(linux?
-  #t)</code> we recommend <code>(platform-os linux)</code> or
-  <code>(scheme/features …​ linux …​)</code>.</p>
+  #t)</code> we recommend something like <code>(build/platform
+  "…​linux…​")</code> or <code>(scheme/features …​ linux
+  …​)</code>.</p>
   <h3 id="_version_flag">Version flag</h3>
   <p>For a Scheme invoked as <code>fantastic-scheme</code>, the
   command line <code>fantastic-scheme -V</code> (i.e.
@@ -1089,31 +1086,6 @@ echo ')'</pre>
   <p>(<strong>image/file</strong> <em>filename</em>)</p>
   <p>If images can be loaded by filename, this gives the filename
   that is used to load the active boot image.</p>
-  <h4 id="_platform_properties">Platform properties</h4>
-  <p>(<strong>platform-os</strong> <em>symbol</em>…​)</p>
-  <p>The operating system(s) for which the executable was built.
-  Symbols denote set membership.</p>
-  <p>Examples:</p>
-  <pre>(platform-os aros amigaos)
-(platform-os dragonflybsd bsd unix)
-(platform-os freebsd bsd unix)
-(platform-os haiku beos)
-(platform-os linux unix)
-(platform-os netbsd bsd unix)
-(platform-os openbsd bsd unix)
-(platform-os solaris unix)
-(platform-os windows)</pre>
-  <p>(<strong>platform-computer</strong> <em>symbol</em>…​)</p>
-  <p>The computer architecture(s) and CPUs for which the executable
-  was built. Symbols denote set membership.</p>
-  <p>Examples:</p>
-  <pre>(platform-computer x86 x86-64 intel)
-(platform-computer x86 x86-64 amd)
-(platform-computer arm32)
-(platform-computer arm64)
-(platform-computer ppc)
-(platform-computer mips)
-(platform-computer sparc)</pre>
   <h4 id="_scheme_language_properties">Scheme language
   properties</h4>
   <p>(<strong>scheme/id</strong> <em>symbol</em>)</p>
@@ -1309,8 +1281,6 @@ not even for buoyancy or fitness for high-velocity landings at sea.
 (build/configure "--prefix=/home/wiley/.local")
 (build/configure "--with-space-ship-control-system")
 (build/platform "aarch64_be-linux-gnu_ilp32")
-(platform-os ubuntu linux unix)
-(platform-computer arm arm64)
 (build/date "2019-10-05T13:52:01")
 (image/date "2019-10-05T17:10:00")
 (image/file "/home/wiley/fantastic.image")
@@ -1340,8 +1310,6 @@ not even for buoyancy or fitness for high-velocity landings at sea.
   space-ship-control-system)
  (build/configure "--prefix=/home/wiley/.local" "--with-space-ship-control-system")
  (build/platform "aarch64_be-linux-gnu_ilp32")
- (platform-os ubuntu linux unix)
- (platform-computer arm arm64)
  (build/date "2019-10-05T13:52:01Z")
  (image/date "2019-10-05T17:10:00Z")
  (image/file "/home/wiley/fantastic.image")
