@@ -755,9 +755,12 @@ tokyo
   is unspecified; UTF-8 is recommended where possible.</p>
   <p>ASCII space (<code>#x20</code>), carriage return
   (<code>#x0d</code>) and line feed (<code>#x0a</code>) characters
-  are recognized as whitespace. Only line feed is recognized as a
-  newline character. But since carriage return is whitespace, CR/LF
-  newlines work as well as LF newlines.</p>
+  are recognized as whitespace.</p>
+  <p>On Unix, only a single line feed character (LF) is recognized
+  as a newline.</p>
+  <p>On Windows, either a single line feed character (LF)
+  <em>or</em> a carriage return followed by a line feed (CR/LF) can
+  be used as a newline.</p>
   <h3 id="_line_oriented_s_expressions_lose">Line-oriented
   S-expressions (LOSE)</h3>
   <p>The version output shall conform to the following subset of
