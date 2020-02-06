@@ -152,8 +152,8 @@
               virtual machine properties</a>
             </li>
             <li>
-              <a href="#_environment_variables">Environment
-              variables</a>
+              <a href="#_operating_system_properties">Operating
+              system properties</a>
             </li>
           </ul>
         </li>
@@ -1228,8 +1228,9 @@ printf("%zu\n", BITSIZEOF(void *));
 (jvm/kawa.home "/usr/local/share/kawa")
 (jvm/sun.jnu.encoding "UTF-8")
 </pre>
-  <h4 id="_environment_variables">Environment variables</h4>
-  <p>(<strong>env/</strong><em>symbol</em> <em>string</em>)</p>
+  <h4 id="_operating_system_properties">Operating system
+  properties</h4>
+  <p>(<strong>os/env/</strong><em>symbol</em> <em>string</em>)</p>
   <p>This property can be used to expose one or more environment
   variables from the operating system.</p>
   <p><strong>Note:</strong> <em>symbol</em> is part of the property
@@ -1240,8 +1241,8 @@ printf("%zu\n", BITSIZEOF(void *));
   either be omitted from the output or show a null string
   <code>""</code> as its value.</p>
   <p>Examples:</p>
-  <pre>(env/LANG "en_US.UTF-8")
-(env/TERM "xterm-256color")
+  <pre>(os/env/LANG "en_US.UTF-8")
+(os/env/TERM "xterm-256color")
 </pre>
   <h3 id="_implementation_defined_properties">
   Implementation-defined properties</h3>
