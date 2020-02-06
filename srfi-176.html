@@ -1244,6 +1244,22 @@ printf("%zu\n", BITSIZEOF(void *));
   <pre>(os/env/LANG "en_US.UTF-8")
 (os/env/TERM "xterm-256color")
 </pre>
+  <p>(<strong>os/uname</strong> <em>string</em> <em>string</em>
+  <em>string</em>)</p>
+  <p>Three <em>string</em>s from the <strong>run-time</strong> Unix
+  <a href=
+  "https://pubs.opengroup.org/onlinepubs/9699919799/functions/uname.html">
+  <code>utsname</code></a> structure in this order:</p>
+  <ul>
+    <li><code>sysname</code> (<code>uname -s</code>)</li>
+    <li><code>release</code> (<code>uname -r</code>)</li>
+    <li><code>machine</code> (<code>uname -m</code>)</li>
+  </ul>
+  <p>Examples:</p>
+  <pre>(os/uname "Linux" "5.4.11_1" "x86_64")
+(os/uname "Darwin" "18.7.0" "x86_64")
+(os/uname "FreeBSD" "12.0-RELEASE-p6" "amd64")
+(os/uname "MSYS_NT-10.0-18362" "3.0.7-338.i686" "i686")</pre>
   <h3 id="_implementation_defined_properties">
   Implementation-defined properties</h3>
   <p>Implementations are free to have any number of custom
