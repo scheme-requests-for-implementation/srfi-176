@@ -1093,7 +1093,7 @@ git describe --always --tags --dirty 2&gt;/dev/null || true
   <p>Examples:</p>
   <pre>(configure "--enable-single-host")
 (configure "--prefix=/home/wiley/.local" "CC=gcc-9")</pre>
-  <p>(<strong>platform</strong> <em>string</em>)</p>
+  <p>(<strong>build/platform</strong> <em>string</em>)</p>
   <p>A free-form string identifying the computer architecture,
   operating system, and/or other aspects of the computing platform
   for which the executable was built. This is the platform string
@@ -1102,9 +1102,9 @@ git describe --always --tags --dirty 2&gt;/dev/null || true
   GNU-style <code>computer-kernel-userland</code> triple; just as
   often it is not.</p>
   <p>Examples:</p>
-  <pre>(platform "DarwinX8664")
-(platform "x86_64-apple-darwin18.7.0")
-(platform "macosx-unix-clang-x86-64")</pre>
+  <pre>(build/platform "DarwinX8664")
+(build/platform "x86_64-apple-darwin18.7.0")
+(build/platform "macosx-unix-clang-x86-64")</pre>
   <p>(<strong>build/date</strong> <em>iso-date-string</em>)</p>
   <p>The date and time when this executable was built.</p>
   <p>It is implementation-dependent whether the timestamp is nearer
@@ -1303,7 +1303,7 @@ not even for buoyancy or fitness for high-velocity landings at sea.
 (features fantastic-scheme fantastic-scheme-1.0 space-ship-control-system)
 (configure "--prefix=/home/wiley/.local")
 (configure "--with-space-ship-control-system")
-(platform "aarch64_be-linux-gnu_ilp32")
+(build/platform "aarch64_be-linux-gnu_ilp32")
 (platform-os ubuntu linux unix)
 (platform-computer arm arm64)
 (build/date "2019-10-05T13:52:01")
@@ -1334,7 +1334,7 @@ not even for buoyancy or fitness for high-velocity landings at sea.
   fantastic-scheme-1.0
   space-ship-control-system)
  (configure "--prefix=/home/wiley/.local" "--with-space-ship-control-system")
- (platform "aarch64_be-linux-gnu_ilp32")
+ (build/platform "aarch64_be-linux-gnu_ilp32")
  (platform-os ubuntu linux unix)
  (platform-computer arm arm64)
  (build/date "2019-10-05T13:52:01Z")
