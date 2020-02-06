@@ -1,7 +1,4 @@
-#!/usr/bin/env gosh
-
-;; (import (rnrs))
-;; (import (scheme base) (scheme read) (scheme write))
+(import (scheme base) (scheme read) (scheme write))
 
 (define (read-version-alist in)
   (let skip-until-paren ((line-start? #t))
