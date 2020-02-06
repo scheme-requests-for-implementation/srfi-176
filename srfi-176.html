@@ -808,7 +808,7 @@ tokyo
   <p>It is recommended to work around the lack of booleans by using
   enumerations or sets. For example, instead of <code>(linux?
   #t)</code> we recommend <code>(platform-os linux)</code> or
-  <code>(features …​ linux …​)</code>.</p>
+  <code>(scheme/features …​ linux …​)</code>.</p>
   <h3 id="_version_flag">Version flag</h3>
   <p>For a Scheme invoked as <code>fantastic-scheme</code>, the
   command line <code>fantastic-scheme -V</code> (i.e.
@@ -1026,7 +1026,7 @@ not installed on the system, the revision will be
 (revision "3.0-0-g39797ea94")
 (revision "v0.16-DEV-166-g6574540c")</pre>
   <h4 id="_runtime_properties">Runtime properties</h4>
-  <p>(<strong>features</strong> <em>symbol…​</em>)</p>
+  <p>(<strong>scheme/features</strong> <em>symbol…​</em>)</p>
   <p>The symbols should correspond to the feature list for
   <strong>cond-expand</strong>.</p>
   <p><strong>Note:</strong> Only symbols conforming to the LOSE
@@ -1037,11 +1037,11 @@ not installed on the system, the revision will be
   since Scheme implementations do not tend to have such feature
   identifiers, but some of them may.</p>
   <p>Examples:</p>
-  <pre>(features)
-(features dload ptables)
-(features utf-8 pthreads linux r7rs)
-(features chibi r7rs ratios complex uvector threads full-unicode)
-(features modules dynamic-loading darwin bsd macosx little-endian)</pre>
+  <pre>(scheme/features)
+(scheme/features dload ptables)
+(scheme/features utf-8 pthreads linux r7rs)
+(scheme/features chibi r7rs ratios complex uvector threads full-unicode)
+(scheme/features modules dynamic-loading darwin bsd macosx little-endian)</pre>
   <h4 id="_build_properties">Build properties</h4>
   <p>(<strong>configure</strong> <em>string</em>…​)</p>
   <p>Command line arguments given to the configure script before
