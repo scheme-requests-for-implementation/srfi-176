@@ -160,8 +160,8 @@
               properties</a>
             </li>
             <li>
-              <a href="#_java_language_properties">Java language
-              properties</a>
+              <a href="#_java_virtual_machine_properties">Java
+              virtual machine properties</a>
             </li>
             <li>
               <a href="#_environment_variables">Environment
@@ -1236,11 +1236,12 @@ printf("%zu\n", BITSIZEOF(void *));
 (c/type-bits (TCHAR 8) (DWORD 32) (WIN32_FIND_DATA 2560))
 (c/type-bits (struct-__Foo_BAR__12_-pointer-pointer 64))
 </pre>
-  <h4 id="_java_language_properties">Java language properties</h4>
+  <h4 id="_java_virtual_machine_properties">Java virtual machine
+  properties</h4>
   <p>(<strong>jvm/</strong><em>symbol</em> <em>string</em>)</p>
-  <p>This property can be used to expose one or more <a href=
+  <p>This property can be used to expose one or more Java <a href=
   "https://docs.oracle.com/javase/7/docs/api/java/lang/System.html#getProperties()">
-  system properties</a> of the Java virtual machine.</p>
+  system properties</a>.</p>
   <p><strong>Note:</strong> <em>symbol</em> is part of the property
   name, not a separate symbol.</p>
   <p><strong>Note:</strong> System properties whose names are not
