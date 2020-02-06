@@ -1095,6 +1095,15 @@ git describe --always --tags --dirty 2&gt;/dev/null || true
   <p>Examples:</p>
   <pre>(configure "--enable-single-host")
 (configure "--prefix=/home/wiley/.local" "CC=gcc-9")</pre>
+  <p>(<strong>build/date</strong> <em>iso-date-string</em>)</p>
+  <p>The date and time when this executable was built.</p>
+  <p>It is implementation-dependent whether the timestamp is nearer
+  to the start or end of the build.</p>
+  <p>Examples:</p>
+  <pre>(build/date "2018-09-30")
+(build/date "2018-09-30T02:07Z")
+(build/date "2018-09-30T02:07+02:00")
+(build/date "2018-09-30T02:07-05:30")</pre>
   <p>(<strong>build/platform</strong> <em>string</em>)</p>
   <p>A free-form string identifying the computer architecture,
   operating system, and/or other aspects of the computing platform
@@ -1107,15 +1116,6 @@ git describe --always --tags --dirty 2&gt;/dev/null || true
   <pre>(build/platform "DarwinX8664")
 (build/platform "x86_64-apple-darwin18.7.0")
 (build/platform "macosx-unix-clang-x86-64")</pre>
-  <p>(<strong>build/date</strong> <em>iso-date-string</em>)</p>
-  <p>The date and time when this executable was built.</p>
-  <p>It is implementation-dependent whether the timestamp is nearer
-  to the start or end of the build.</p>
-  <p>Examples:</p>
-  <pre>(build/date "2018-09-30")
-(build/date "2018-09-30T02:07Z")
-(build/date "2018-09-30T02:07+02:00")
-(build/date "2018-09-30T02:07-05:30")</pre>
   <h4 id="_boot_image_properties">Boot image properties</h4>
   <p>(<strong>image/date</strong> <em>iso-date-string</em>)</p>
   <p>If this is an image-based Scheme system, the date and time
