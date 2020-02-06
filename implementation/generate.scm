@@ -27,7 +27,9 @@
        (let loop ()
          (let ((char (read-char)))
            (unless (eof-object? char)
-             (write-char (if (char=? #\- char) #\_ char))
+             (write-char (case char
+                           ((#\- #\/) #\_)
+                           (else char)))
              (loop)))))))
 
 (define (dashes->capitalized s)
@@ -36,35 +38,39 @@
        (let loop ((cap? #t))
          (let ((char (read-char)))
            (unless (eof-object? char)
-             (cond ((char=? #\- char)
-                    (loop #t))
-                   (else
-                    (write-char (if cap? (char-upcase char) char))
-                    (loop #f)))))))))
+             (case char
+               ((#\- #\/)
+                (loop #t))
+               (else
+                (write-char (if cap? (char-upcase char) char))
+                (loop #f)))))))))
 
 ;;
 
 (define table
   '((command             string)
-    (scheme-id           symbol)
+    (scheme/id           symbol)
     (languages           symbol-list)
-    (features            symbol-list)
-    (c-type-bits         subsymbols int long float double pointer size_t)
+    (scheme/features     symbol-list)
+    (c/type-bits         subsymbols int long float double pointer size_t)
+    (c/version           string)
+    (c/compile           string-list)
+    (c/link              string-list)
+    (build/configure     string-list)
 
-    (c-compiler-command  string)
-    (c-compiler-flags    string-list)
-    (c-linker-flags      string-list)
-    (configure           string-list)
+    (build/git/tag       string)
+    (build/git/branch    string)
+    (build/git/commit    string)
+    (build/git/modified  string-list)
 
-    (revision            string)
-    (build-date          string)
-    (image-date          string)
-    (image-file          string)
+    (build/date          string)
+    (image/date          string)
+    (image/file          string)
     (install-dir         string)
-    (library-path        string-list)
+    (scheme/path         string-list)
     (release             string)
-    (release-date        string)
-    (release-name        string)
+    (release/date        string)
+    (release/name        string)
     (website             string)))
 
 (define (entry-name entry) (symbol->string (car entry)))
@@ -117,13 +123,24 @@
 
 ;;
 
+(define (awk-regexp-quote s)
+  (call-with-string-io
+   s (lambda ()
+       (let loop ()
+         (let ((char (read-char)))
+           (unless (eof-object? char)
+             (when (char=? #\/ char)
+               (write-char #\\))
+             (write-char char)
+             (loop)))))))
+
 (define (awk/string entry)
   (let ((name (entry-name entry)))
     (list (cons name
                 (string-append
                  "awk"
-                 " '/^\\(" name " .*\\)$/"
-                 " {sub(/^\\([a-z-]+ \"/, \"\", $0);"
+                 " '/^\\(" (awk-regexp-quote name) " .*\\)$/"
+                 " {sub(/^\\([a-z/-]+ \"/, \"\", $0);"
                  " sub(/\".*/, \"\", $0);"
                  " print $0}'")))))
 
@@ -132,8 +149,8 @@
     (list (cons name
                 (string-append
                  "awk"
-                 " '/^\\(" name " .*\\)$/"
-                 " {sub(/^\\([a-z-]+ /, \"\", $0);"
+                 " '/^\\(" (awk-regexp-quote name) " .*\\)$/"
+                 " {sub(/^\\([a-z/-]+ /, \"\", $0);"
                  " sub(/\\)$/, \"\", $0);"
                  " print $0}'")))))
 
@@ -143,8 +160,9 @@
            (cons (string-append top "-" sub)
                  (string-append
                   "awk"
-                  " '/^\\(" top " .*\\(" sub " .*\\).*\\)$/"
-                  " {sub(/.*\\(" sub " /, \"\", $0);"
+                  " '/^\\(" (awk-regexp-quote top)
+                  " .*\\(" (awk-regexp-quote sub) " .*\\).*\\)$/"
+                  " {sub(/.*\\(" (awk-regexp-quote sub) " /, \"\", $0);"
                   " sub(/\\).*/, \"\", $0);"
                   " print $0}'")))
          (entry-subs entry))))
@@ -158,8 +176,8 @@
                  "grep '^(" name " \".*\".*)$'"
                  " | "
                  "sed"
-                 " -e 's/^([a-z-]* \"//'"
-                 " -e 's/\".*//'")))))
+                 " -e 's@^([a-z/-]* \"@@'"
+                 " -e 's@\".*@@'")))))
 
 (define (grep-sed/symbol entry)
   (let ((name (entry-name entry)))
@@ -168,8 +186,8 @@
                  "grep '^(" name " .*)$'"
                  " | "
                  "sed"
-                 " -e 's/^([a-z-]* //'"
-                 " -e 's/)$//'")))))
+                 " -e 's@^([a-z/-]* @@'"
+                 " -e 's@)$@@'")))))
 
 (define (grep-sed/subsymbols entry)
   (let ((top (entry-name entry)))
@@ -179,8 +197,8 @@
                   "grep '^(" top " .*(" sub " .*).*)$'"
                   " | "
                   "sed"
-                  " -e 's/^.*(" sub " //'"
-                  " -e 's/).*//'")))
+                  " -e 's@^.*(" sub " @@'"
+                  " -e 's@).*@@'")))
          (entry-subs entry))))
 
 ;;
