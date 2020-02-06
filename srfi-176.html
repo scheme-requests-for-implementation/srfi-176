@@ -1105,15 +1105,15 @@ git describe --always --tags --dirty 2&gt;/dev/null || true
   <pre>(platform "DarwinX8664")
 (platform "x86_64-apple-darwin18.7.0")
 (platform "macosx-unix-clang-x86-64")</pre>
-  <p>(<strong>build-date</strong> <em>iso-date-string</em>)</p>
+  <p>(<strong>build/date</strong> <em>iso-date-string</em>)</p>
   <p>The date and time when this executable was built.</p>
   <p>It is implementation-dependent whether the timestamp is nearer
   to the start or end of the build.</p>
   <p>Examples:</p>
-  <pre>(build-date "2018-09-30")
-(build-date "2018-09-30T02:07Z")
-(build-date "2018-09-30T02:07+02:00")
-(build-date "2018-09-30T02:07-05:30")</pre>
+  <pre>(build/date "2018-09-30")
+(build/date "2018-09-30T02:07Z")
+(build/date "2018-09-30T02:07+02:00")
+(build/date "2018-09-30T02:07-05:30")</pre>
   <h4 id="_boot_image_properties">Boot image properties</h4>
   <p>(<strong>image/date</strong> <em>iso-date-string</em>)</p>
   <p>If this is an image-based Scheme system, the date and time
@@ -1306,7 +1306,7 @@ not even for buoyancy or fitness for high-velocity landings at sea.
 (platform "aarch64_be-linux-gnu_ilp32")
 (platform-os ubuntu linux unix)
 (platform-computer arm arm64)
-(build-date "2019-10-05T13:52:01")
+(build/date "2019-10-05T13:52:01")
 (image/date "2019-10-05T17:10:00")
 (image/file "/home/wiley/fantastic.image")
 (install-dir "/home/wiley/.local")
@@ -1337,7 +1337,7 @@ not even for buoyancy or fitness for high-velocity landings at sea.
  (platform "aarch64_be-linux-gnu_ilp32")
  (platform-os ubuntu linux unix)
  (platform-computer arm arm64)
- (build-date "2019-10-05T13:52:01Z")
+ (build/date "2019-10-05T13:52:01Z")
  (image/date "2019-10-05T17:10:00Z")
  (image/file "/home/wiley/fantastic.image")
  (install-dir "/home/wiley/.local")
