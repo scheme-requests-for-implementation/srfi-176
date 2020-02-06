@@ -1226,15 +1226,15 @@ printf("%zu\n", BITSIZEOF(void *));
   pointer types are generally the same size as a void pointer, but
   the C standard does not guarantee that.</p>
   <p>Examples (for completeness, some silly ones are included):</p>
-  <pre>(c-type-bits)
-(c-type-bits (pointer 64))
-(c-type-bits (int 32) (long 8) (float 32) (double 64) (pointer 64) (size_t 64))
-(c-type-bits (struct-timespec 128) (struct-timespec-pointer 64) (time_t 64))
-(c-type-bits (long 64) (long-long 8) (intmax_t 64) (intmax_t-pointer 64))
-(c-type-bits (long-double 128) (long-double-pointer 64))
-(c-type-bits (char-pointer-pointer 32) (jmp_buf 416))
-(c-type-bits (TCHAR 8) (DWORD 32) (WIN32_FIND_DATA 2560))
-(c-type-bits (struct-__Foo_BAR__12_-pointer-pointer 64))
+  <pre>(c/type-bits)
+(c/type-bits (pointer 64))
+(c/type-bits (int 32) (long 8) (float 32) (double 64) (pointer 64) (size_t 64))
+(c/type-bits (struct-timespec 128) (struct-timespec-pointer 64) (time_t 64))
+(c/type-bits (long 64) (long-long 8) (intmax_t 64) (intmax_t-pointer 64))
+(c/type-bits (long-double 128) (long-double-pointer 64))
+(c/type-bits (char-pointer-pointer 32) (jmp_buf 416))
+(c/type-bits (TCHAR 8) (DWORD 32) (WIN32_FIND_DATA 2560))
+(c/type-bits (struct-__Foo_BAR__12_-pointer-pointer 64))
 </pre>
   <h4 id="_java_language_properties">Java language properties</h4>
   <p>(<strong>jvm/</strong><em>symbol</em> <em>string</em>)</p>
