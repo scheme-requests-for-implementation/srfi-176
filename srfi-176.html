@@ -1047,6 +1047,10 @@ git describe --always --tags --dirty 2&gt;/dev/null || true
   supports, as there may be situations where that is hard to
   define. The absence of a number does not say anything about
   whether or not that SRFI is supported.</p>
+  <p>Examples:</p>
+  <pre>(scheme/srfi)
+(scheme/srfi 0 1 13 14 176)
+</pre>
   <p>(<strong>scheme/features</strong> <em>symbol…​</em>)</p>
   <p>The symbols should correspond to the feature list for
   <strong>cond-expand</strong>.</p>
