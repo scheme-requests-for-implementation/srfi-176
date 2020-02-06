@@ -1075,6 +1075,8 @@ git describe --always --tags --dirty 2&gt;/dev/null || true
 (scheme/features utf-8 pthreads linux r7rs)
 (scheme/features chibi r7rs ratios complex uvector threads full-unicode)
 (scheme/features modules dynamic-loading darwin bsd macosx little-endian)</pre>
+  <p>(<strong>scheme/path</strong> <em>string…​</em>)</p>
+  <p>List of directories to search for imported libraries.</p>
   <h4 id="_build_properties">Build properties</h4>
   <p>(<strong>configure</strong> <em>string</em>…​)</p>
   <p>Command line arguments given to the configure script before
@@ -1135,8 +1137,6 @@ git describe --always --tags --dirty 2&gt;/dev/null || true
   Typically, this is the directory that has <code>bin</code> and
   <code>lib</code> subdirectories, but the meaning is
   implementation-dependent.</p>
-  <p>(<strong>scheme/path</strong> <em>string…​</em>)</p>
-  <p>List of directories to search for imported libraries.</p>
   <h4 id="_platform_properties">Platform properties</h4>
   <p>(<strong>platform-os</strong> <em>symbol</em>…​)</p>
   <p>The operating system(s) for which the executable was built.
