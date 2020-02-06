@@ -997,21 +997,6 @@ tokyo
 (version "0.9.9_pre1")
 (version "1.0.188-a4a79d5")
 (version "4.3f")</pre>
-  <h4 id="_version_properties">Version properties</h4>
-  <p>(<strong>release</strong> <em>string</em>)</p>
-  <p>The most recent released version of the implementation based
-  on which this build was made. If this <em>is</em> that release
-  version, then <strong>version</strong> is identical to this. If
-  this has patches on top, then the two versions are different.</p>
-  <p>(<strong>release/date</strong> <em>iso-date-string</em>)</p>
-  <p>The date on which the release was made.</p>
-  <p>Examples:</p>
-  <pre>(release/date "2019-08-06")</pre>
-  <p>(<strong>release/name</strong> <em>string</em>)</p>
-  <p>A codename for the release.</p>
-  <p>Examples:</p>
-  <pre>(release/name "Grain Alcohol and Rainwater")
-(release/name "oxygen")</pre>
   <p>(<strong>revision</strong> <em>string</em>)</p>
   <p>A free-form revision string that can be used to check out the
   version control commit on which this build is based.</p>
@@ -1027,6 +1012,21 @@ git describe --always --tags --dirty 2&gt;/dev/null || true
   <pre>(revision "8e62f718")
 (revision "3.0-0-g39797ea94")
 (revision "v0.16-DEV-166-g6574540c")</pre>
+  <h4 id="_version_properties">Version properties</h4>
+  <p>(<strong>release</strong> <em>string</em>)</p>
+  <p>The most recent released version of the implementation based
+  on which this build was made. If this <em>is</em> that release
+  version, then <strong>version</strong> is identical to this. If
+  this has patches on top, then the two versions are different.</p>
+  <p>(<strong>release/date</strong> <em>iso-date-string</em>)</p>
+  <p>The date on which the release was made.</p>
+  <p>Examples:</p>
+  <pre>(release/date "2019-08-06")</pre>
+  <p>(<strong>release/name</strong> <em>string</em>)</p>
+  <p>A codename for the release.</p>
+  <p>Examples:</p>
+  <pre>(release/name "Grain Alcohol and Rainwater")
+(release/name "oxygen")</pre>
   <h4 id="_scheme_language_properties">Scheme language
   properties</h4>
   <p>(<strong>scheme/id</strong> <em>symbol</em>)</p>
