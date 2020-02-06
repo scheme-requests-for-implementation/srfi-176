@@ -1029,22 +1029,6 @@ git describe --always --tags --dirty 2&gt;/dev/null || true
   scheme-id’s.</p>
   <p>Examples:</p>
   <pre>(scheme/id fantastic-scheme)</pre>
-  <p>(<strong>scheme/features</strong> <em>symbol…​</em>)</p>
-  <p>The symbols should correspond to the feature list for
-  <strong>cond-expand</strong>.</p>
-  <p><strong>Note:</strong> Only symbols conforming to the LOSE
-  symbol syntax can be listed for compatibility reasons. Other
-  symbols from the feature list need to be filtered out. In
-  particular, Scheme symbols cannot portably start with digits so
-  LOSE does not allow it either. This is not generally a problem
-  since Scheme implementations do not tend to have such feature
-  identifiers, but some of them may.</p>
-  <p>Examples:</p>
-  <pre>(scheme/features)
-(scheme/features dload ptables)
-(scheme/features utf-8 pthreads linux r7rs)
-(scheme/features chibi r7rs ratios complex uvector threads full-unicode)
-(scheme/features modules dynamic-loading darwin bsd macosx little-endian)</pre>
   <p>(<strong>scheme/srfi</strong> <em>integer…</em>)</p>
   <p>Each <em>integer</em> gives the number of a SRFI supported
   natively by the implementation. The integer <code>0</code> stands
@@ -1063,6 +1047,22 @@ git describe --always --tags --dirty 2&gt;/dev/null || true
   supports, as there may be situations where that is hard to
   define. The absence of a number does not say anything about
   whether or not that SRFI is supported.</p>
+  <p>(<strong>scheme/features</strong> <em>symbol…​</em>)</p>
+  <p>The symbols should correspond to the feature list for
+  <strong>cond-expand</strong>.</p>
+  <p><strong>Note:</strong> Only symbols conforming to the LOSE
+  symbol syntax can be listed for compatibility reasons. Other
+  symbols from the feature list need to be filtered out. In
+  particular, Scheme symbols cannot portably start with digits so
+  LOSE does not allow it either. This is not generally a problem
+  since Scheme implementations do not tend to have such feature
+  identifiers, but some of them may.</p>
+  <p>Examples:</p>
+  <pre>(scheme/features)
+(scheme/features dload ptables)
+(scheme/features utf-8 pthreads linux r7rs)
+(scheme/features chibi r7rs ratios complex uvector threads full-unicode)
+(scheme/features modules dynamic-loading darwin bsd macosx little-endian)</pre>
   <h4 id="_build_properties">Build properties</h4>
   <p>(<strong>configure</strong> <em>string</em>…​)</p>
   <p>Command line arguments given to the configure script before
