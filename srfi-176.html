@@ -1042,6 +1042,24 @@ not installed on the system, the revision will be
 (scheme/features utf-8 pthreads linux r7rs)
 (scheme/features chibi r7rs ratios complex uvector threads full-unicode)
 (scheme/features modules dynamic-loading darwin bsd macosx little-endian)</pre>
+  <p>(<strong>scheme/srfi</strong> <em>integer…</em>)</p>
+  <p>Each <em>integer</em> gives the number of a SRFI supported
+  natively by the implementation. The integer <code>0</code> stands
+  for <em>Feature-based conditional expansion construct</em>,
+  <code>1</code> stands for <em>List Library</em>, <code>176</code>
+  stands for <em>Version flag</em>, etc.</p>
+  <p>The <em>integer</em>s shall be listed in order from smallest
+  to largest.</p>
+  <p>If the implementation supports a particular SRFI via a library
+  or extension that is not built or installed, that SRFI shall not
+  be listed.</p>
+  <p>A partially supported SRFI should not be listed unless the
+  implementor has plans for full support and users can report
+  missing features as bugs.</p>
+  <p>The implementation does not need to list every SRFI it
+  supports, as there may be situations where that is hard to
+  define. The absence of a number does not say anything about
+  whether or not that SRFI is supported.</p>
   <h4 id="_build_properties">Build properties</h4>
   <p>(<strong>configure</strong> <em>string</em>…​)</p>
   <p>Command line arguments given to the configure script before
