@@ -833,7 +833,7 @@ tokyo
   implementation should also support the <code>-V</code> flag in
   other argument positions if it makes sense, and it should have
   the same output format as when it is the only command line
-  argument, but neither of those is required.</p>
+  argument, but neither of those is strictly required.</p>
   <p>If the implementation has separate interpreter and compiler
   commands, both of those must support the <code>-V</code> flag as
   the only argument. Any other commands supplied by the
@@ -854,12 +854,11 @@ tokyo
   use for indicating failure.</p>
   <h3 id="_version_runtime_option">-:version runtime option</h3>
   <p>If the Scheme system has a <code>-:</code> flag for runtime
-  options (as do Chicken and Gambit), it should recognize
+  options (as do Chicken and Gambit), it shall recognize
   <code>-:version</code> and behave compatibly with the
-  <code>-V</code> flag. When runtime options come from an
-  environment variable or some other place than command line
-  arguments, <code>version</code> is permitted to cause an
-  error.</p>
+  <code>-V</code> flag. If the <code>version</code> runtime option
+  comes from an environment variable or some other place than
+  command line arguments, it is permitted to cause an error.</p>
   <h3 id="_effect_of_other_flags_on_version_output">Effect of other
   flags on version output</h3>
   <p>The <code>-V</code> output may change if other flags are also
