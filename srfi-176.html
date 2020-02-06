@@ -971,6 +971,15 @@ tokyo
   derivatives and non-Scheme languages.</p>
   <p>Examples:</p>
   <pre>(languages scheme r6rs r7rs)</pre>
+  <p>(<strong>encodings</strong> <em>string…</em>)</p>
+  <p>Each <em>string</em> is the <a href=
+  "https://www.iana.org/assignments/character-sets/">IANA name</a>
+  of a character encoding known to be supported by this build of
+  the Scheme implementation. The names are case-insensitive.</p>
+  <p>The implementation may also support other encodings not listed
+  here, either natively or via extensions.</p>
+  <p>Examples:</p>
+  <pre>(encodings "UTF-8" "ISO-8859-1")</pre>
   <h4 id="_version_properties">Version properties</h4>
   <p>(<strong>version</strong> <em>string</em>)</p>
   <p>A free-form version string in the native format preferred by
@@ -1085,15 +1094,6 @@ git describe --always --tags --dirty 2&gt;/dev/null || true
   <p>Examples:</p>
   <pre>(configure "--enable-single-host")
 (configure "--prefix=/home/wiley/.local" "CC=gcc-9")</pre>
-  <p>(<strong>encodings</strong> <em>string…</em>)</p>
-  <p>Each <em>string</em> is the <a href=
-  "https://www.iana.org/assignments/character-sets/">IANA name</a>
-  of a character encoding known to be supported by this build of
-  the Scheme implementation. The names are case-insensitive.</p>
-  <p>The implementation may also support other encodings not listed
-  here, either natively or via extensions.</p>
-  <p>Examples:</p>
-  <pre>(encodings "UTF-8" "ISO-8859-1")</pre>
   <p>(<strong>platform</strong> <em>string</em>)</p>
   <p>A free-form string identifying the computer architecture,
   operating system, and/or other aspects of the computing platform
