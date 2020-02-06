@@ -1001,15 +1001,15 @@ tokyo
   on which this build was made. If this <em>is</em> that release
   version, then <strong>version</strong> is identical to this. If
   this has patches on top, then the two versions are different.</p>
-  <p>(<strong>release-date</strong> <em>iso-date-string</em>)</p>
+  <p>(<strong>release/date</strong> <em>iso-date-string</em>)</p>
   <p>The date on which the release was made.</p>
   <p>Examples:</p>
-  <pre>(release-date "2019-08-06")</pre>
-  <p>(<strong>release-name</strong> <em>string</em>)</p>
+  <pre>(release/date "2019-08-06")</pre>
+  <p>(<strong>release/name</strong> <em>string</em>)</p>
   <p>A codename for the release.</p>
   <p>Examples:</p>
-  <pre>(release-name "Grain Alcohol and Rainwater")
-(release-name "oxygen")</pre>
+  <pre>(release/name "Grain Alcohol and Rainwater")
+(release/name "oxygen")</pre>
   <p>(<strong>revision</strong> <em>string</em>)</p>
   <p>A free-form revision string that can be used to check out the
   version control commit on which this build is based.</p>
@@ -1296,8 +1296,8 @@ not even for buoyancy or fitness for high-velocity landings at sea.
 (website "https://example.com/scheme/")
 (version "2.96_pre1")
 (release "2.95")
-(release-date "2003-06-24")
-(release-name "Sheer lunacy")
+(release/date "2003-06-24")
+(release/name "Sheer lunacy")
 (revision "2.95-23-gc0f6340c")
 (features r7rs ratios exact-complex full-unicode gnu-linux little-endian)
 (features fantastic-scheme fantastic-scheme-1.0 space-ship-control-system)
@@ -1320,8 +1320,8 @@ not even for buoyancy or fitness for high-velocity landings at sea.
  (website "https://example.com/scheme/")
  (version "2.96_pre1")
  (release "2.95")
- (release-date "2003-06-24")
- (release-name "Sheer lunacy")
+ (release/date "2003-06-24")
+ (release/name "Sheer lunacy")
  (revision "2.95-23-gc0f6340c")
  (features
   r7rs
