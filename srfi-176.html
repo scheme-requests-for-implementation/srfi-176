@@ -148,10 +148,6 @@
               properties</a>
             </li>
             <li>
-              <a href="#_pathname_properties">Pathname
-              properties</a>
-            </li>
-            <li>
               <a href="#_platform_properties">Platform
               properties</a>
             </li>
@@ -944,6 +940,11 @@ tokyo
   <p>The URL for the Scheme implementation's website.</p>
   <p>Examples:</p>
   <pre>(website "https://practical-scheme.net/gauche")</pre>
+  <p>(<strong>install-dir</strong> <em>string</em>)</p>
+  <p>Root directory of the Scheme installation, if it has one.
+  Typically, this is the directory that has <code>bin</code> and
+  <code>lib</code> subdirectories, but the meaning is
+  implementation-dependent.</p>
   <p>(<strong>languages</strong> <em>symbol…​</em>)</p>
   <p>The set of programming languages supported by the
   implementation. Symbols denote set membership.</p>
@@ -1131,12 +1132,6 @@ git describe --always --tags --dirty 2&gt;/dev/null || true
   <p>(<strong>image/file</strong> <em>filename</em>)</p>
   <p>If images can be loaded by filename, this gives the filename
   that is used to load the active boot image.</p>
-  <h4 id="_pathname_properties">Pathname properties</h4>
-  <p>(<strong>install-dir</strong> <em>string</em>)</p>
-  <p>Root directory of the Scheme installation, if it has one.
-  Typically, this is the directory that has <code>bin</code> and
-  <code>lib</code> subdirectories, but the meaning is
-  implementation-dependent.</p>
   <h4 id="_platform_properties">Platform properties</h4>
   <p>(<strong>platform-os</strong> <em>symbol</em>…​)</p>
   <p>The operating system(s) for which the executable was built.
