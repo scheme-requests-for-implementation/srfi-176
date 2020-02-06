@@ -1,2 +1,5 @@
+*.o
 /datetime
 /read-using-c
+/scheme
+/scheme_env_build.c
