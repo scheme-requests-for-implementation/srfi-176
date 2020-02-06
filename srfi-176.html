@@ -945,16 +945,6 @@ tokyo
   <code>https://</code>.</p>
   <p>Examples:</p>
   <pre>(website "https://practical-scheme.net/gauche")</pre>
-  <p>(<strong>scheme-id</strong> <em>symbol</em>)</p>
-  <p>A symbol identifying which Scheme implementation provides this
-  executable. Together with <strong>command</strong> this can be
-  used to figure out which command of which implementation was
-  invoked, even in cases where two implementations use the same
-  command name.</p>
-  <p>At the time of writing, there is no central registry for
-  scheme-id’s.</p>
-  <p>Examples:</p>
-  <pre>(scheme-id fantastic-scheme)</pre>
   <p>(<strong>languages</strong> <em>symbol…​</em>)</p>
   <p>The set of programming languages supported by the
   implementation. Symbols denote set membership.</p>
@@ -1029,6 +1019,16 @@ git describe --always --tags --dirty 2&gt;/dev/null || true
 (revision "v0.16-DEV-166-g6574540c")</pre>
   <h4 id="_scheme_language_properties">Scheme language
   properties</h4>
+  <p>(<strong>scheme-id</strong> <em>symbol</em>)</p>
+  <p>A symbol identifying which Scheme implementation provides this
+  executable. Together with <strong>command</strong> this can be
+  used to figure out which command of which implementation was
+  invoked, even in cases where two implementations use the same
+  command name.</p>
+  <p>At the time of writing, there is no central registry for
+  scheme-id’s.</p>
+  <p>Examples:</p>
+  <pre>(scheme-id fantastic-scheme)</pre>
   <p>(<strong>scheme/features</strong> <em>symbol…​</em>)</p>
   <p>The symbols should correspond to the feature list for
   <strong>cond-expand</strong>.</p>
