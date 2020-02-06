@@ -781,14 +781,15 @@ tokyo
     nested, but it generally makes line-oriented work
     difficult.</li>
   </ul>
-  <p>There shall be no whitespace between parentheses and the
-  things they wrap on the same line. There shall be exactly one
-  space between list elements on the same line.</p>
-  <p>Top-level S-expressions must all be lists, and the opening
-  parenthesis must fall on the first column of a line. Multi-line
-  S-expressions should generally be avoided; if required, then
-  continuation lines of nested expressions must start with one
-  space.</p>
+  <p>Top-level S-expressions must all be lists. A top-level open
+  parenthesis must fall on the first column of a line, and there
+  must be a newline immediately after a top-level close
+  parenthesis. There must be a newline even after the last
+  top-level list in the output, i.e. the output must end with a
+  final newline, Unix style.</p>
+  <p>Multi-line S-expressions are not recognized by line-oriented
+  tools and should hence be avoided; if required, then continuation
+  lines of nested expressions must start with one space.</p>
   <p>Missing features:</p>
   <ul>
     <li><code>#t</code> and <code>#f</code> (due to
