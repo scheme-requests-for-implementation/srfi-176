@@ -1019,7 +1019,7 @@ git describe --always --tags --dirty 2&gt;/dev/null || true
 (revision "v0.16-DEV-166-g6574540c")</pre>
   <h4 id="_scheme_language_properties">Scheme language
   properties</h4>
-  <p>(<strong>scheme-id</strong> <em>symbol</em>)</p>
+  <p>(<strong>scheme/id</strong> <em>symbol</em>)</p>
   <p>A symbol identifying which Scheme implementation provides this
   executable. Together with <strong>command</strong> this can be
   used to figure out which command of which implementation was
@@ -1028,7 +1028,7 @@ git describe --always --tags --dirty 2&gt;/dev/null || true
   <p>At the time of writing, there is no central registry for
   scheme-id’s.</p>
   <p>Examples:</p>
-  <pre>(scheme-id fantastic-scheme)</pre>
+  <pre>(scheme/id fantastic-scheme)</pre>
   <p>(<strong>scheme/features</strong> <em>symbol…​</em>)</p>
   <p>The symbols should correspond to the feature list for
   <strong>cond-expand</strong>.</p>
@@ -1272,7 +1272,7 @@ printf("%zu\n", BITSIZEOF(void *));
   <p>Implementations are free to have any number of custom
   properties.</p>
   <p>The names of implementation-defined properties shall start
-  with the implementation’s <strong>scheme-id</strong> and a
+  with the implementation’s <strong>scheme/id</strong> and a
   <strong>slash</strong>.</p>
   <p>For example, if Fantastic Scheme builds varied by the phase of
   the moon, it could have:</p>
@@ -1288,7 +1288,7 @@ not even for buoyancy or fitness for high-velocity landings at sea.
 "Shoot for the moon. Even if you miss, you'll crash on impact."
 
 (command "fantastic-scheme")
-(scheme-id fantastic-scheme)
+(scheme/id fantastic-scheme)
 (languages scheme r6rs r7rs)
 (website "https://example.com/scheme/")
 (version "2.96_pre1")
@@ -1312,7 +1312,7 @@ not even for buoyancy or fitness for high-velocity landings at sea.
 (fantastic-scheme/phase-of-the-moon waxing-crescent)</pre>
   <p>It is parsed into the following merged association list:</p>
   <pre>((command "fantastic-scheme")
- (scheme-id fantastic-scheme)
+ (scheme/id fantastic-scheme)
  (languages scheme r6rs r7rs)
  (website "https://example.com/scheme/")
  (version "2.96_pre1")
