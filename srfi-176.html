@@ -1078,23 +1078,6 @@ git describe --always --tags --dirty 2&gt;/dev/null || true
   <p>(<strong>scheme/path</strong> <em>string…​</em>)</p>
   <p>List of directories to search for imported libraries.</p>
   <h4 id="_build_properties">Build properties</h4>
-  <p>(<strong>configure</strong> <em>string</em>…​)</p>
-  <p>Command line arguments given to the configure script before
-  building this Scheme implementation. A configure script is a
-  common means for build-time configuration of programs on
-  Unix-like operating systems. It is useful to save the options
-  given to that script for run time: knowing them helps replicate
-  builds and debug problems with the implementation.</p>
-  <p>Each command line argument is given as one string.
-  S-expression string escapes are used; since the double-quoted
-  string syntax used with S-expressions is largely compatible with
-  Unix shells, the resulting syntax can generally be pasted to a
-  shell with no changes.</p>
-  <p>The name of the configure script is not given. It is almost
-  always <code>configure</code>, though that is not required.</p>
-  <p>Examples:</p>
-  <pre>(configure "--enable-single-host")
-(configure "--prefix=/home/wiley/.local" "CC=gcc-9")</pre>
   <p>(<strong>build/date</strong> <em>iso-date-string</em>)</p>
   <p>The date and time when this executable was built.</p>
   <p>It is implementation-dependent whether the timestamp is nearer
@@ -1116,6 +1099,23 @@ git describe --always --tags --dirty 2&gt;/dev/null || true
   <pre>(build/platform "DarwinX8664")
 (build/platform "x86_64-apple-darwin18.7.0")
 (build/platform "macosx-unix-clang-x86-64")</pre>
+  <p>(<strong>configure</strong> <em>string</em>…​)</p>
+  <p>Command line arguments given to the configure script before
+  building this Scheme implementation. A configure script is a
+  common means for build-time configuration of programs on
+  Unix-like operating systems. It is useful to save the options
+  given to that script for run time: knowing them helps replicate
+  builds and debug problems with the implementation.</p>
+  <p>Each command line argument is given as one string.
+  S-expression string escapes are used; since the double-quoted
+  string syntax used with S-expressions is largely compatible with
+  Unix shells, the resulting syntax can generally be pasted to a
+  shell with no changes.</p>
+  <p>The name of the configure script is not given. It is almost
+  always <code>configure</code>, though that is not required.</p>
+  <p>Examples:</p>
+  <pre>(configure "--enable-single-host")
+(configure "--prefix=/home/wiley/.local" "CC=gcc-9")</pre>
   <h4 id="_boot_image_properties">Boot image properties</h4>
   <p>(<strong>image/date</strong> <em>iso-date-string</em>)</p>
   <p>If this is an image-based Scheme system, the date and time
