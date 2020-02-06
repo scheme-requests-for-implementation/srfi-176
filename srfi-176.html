@@ -997,21 +997,6 @@ tokyo
 (version "0.9.9_pre1")
 (version "1.0.188-a4a79d5")
 (version "4.3f")</pre>
-  <p>(<strong>revision</strong> <em>string</em>)</p>
-  <p>A free-form revision string that can be used to check out the
-  version control commit on which this build is based.</p>
-  <p>For Git we recommend the output of</p>
-  <pre>
-git describe --always --tags --dirty 2&gt;/dev/null || true
-</pre>
-  <p>which includes the latest tag (if any), the commit hash in
-  case commits have been made since the last tag, and a mention if
-  the repository has uncommitted changes. If Git is not installed
-  on the system, the revision will be blank.</p>
-  <p>Examples:</p>
-  <pre>(revision "8e62f718")
-(revision "3.0-0-g39797ea94")
-(revision "v0.16-DEV-166-g6574540c")</pre>
   <h4 id="_release_properties">Release properties</h4>
   <p>(<strong>release</strong> <em>string</em>)</p>
   <p>The most recent released version of the implementation based
@@ -1066,6 +1051,29 @@ git describe --always --tags --dirty 2&gt;/dev/null || true
   <p>Examples:</p>
   <pre>(build/configure "--enable-single-host")
 (build/configure "--prefix=/home/wiley/.local" "CC=gcc-9")</pre>
+  <p>(<strong>build/git/tag</strong> <em>string</em>)<br>
+  (<strong>build/git/branch</strong> <em>string</em>)<br>
+  (<strong>build/git/commit</strong> <em>string</em>)<br>
+  (<strong>build/git/modified</strong> <em>string…​</em>)</p>
+  <p>The state of the Git version control repository from which the
+  build was made.</p>
+  <p>These can be got from the following Unix shell command:</p>
+  <p>Tag:</p>
+  <pre>git describe --tags --abbrev=0 2&gt;/dev/null || true</pre>
+  <p>Branch:</p>
+  <pre>git rev-parse --abbrev-ref HEAD 2&gt;/dev/null || true</pre>
+  <p>Commit:</p>
+  <pre>git rev-parse --short HEAD 2&gt;/dev/null || true</pre>
+  <p>List of files with uncommitted changes:</p>
+  <pre>
+printf '(build/git/modified';
+git diff-files --name-only 2&gt;/dev/null | head | xargs -n 1 printf ' "%s"';
+echo ')'</pre>
+  <p>Examples:</p>
+  <pre>(build/git/tag "3.1.1" 0)
+(build/git/branch "master")
+(build/git/commit "8e62f718")
+(build/git/modified "c/char.c" "c/env.c" "c/env_unix.c" "c/scheme.h")</pre>
   <h4 id="_boot_image_properties">Boot image properties</h4>
   <p>(<strong>image/date</strong> <em>iso-date-string</em>)</p>
   <p>If this is an image-based Scheme system, the date and time
