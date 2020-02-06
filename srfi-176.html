@@ -1111,7 +1111,7 @@ not installed on the system, the revision will be
   Typically, this is the directory that has <code>bin</code> and
   <code>lib</code> subdirectories, but the meaning is
   implementation-dependent.</p>
-  <p>(<strong>library-path</strong> <em>string…​</em>)</p>
+  <p>(<strong>scheme/path</strong> <em>string…​</em>)</p>
   <p>List of directories to search for imported libraries.</p>
   <h4 id="_platform_properties">Platform properties</h4>
   <p>(<strong>platform-os</strong> <em>symbol</em>…​)</p>
@@ -1286,8 +1286,8 @@ not even for buoyancy or fitness for high-velocity landings at sea.
 (image/date "2019-10-05T17:10:00")
 (image/file "/home/wiley/fantastic.image")
 (install-dir "/home/wiley/.local")
-(library-path "/home/wiley/.local/share/fantastic")
-(library-path "/home/wiley/fantastic")
+(scheme/path "/home/wiley/.local/share/fantastic")
+(scheme/path "/home/wiley/fantastic")
 (fantastic-scheme/phase-of-the-moon waxing-crescent)</pre>
   <p>It is parsed into the following merged association list:</p>
   <pre>((command "fantastic-scheme")
@@ -1317,7 +1317,7 @@ not even for buoyancy or fitness for high-velocity landings at sea.
  (image/date "2019-10-05T17:10:00Z")
  (image/file "/home/wiley/fantastic.image")
  (install-dir "/home/wiley/.local")
- (library-path "/home/wiley/.local/share/fantastic" "/home/wiley/fantastic")
+ (scheme/path "/home/wiley/.local/share/fantastic" "/home/wiley/fantastic")
  (fantastic-scheme/phase-of-the-moon waxing-crescent))</pre>
   <h2 id="_implementation">Implementation</h2>
   <p>A sample implementation is available at:</p>
