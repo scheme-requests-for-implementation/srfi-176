@@ -130,8 +130,7 @@
           <a href="#_standard_properties">Standard properties</a>
           <ul>
             <li>
-              <a href="#_identification_properties">Identification
-              properties</a>
+              <a href="#_general_properties">General properties</a>
             </li>
             <li>
               <a href="#_release_properties">Release properties</a>
@@ -140,16 +139,13 @@
               <a href="#_build_properties">Build properties</a>
             </li>
             <li>
-              <a href="#_boot_image_properties">Boot image
-              properties</a>
+              <a href="#_image_properties">Image properties</a>
             </li>
             <li>
-              <a href="#_scheme_language_properties">Scheme
-              language properties</a>
+              <a href="#_scheme_properties">Scheme properties</a>
             </li>
             <li>
-              <a href="#_c_language_properties">C language
-              properties</a>
+              <a href="#_c_properties">C properties</a>
             </li>
             <li>
               <a href="#_java_virtual_machine_properties">Java
@@ -913,8 +909,7 @@ tokyo
   Scheme implementation with a <code>-V</code> version flag writing
   only to standard output, no output lines starting with
   <code>(</code> already conforms to this SRFI.</p>
-  <h4 id="_identification_properties">Identification
-  properties</h4>
+  <h4 id="_general_properties">General properties</h4>
   <p>(<strong>command</strong> <em>string…​</em>)</p>
   <p>The command names for some Schemes differ on different
   operating systems and installations. Implementors typically
@@ -1071,7 +1066,7 @@ echo ')'</pre>
 (build/git/branch "master")
 (build/git/commit "8e62f718")
 (build/git/modified "c/char.c" "c/env.c" "c/env_unix.c" "c/scheme.h")</pre>
-  <h4 id="_boot_image_properties">Boot image properties</h4>
+  <h4 id="_image_properties">Image properties</h4>
   <p>(<strong>image/date</strong> <em>iso-date-string</em>)</p>
   <p>If this is an image-based Scheme system, the date and time
   when the active boot image was saved.</p>
@@ -1086,8 +1081,9 @@ echo ')'</pre>
   <p>(<strong>image/file</strong> <em>filename</em>)</p>
   <p>If images can be loaded by filename, this gives the filename
   that is used to load the active boot image.</p>
-  <h4 id="_scheme_language_properties">Scheme language
-  properties</h4>
+  <h4 id="_scheme_properties">Scheme properties</h4>
+  <p>These properties deal specifically with Scheme programming
+  language concepts.</p>
   <p>(<strong>scheme/id</strong> <em>symbol</em>)</p>
   <p>A symbol identifying which Scheme implementation provides this
   executable. Together with <strong>command</strong> this can be
@@ -1138,7 +1134,7 @@ echo ')'</pre>
 (scheme/features modules dynamic-loading darwin bsd macosx little-endian)</pre>
   <p>(<strong>scheme/path</strong> <em>string…​</em>)</p>
   <p>List of directories to search for imported libraries.</p>
-  <h4 id="_c_language_properties">C language properties</h4>
+  <h4 id="_c_properties">C properties</h4>
   <p>If the Scheme implementation is written in C and/or has a C
   foreign function interface, it can provide these properties to
   give information about the C side of things.</p>
