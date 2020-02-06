@@ -771,9 +771,8 @@ tokyo
     backslash escapes do not work reliably and should be avoided.
     Strings cannot contain newlines. Non-graphic characters do not
     work reliably and should be avoided.</li>
-    <li>Integer: <code>123</code> and <code>-123</code>. There is
-    no support for other numbers; if they are desired, they have to
-    be written as strings.</li>
+    <li>Non-negative exact integer: <code>123</code>. No leading
+    zeros.</li>
     <li>List: <code>() (a) (a b) (a b c)</code></li>
   </ul>
   <p>There shall be no whitespace between parentheses and the
@@ -791,7 +790,9 @@ tokyo
     <li>Vertical-bar symbols (use strings instead).</li>
     <li>Improper lists (i.e. consing dot).</li>
     <li>Vectors and bytevectors.</li>
-    <li>Real numbers, ratios, complex numbers.</li>
+    <li>Numbers other than non-negative exact integers: negative
+    numbers, inexact numbers, ratios, complex numbers, etc. If
+    these are desired, they have to be written as strings.</li>
     <li>Comments.</li>
   </ul>
   <p>It is recommended to work around the lack of booleans by using
