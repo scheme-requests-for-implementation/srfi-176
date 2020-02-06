@@ -1091,18 +1091,18 @@ not installed on the system, the revision will be
 (build-date "2018-09-30T02:07+02:00")
 (build-date "2018-09-30T02:07-05:30")</pre>
   <h4 id="_boot_image_properties">Boot image properties</h4>
-  <p>(<strong>image-date</strong> <em>iso-date-string</em>)</p>
+  <p>(<strong>image/date</strong> <em>iso-date-string</em>)</p>
   <p>If this is an image-based Scheme system, the date and time
   when the active boot image was saved.</p>
   <p>This may vary by command line options and environment
   variables if those can be used to select a different boot
   image.</p>
   <p>Examples:</p>
-  <pre>(image-date "2018-09-30")
-(image-date "2018-09-30T02:07Z")
-(image-date "2018-09-30T02:07+02:00")
-(image-date "2018-09-30T02:07-05:30")</pre>
-  <p>(<strong>image-file</strong> <em>filename</em>)</p>
+  <pre>(image/date "2018-09-30")
+(image/date "2018-09-30T02:07Z")
+(image/date "2018-09-30T02:07+02:00")
+(image/date "2018-09-30T02:07-05:30")</pre>
+  <p>(<strong>image/file</strong> <em>filename</em>)</p>
   <p>If images can be loaded by filename, this gives the filename
   that is used to load the active boot image.</p>
   <h4 id="_pathname_properties">Pathname properties</h4>
@@ -1283,8 +1283,8 @@ not even for buoyancy or fitness for high-velocity landings at sea.
 (platform-os ubuntu linux unix)
 (platform-computer arm arm64)
 (build-date "2019-10-05T13:52:01")
-(image-date "2019-10-05T17:10:00")
-(image-file "/home/wiley/fantastic.image")
+(image/date "2019-10-05T17:10:00")
+(image/file "/home/wiley/fantastic.image")
 (install-dir "/home/wiley/.local")
 (library-path "/home/wiley/.local/share/fantastic")
 (library-path "/home/wiley/fantastic")
@@ -1314,8 +1314,8 @@ not even for buoyancy or fitness for high-velocity landings at sea.
  (platform-os ubuntu linux unix)
  (platform-computer arm arm64)
  (build-date "2019-10-05T13:52:01Z")
- (image-date "2019-10-05T17:10:00Z")
- (image-file "/home/wiley/fantastic.image")
+ (image/date "2019-10-05T17:10:00Z")
+ (image/file "/home/wiley/fantastic.image")
  (install-dir "/home/wiley/.local")
  (library-path "/home/wiley/.local/share/fantastic" "/home/wiley/fantastic")
  (fantastic-scheme/phase-of-the-moon waxing-crescent))</pre>
