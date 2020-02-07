@@ -78,6 +78,9 @@
             <li>
               <a href="#_assumptions_made">Assumptions made</a>
             </li>
+            <li>
+              <a href="#_easy_forms">Easy forms</a>
+            </li>
           </ul>
         </li>
         <li>
@@ -622,6 +625,14 @@ int main(void)
   <p>At first glance, this looks like a big list of restrictions.
   But in practice, they are not hard to conform to for simple
   data.</p>
+  <h4 id="_easy_forms">Easy forms</h4>
+  <p>The following LOSE forms are quite easy to parse reliably.
+  This SRFI uses them exclusively, and the sample implemenetation
+  in this SRFI offers ready-made parsers for them.</p>
+  <p>(<em>symbol</em> <em>string…​</em>)</p>
+  <p>(<em>symbol</em> <em>symbol/integer…​</em>)</p>
+  <p>(<em>symbol</em> (<em>symbol</em> <em>symbol/integer</em>)
+  …​)</p>
   <h3 id="_part_3_backward_compatibility">Part 3: Backward
   compatibility</h3>
   <p>To let implementations keep their existing version output for
