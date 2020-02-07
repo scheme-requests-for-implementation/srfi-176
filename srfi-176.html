@@ -115,6 +115,10 @@
           option</a>
         </li>
         <li>
+          <a href="#_accessing_from_scheme">Accessing from
+          Scheme</a>
+        </li>
+        <li>
           <a href=
           "#_effect_of_other_flags_on_version_output">Effect of
           other flags on version output</a>
@@ -859,6 +863,22 @@ tokyo
   <code>-V</code> flag. If the <code>version</code> runtime option
   comes from an environment variable or some other place than
   command line arguments, it is permitted to cause an error.</p>
+  <h3 id="_accessing_from_scheme">Accessing from Scheme</h3>
+  <p>Implementations shall provide a
+  (<strong>version-alist</strong>) procedure that can be called
+  from Scheme and returns an association list of zero or more
+  properties according to this specification. Ideally it should
+  return roughly the same information as the <code>-V</code>
+  command line flag, but this is not required. It is an error for
+  the caller to modify the list returned.</p>
+  <p>Implementations supporting the R7RS module system shall
+  provide a <code>(srfi 176)</code> library with the procedure.</p>
+  <p>Implementations supporting the R6RS module system shall
+  provide a <code>(srfi :176)</code> library with the
+  procedure.</p>
+  <p>The procedure may also be exported by other libraries. It's
+  implementation-defined whether or not it's imported into the
+  interaction environment by default.</p>
   <h3 id="_effect_of_other_flags_on_version_output">Effect of other
   flags on version output</h3>
   <p>The <code>-V</code> output may change if other flags are also
