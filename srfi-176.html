@@ -615,7 +615,7 @@ int main(void)
   <h4 id="_easy_forms">Easy forms</h4>
   <p>The following LOSE forms are quite easy to parse reliably.
   This SRFI uses them exclusively, and the sample implemenetation
-  in this SRFI offers ready-made parsers for them.</p>
+  offers ready-made parsers for them.</p>
   <p>(<em>symbol</em> <em>string…​</em>)</p>
   <p>(<em>symbol</em> <em>symbol/integer…​</em>)</p>
   <p>(<em>symbol</em> (<em>symbol</em> <em>symbol/integer</em>)
@@ -666,7 +666,7 @@ int main(void)
   Unfortunately this syntax would make it hard to provide
   backward-compatibility with the many existing output formats for
   version info. Having a left parenthesis in the first column is a
-  very simple and unambiguous rule. If there are no such syntactic
+  simple and unambiguous rule. If there are no such syntactic
   markers, parsing will be a lot harder. Most natural candidates
   for a syntactic marker are also more ambiguous than a left
   parenthesis. For example, <code>property: value</code> pairs are
