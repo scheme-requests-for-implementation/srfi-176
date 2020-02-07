@@ -105,7 +105,21 @@
           S-expressions (LOSE)</a>
         </li>
         <li>
+          <a href="#_use_of_color_and_other_display_attributes">Use
+          of color and other display attributes</a>
+        </li>
+        <li>
           <a href="#_version_flag">Version flag</a>
+        </li>
+        <li>
+          <a href=
+          "#_other_version_flags_and_multiple_commands">Other
+          version flags and multiple commands</a>
+        </li>
+        <li>
+          <a href=
+          "#_effect_of_non_version_flags_on_version_information">Effect
+          of non-version flags on version information</a>
         </li>
         <li>
           <a href="#_version_runtime_option">-:version runtime
@@ -116,13 +130,8 @@
           Scheme</a>
         </li>
         <li>
-          <a href=
-          "#_effect_of_other_flags_on_version_output">Effect of
-          other flags on version output</a>
-        </li>
-        <li>
-          <a href="#_use_of_color_and_other_display_attributes">Use
-          of color and other display attributes</a>
+          <a href="#_standalone_executables">Standalone
+          executables</a>
         </li>
         <li>
           <a href="#_date_and_time">Date and time</a>
@@ -649,9 +658,7 @@ int main(void)
   need we need a compromise. The easiest compromise is to write
   each association list entry on its own line, which leaves most
   lines with only one pair parentheses and no nesting. Nested lists
-  in the output will be rare. To allow multi-value properties, and
-  long lines to be broken into multiple lines, the easiest thing is
-  to merge duplicate properties.</p>
+  in the output will be rare.</p>
   <p>We could take this even further by using implied parentheses
   around each line of text, so that no parentheses are needed for
   most output lines. This should make the output completely
@@ -715,36 +722,49 @@ int main(void)
   <ul>
     <li>Booleans <code>#t</code> and <code>#f</code> (due to
     interoperability concerns with other Lisps).</li>
-    <li>Vertical-bar symbols (use strings instead).</li>
+    <li>Vertical-bar symbols.</li>
     <li>Improper lists (i.e. consing dot) and shared
     structure.</li>
     <li>Vectors and bytevectors.</li>
     <li>Numbers other than non-negative exact integers: negative
-    numbers, inexact numbers, ratios, complex numbers, etc. If
-    these are desired, they have to be written as strings.</li>
+    numbers, inexact numbers, ratios, complex numbers, etc.</li>
     <li>Records, hash-tables, etc.</li>
     <li>Syntax for unique objects and non-printable objects.</li>
     <li>Comments.</li>
   </ul>
-  <p>It is recommended to work around the lack of booleans by using
-  enumerations or sets. For example, instead of <code>(linux?
-  #t)</code> we recommend something like <code>(build/platform
-  "…​linux…​")</code> or <code>(scheme/features …​ linux
-  …​)</code>.</p>
+  <p>Suggested workarounds:</p>
+  <ul>
+    <li>Write fancy symbols or numbers as strings.</li>
+    <li>Instead of booleans, use enumerations or sets. For example,
+    instead of <code>(linux? #t)</code> use something like
+    <code>(build/platform "…​linux…​")</code> or
+    <code>(scheme/features …​ linux …​)</code>.</li>
+    <li>Nested lists are hard to parse with line-oriented tools.
+    One trick is using symbols with slashes to create namespaces
+    like <code>level1/level2/level3</code>.</li>
+  </ul>
+  <h3 id="_use_of_color_and_other_display_attributes">Use of color
+  and other display attributes</h3>
+  <p>ANSI, HTML or other in-band color and text attribute markup
+  shall not be used in the S-expression part of the output since it
+  will confuse parsers.</p>
+  <p>An exception is if the implementation can be sure that the
+  output is going to a terminal (instead of a file, pipe, etc.) On
+  Unix, <code>isatty()</code> is an adequate check.</p>
+  <p>Out-of-band markup (e.g. Windows console character attributes)
+  may be used.</p>
   <h3 id="_version_flag">Version flag</h3>
   <p>For a Scheme invoked as <code>fantastic-scheme</code>, the
   command line <code>fantastic-scheme -V</code> (i.e.
   <strong>upper-case</strong> <code>V</code> preceded by one dash)
-  must conform to the version output format in this SRFI.
-  Specifically, LOSE parsing starts at the first output line that
-  has a left parenthesis <code>(</code> in the first column with no
-  preceding whitespace characters. Parsing continues from that line
-  until the end of the output. The parser merges every top-level
-  S-expression that represents a (proper) list into one big
-  association list, using the <em>car</em> of each list as the key
-  and appending the <em>cdr</em>s in the order they appear. If
-  there is no line starting with a left parenthesis, an empty
-  association list is returned.</p>
+  must conform to the version output format in this SRFI.</p>
+  <p>Specifically, LOSE parsing starts at the first output line
+  that has a left parenthesis <code>(</code> in the first column
+  with no preceding whitespace characters. Parsing continues from
+  that line until the end of the output. The parser collects every
+  top-level S-expression into one big association list, preserving
+  the order. If there is no line starting with a left parenthesis,
+  an empty association list is returned.</p>
   <p>This SRFI guarantees only that the above simple command
   invocation, with <code>-V</code> as the first command-line
   argument and no other arguments, has the intended effect. The
@@ -752,12 +772,6 @@ int main(void)
   other argument positions if it makes sense, and it should have
   the same output format as when it is the only command line
   argument, but neither of those is strictly required.</p>
-  <p>If the implementation has separate interpreter and compiler
-  commands, both of those must support the <code>-V</code> flag as
-  the only argument. Any other commands supplied by the
-  implementation are also encouraged to support the flag, but are
-  not required to. The version output is allowed to differ between
-  all these commands.</p>
   <p>When the <code>-V</code> flag is used as above, the command
   shall exit with a success exit code if it:</p>
   <ul>
@@ -770,6 +784,23 @@ int main(void)
   <p>Otherwise it shall exit with a failure exit code. On Unix and
   Windows, exit code 0 means success and codes 1..100 are safe to
   use for indicating failure.</p>
+  <h3>Other version flags and multiple commands</h3>
+  <p>If the implementation has separate interpreter and compiler
+  commands, both of those must support the <code>-V</code> flag as
+  the only argument.</p>
+  <p>Any other commands supplied by the implementation are also
+  encouraged to support the flag, but are not required to.</p>
+  <p>The version output is allowed to differ between all these
+  commands.</p>
+  <h3 id="_effect_of_other_flags_on_version_output">Effect of
+  non-version flags on version information</h3>
+  <p>The <code>-V</code> output may change if other flags are also
+  given on the command line. For example, <code>fantastic-scheme -V
+  -r r6rs</code> and <code>fantastic-scheme -V -r r7rs</code> could
+  give different output describing the R6RS and R7RS modes of
+  Fantastic Scheme, and <code>fantastic-scheme -V</code> could give
+  yet different output describing both of them or have less
+  information.</p>
   <h3 id="_version_runtime_option">-:version runtime option</h3>
   <p>If the Scheme system has a <code>-:</code> flag for runtime
   options (as do Chicken and Gambit), it shall recognize
@@ -792,27 +823,20 @@ int main(void)
   procedure.</p>
   <p>The procedure may also be exported by other libraries. It's
   implementation-defined whether or not it's imported into the
-  interaction environment by default.</p>
-  <h3 id="_effect_of_other_flags_on_version_output">Effect of other
-  flags on version output</h3>
-  <p>The <code>-V</code> output may change if other flags are also
-  given on the command line. For example, <code>fantastic-scheme -V
-  -r r6rs</code> and <code>fantastic-scheme -V -r r7rs</code> could
-  give different output describing the R6RS and R7RS modes of
-  Fantastic Scheme, and <code>fantastic-scheme -V</code> could give
-  yet different output describing both of them or have less
-  information.</p>
-  <h3 id="_use_of_color_and_other_display_attributes">Use of color
-  and other display attributes</h3>
-  <p>ANSI, HTML or other in-band color and text attribute markup
-  shall not be used in the S-expression part, since it will confuse
-  parsers.</p>
-  <p>An exception is if the implementation can be sure that the
-  output is going to a terminal (instead of a file, pipe, etc.) On
-  Unix, <code>isatty(STDOUT_FILENO)</code> is an adequate
-  check.</p>
-  <p>Out-of-band markup (e.g. Windows console character attributes)
-  may be used.</p>
+  default interaction environment.</p>
+  <h3 id="_standalone_executables">Standalone executables</h3>
+  <p>If the Scheme implementation can generate standalone
+  executables or bundles of user programs, those executables:</p>
+  <ul>
+    <li>should support the (<strong>version-alist</strong>) Scheme
+    procedure.</li>
+    <li>should support the <code>-:version</code> runtime option if
+    they support the <code>-:</code> runtime option syntax.</li>
+    <li>should <strong>not</strong> have a <code>-V</code> flag
+    provided by the Scheme implementation, since a program is
+    supposed to have control over its own command line syntax and
+    may want to customize its own version output.</li>
+  </ul>
   <h3 id="_date_and_time">Date and time</h3>
   <p>In standard properties, dates and times are written in
   <a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a>
