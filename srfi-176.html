@@ -78,12 +78,6 @@
             <li>
               <a href="#_assumptions_made">Assumptions made</a>
             </li>
-            <li>
-              <a href="#_hacks_for_lists">Hacks for lists</a>
-            </li>
-            <li>
-              <a href="#_wrapping_up">Wrapping up</a>
-            </li>
           </ul>
         </li>
         <li>
@@ -628,75 +622,6 @@ int main(void)
   <p>At first glance, this looks like a big list of restrictions.
   But in practice, they are not hard to conform to for simple
   data.</p>
-  <h4 id="_hacks_for_lists">Hacks for lists</h4>
-  <p>We noted above that writing nested data to be read by these
-  tools is pretty much out of the question. C can represent a true
-  recursive-descent S-expression parser, but writing such elaborate
-  code in a low-level language is an ordeal and does not help the
-  shell scripts that remain stuck with their regexp-based parsing
-  aids.</p>
-  <p>The classic Unix tools <code>awk</code>, <code>grep</code> and
-  <code>sed</code> are not only regexp-based but
-  <em>line-oriented</em>. If something is easy to do to one line,
-  it is just as easy to do to many lines. On the contrary,
-  <em>limiting</em> an action to <em>only</em> one line is
-  difficult.</p>
-  <p>So the natural way to represent lists to these tools is to
-  have one list entry per line. S-expressions naturally represent a
-  list between one pair of parentheses. We could write the list</p>
-  <pre>(cities london milan paris tokyo)</pre>
-  <p>split to lines like this:</p>
-  <pre>(
-cities
-london
-milan
-paris
-tokyo
-)</pre>
-  <p>But the Unix tools prefer to treat each line identically,
-  storing different types of data in whole different files instead.
-  Since we have to parse output from one stream and would prefer to
-  avoid resorting to temporary files, we have to think of something
-  else.</p>
-  <p>Luckily, <code>grep</code> and <code>awk</code> can easily
-  filter lines to keep only the interesting ones. So if we break
-  from the usual Lisp customs and write one list as multiple
-  S-expressions, we can arrive at a format that is still
-  S-expression-based, but where it is also easy for line-oriented
-  tools to parse heterogeneous data from one stream. We essentially
-  have a traditional Lisp association list, but with duplicate
-  properties. And their values have to be merged to arrive at the
-  complete values. Thankfully a merging S-expression reader is easy
-  to express in Scheme:</p>
-  <pre>(define (read-merged-alist port)
-  (let loop ((alist '()))
-    (let ((new (read port)))
-      (cond ((eof-object? new) (reverse alist))
-            ((not (pair? new)) (loop alist))
-            (else (let ((old (assoc (car new) alist)))
-                    (cond (old  (set-cdr! old (append (cdr old) (cdr new)))
-                                (loop alist))
-                          (else (loop (cons new alist))))))))))</pre>
-  <h4 id="_wrapping_up">Wrapping up</h4>
-  <p>So we have arrived at an association list of property-value
-  pairs:</p>
-  <pre>(sweets chocolate)
-(sweets candy)
-(sweets cake)
-
-(covers fabric)
-(covers cellophane)
-(covers tinfoil)
-(covers paper)</pre>
-  <p>Within each property, we can group the values to arbitrary
-  lists:</p>
-  <pre>(sweets chocolate)
-(covers fabric)
-(covers cellophane tinfoil paper)
-(sweets candy cake)</pre>
-  <p>And still end up with the same merged association list:</p>
-  <pre>((sweets chocolate candy cake)
- (covers fabric cellophane tinfoil paper))</pre>
   <h3 id="_part_3_backward_compatibility">Part 3: Backward
   compatibility</h3>
   <p>To let implementations keep their existing version output for
