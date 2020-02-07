@@ -1231,54 +1231,62 @@ not even for buoyancy or fitness for high-velocity landings at sea.
 "Shoot for the moon. Even if you miss, you'll crash on impact."
 
 (command "fantastic-scheme")
-(scheme/id fantastic-scheme)
-(languages scheme r6rs r7rs)
-(website "https://example.com/scheme/")
-(version "2.96_pre1")
+(website "https://example.com/scheme")
+(languages scheme r5rs r6rs r7rs)
+(encodings utf-8 iso-8859-1)
+(install-dir "/home/wiley/.local")
+(scheme/id fantastic)
+(scheme/srfi 0 1 2 176)
+(scheme/features bits-64 little-endian r7rs ratios exact-complex full-unicode little-endian fantastic-scheme)
+(scheme/path "/home/wiley/.local" "/usr/local/share/fantastic-scheme/1.x")
+(c/version "GCC 4.2.1 Compatible Apple LLVM 10.0.1 (clang-1001.0.46.4)")
+(c/compile "cc" "-Wall" "-O2" "-D" "SCHEME_UNIX")
+(c/link "cc" "-lm")
+(c/type-bits (int 32) (long 64) (pointer 64) (float 32) (double 64) (size_t 64))
 (release "2.95")
 (release/date "2003-06-24")
 (release/name "Sheer lunacy")
-(revision "2.95-23-gc0f6340c")
-(features r7rs ratios exact-complex full-unicode gnu-linux little-endian)
-(features fantastic-scheme fantastic-scheme-1.0 space-ship-control-system)
+(build/date "2020-02-07T16:23+02:00")
+(build/platform "Darwin-x86_64-cc")
 (build/configure "--prefix=/home/wiley/.local")
-(build/configure "--with-space-ship-control-system")
-(build/platform "aarch64_be-linux-gnu_ilp32")
-(build/date "2019-10-05T13:52:01")
-(image/date "2019-10-05T17:10:00")
-(image/file "/home/wiley/fantastic.image")
-(install-dir "/home/wiley/.local")
-(scheme/path "/home/wiley/.local/share/fantastic")
-(scheme/path "/home/wiley/fantastic")
-(fantastic-scheme/phase-of-the-moon waxing-crescent)</pre>
-  <p>It is parsed into the following merged association list:</p>
+(build/git/tag "draft-1")
+(build/git/branch "for-draft-2")
+(build/git/commit "2ce4e8a")
+(build/git/modified "implementation/scheme.c" "srfi-176.html")
+(os/uname "Darwin" "18.7.0" "x86_64")
+(os/env/LANG "en_FI.UTF-8")
+(os/env/TERM "dumb")
+(fantastic/phase-of-the-moon waxing-crescent)
+</pre>
+  <p>It is parsed into the following association list in
+  Scheme:</p>
   <pre>((command "fantastic-scheme")
- (scheme/id fantastic-scheme)
- (languages scheme r6rs r7rs)
- (website "https://example.com/scheme/")
- (version "2.96_pre1")
+ (website "https://example.com/scheme")
+ (languages scheme r5rs r6rs r7rs)
+ (encodings utf-8 iso-8859-1)
+ (install-dir "/home/wiley/.local")
+ (scheme/id fantastic)
+ (scheme/srfi 0 1 2 176)
+ (scheme/features bits-64 little-endian r7rs ratios exact-complex full-unicode little-endian fantastic-scheme)
+ (scheme/path "/home/wiley/.local" "/usr/local/share/fantastic-scheme/1.x")
+ (c/version "GCC 4.2.1 Compatible Apple LLVM 10.0.1 (clang-1001.0.46.4)")
+ (c/compile "cc" "-Wall" "-O2" "-D" "SCHEME_UNIX")
+ (c/link "cc" "-lm")
+ (c/type-bits (int 32) (long 64) (pointer 64) (float 32) (double 64) (size_t 64))
  (release "2.95")
  (release/date "2003-06-24")
  (release/name "Sheer lunacy")
- (revision "2.95-23-gc0f6340c")
- (features
-  r7rs
-  ratios
-  exact-complex
-  full-unicode
-  gnu-linux
-  little-endian
-  fantastic-scheme
-  fantastic-scheme-1.0
-  space-ship-control-system)
- (build/configure "--prefix=/home/wiley/.local" "--with-space-ship-control-system")
- (build/platform "aarch64_be-linux-gnu_ilp32")
- (build/date "2019-10-05T13:52:01Z")
- (image/date "2019-10-05T17:10:00Z")
- (image/file "/home/wiley/fantastic.image")
- (install-dir "/home/wiley/.local")
- (scheme/path "/home/wiley/.local/share/fantastic" "/home/wiley/fantastic")
- (fantastic-scheme/phase-of-the-moon waxing-crescent))</pre>
+ (build/date "2020-02-07T16:23+02:00")
+ (build/platform "Darwin-x86_64-cc")
+ (build/configure "--prefix=/home/wiley/.local")
+ (build/git/tag "draft-1")
+ (build/git/branch "for-draft-2")
+ (build/git/commit "2ce4e8a")
+ (build/git/modified "implementation/scheme.c" "srfi-176.html")
+ (os/uname "Darwin" "18.7.0" "x86_64")
+ (os/env/LANG "en_FI.UTF-8")
+ (os/env/TERM "dumb")
+ (fantastic/phase-of-the-moon waxing-crescent))</pre>
   <h2 id="_implementation">Implementation</h2>
   <p>Writing the version information is as simple as calling
   <strong>write</strong> or equivalent with suitable input.</p>
