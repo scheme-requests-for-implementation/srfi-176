@@ -656,10 +656,10 @@ int main(void)
   The nesting implied by the parentheses makes them a poor fit for
   line-oriented tools. All the classic Unix text processing
   utilities are line-oriented. To interoperate with these tools we
-  need we need a compromise. The easiest compromise is to write
-  each association list entry on its own line, which leaves most
-  lines with only one pair parentheses and no nesting. Nested lists
-  in the output will be rare.</p>
+  need a compromise. The easiest compromise is to write each
+  association list entry on its own line, which leaves most lines
+  with only one pair parentheses and no nesting. Nested lists in
+  the output will be rare.</p>
   <p>We could take this even further by using implied parentheses
   around each line of text, so that no parentheses are needed for
   most output lines. This should make the output completely
@@ -1034,7 +1034,7 @@ printf '(build/git/modified';
 git diff-files --name-only 2&gt;/dev/null | head | xargs -n 1 printf ' "%s"';
 echo ')'</pre>
   <p>Examples:</p>
-  <pre>(build/git/tag "3.1.1" 0)
+  <pre>(build/git/tag "3.1.1")
 (build/git/branch "master")
 (build/git/commit "8e62f718")
 (build/git/modified "c/char.c" "c/env.c" "c/env_unix.c" "c/scheme.h")</pre>
@@ -1050,12 +1050,12 @@ echo ')'</pre>
 (image/date "2018-09-30T02:07Z")
 (image/date "2018-09-30T02:07+02:00")
 (image/date "2018-09-30T02:07-05:30")</pre>
-  <p>(<strong>image/file</strong> <em>filename</em>)</p>
-  <p>If images can be loaded by filename, this gives the filename
-  that is used to load the active boot image.</p>
+  <p>(<strong>image/file</strong> <em>string</em>)</p>
+  <p>If images can be loaded by filename, <em>string</em> gives the
+  filename that is used to load the active boot image.</p>
   <h4 id="_scheme_properties">Scheme properties</h4>
-  <p>These properties deal specifically with Scheme programming
-  language concepts.</p>
+  <p>These properties deal with things directly related to the
+  Scheme programming language.</p>
   <p>(<strong>scheme/id</strong> <em>symbol</em>)</p>
   <p>A symbol identifying which Scheme implementation provides this
   executable. Together with <strong>command</strong> this can be
@@ -1065,7 +1065,9 @@ echo ')'</pre>
   <p>At the time of writing, there is no central registry for
   scheme-id’s.</p>
   <p>Examples:</p>
-  <pre>(scheme/id fantastic-scheme)</pre>
+  <pre>(scheme/id fantastic)
+(scheme/id gauche)
+</pre>
   <p>(<strong>scheme/srfi</strong> <em>integer…</em>)</p>
   <p>Each <em>integer</em> gives the number of a SRFI supported
   natively by the implementation. The integer <code>0</code> stands
@@ -1244,7 +1246,7 @@ printf("%zu\n", BITSIZEOF(void *));
   <strong>slash</strong>.</p>
   <p>For example, if Fantastic Scheme builds varied by the phase of
   the moon, it could have:</p>
-  <pre>(fantastic-scheme/phase-of-the-moon waxing-crescent)</pre>
+  <pre>(fantastic/phase-of-the-moon waxing-crescent)</pre>
   <h2 id="_complete_example">Complete example</h2>
   <p>If <code>fantastic-scheme -V</code> gives the following
   output:</p>
