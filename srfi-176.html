@@ -1107,11 +1107,13 @@ echo ')'</pre>
 (scheme/features chibi r7rs ratios complex uvector threads full-unicode)
 (scheme/features modules dynamic-loading darwin bsd macosx little-endian)</pre>
   <p>(<strong>scheme/path</strong> <em>string…​</em>)</p>
-  <p>List of directories to search for imported libraries.</p>
+  <p>List of directories to search for imported libraries. Listed
+  in order of decreasing priority: highest priority first.</p>
   <h4 id="_c_properties">C properties</h4>
-  <p>If the Scheme implementation is written in C and/or has a C
-  foreign function interface, it can provide these properties to
-  give information about the C side of things.</p>
+  <p>If the Scheme implementation is written in the C programming
+  language and/or has a C foreign function interface, it can
+  provide these properties to give information about the C side of
+  things.</p>
   <p>(<strong>c/version</strong> <em>string</em>)</p>
   <p>A free-form version string describing the C compiler or
   toolchain being used.</p>
