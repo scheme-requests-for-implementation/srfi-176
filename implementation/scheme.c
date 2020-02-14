@@ -211,37 +211,37 @@ static struct value *build_version_alist(void) {
   push(&tail, pair(symbol("encodings"), strings(encodings)));
   push(&tail, list2(symbol("install-dir"), string("/home/wiley/.local")));
 
-  push(&tail, list2(symbol("scheme/id"), symbol("fantastic")));
-  push(&tail, pair(symbol("scheme/srfi"),
+  push(&tail, list2(symbol("scheme.id"), symbol("fantastic")));
+  push(&tail, pair(symbol("scheme.srfi"),
                    integers(srfis, sizeof(srfis) / sizeof(srfis[0]))));
-  push(&tail, pair(symbol("scheme/features"), symbols(features)));
-  push(&tail, pair(symbol("scheme/path"), build_scheme_path_list()));
+  push(&tail, pair(symbol("scheme.features"), symbols(features)));
+  push(&tail, pair(symbol("scheme.path"), build_scheme_path_list()));
 
-  push(&tail, list2(symbol("c/version"), string(get_c_version())));
-  push(&tail, pair(symbol("c/compile"), strings(env_build_c_compile)));
-  push(&tail, pair(symbol("c/link"), strings(env_build_c_link)));
-  push(&tail, pair(symbol("c/type-bits"), build_c_type_bits_list()));
+  push(&tail, list2(symbol("c.version"), string(get_c_version())));
+  push(&tail, pair(symbol("c.compile"), strings(env_build_c_compile)));
+  push(&tail, pair(symbol("c.link"), strings(env_build_c_link)));
+  push(&tail, pair(symbol("c.type-bits"), build_c_type_bits_list()));
 
   push(&tail, list2(symbol("release"), string(env_release)));
-  push(&tail, list2(symbol("release/date"), string(env_release_date)));
-  push(&tail, list2(symbol("release/name"), string(env_release_name)));
+  push(&tail, list2(symbol("release.date"), string(env_release_date)));
+  push(&tail, list2(symbol("release.name"), string(env_release_name)));
 
-  push(&tail, list2(symbol("build/date"), string(env_build_date)));
-  push(&tail, list2(symbol("build/platform"), string(env_build_platform)));
-  push(&tail, pair(symbol("build/configure"), strings(env_build_configure)));
-  push(&tail, list2(symbol("build/git/tag"), string(env_build_git_tag)));
-  push(&tail, list2(symbol("build/git/branch"), string(env_build_git_branch)));
-  push(&tail, list2(symbol("build/git/commit"), string(env_build_git_commit)));
+  push(&tail, list2(symbol("build.date"), string(env_build_date)));
+  push(&tail, list2(symbol("build.platform"), string(env_build_platform)));
+  push(&tail, pair(symbol("build.configure"), strings(env_build_configure)));
+  push(&tail, list2(symbol("build.git.tag"), string(env_build_git_tag)));
+  push(&tail, list2(symbol("build.git.branch"), string(env_build_git_branch)));
+  push(&tail, list2(symbol("build.git.commit"), string(env_build_git_commit)));
   push(&tail,
-       pair(symbol("build/git/modified"), strings(env_build_git_modified)));
+       pair(symbol("build.git.modified"), strings(env_build_git_modified)));
 
-  push(&tail, pair(symbol("os/uname"), build_uname_list()));
+  push(&tail, pair(symbol("os.uname"), build_uname_list()));
 
-  push(&tail, list2(symbol("os/env/LANG"), string(getenv("LANG"))));
-  push(&tail, list2(symbol("os/env/TERM"), string(getenv("TERM"))));
+  push(&tail, list2(symbol("os.env.LANG"), string(getenv("LANG"))));
+  push(&tail, list2(symbol("os.env.TERM"), string(getenv("TERM"))));
 
   push(&tail,
-       list2(symbol("fantastic/phase-of-the-moon"), symbol(lunar_phase())));
+       list2(symbol("fantastic.phase-of-the-moon"), symbol(lunar_phase())));
 
   return head->v.pair.cdr;
 }
