@@ -28,7 +28,7 @@
          (let ((char (read-char)))
            (unless (eof-object? char)
              (write-char (case char
-                           ((#\- #\/) #\_)
+                           ((#\- #\.) #\_)
                            (else char)))
              (loop)))))))
 
@@ -39,38 +39,49 @@
          (let ((char (read-char)))
            (unless (eof-object? char)
              (case char
-               ((#\- #\/)
+               ((#\- #\.)
                 (loop #t))
                (else
                 (write-char (if cap? (char-upcase char) char))
                 (loop #f)))))))))
 
+(define (regexp-quote s)
+  (call-with-string-io
+   s (lambda ()
+       (let loop ()
+         (let ((char (read-char)))
+           (unless (eof-object? char)
+             (when (char=? #\. char)
+               (write-char #\\))
+             (write-char char)
+             (loop)))))))
+
 ;;
 
 (define table
   '((command             string)
-    (scheme/id           symbol)
+    (scheme.id           symbol)
     (languages           symbol-list)
-    (scheme/features     symbol-list)
-    (c/type-bits         subsymbols int long float double pointer size_t)
-    (c/version           string)
-    (c/compile           string-list)
-    (c/link              string-list)
-    (build/configure     string-list)
+    (scheme.features     symbol-list)
+    (c.type-bits         subsymbols int long float double pointer size_t)
+    (c.version           string)
+    (c.compile           string-list)
+    (c.link              string-list)
+    (build.configure     string-list)
 
-    (build/git/tag       string)
-    (build/git/branch    string)
-    (build/git/commit    string)
-    (build/git/modified  string-list)
+    (build.git.tag       string)
+    (build.git.branch    string)
+    (build.git.commit    string)
+    (build.git.modified  string-list)
 
-    (build/date          string)
-    (image/date          string)
-    (image/file          string)
+    (build.date          string)
+    (image.date          string)
+    (image.file          string)
     (install-dir         string)
-    (scheme/path         string-list)
+    (scheme.path         string-list)
     (release             string)
-    (release/date        string)
-    (release/name        string)
+    (release.date        string)
+    (release.name        string)
     (website             string)))
 
 (define (entry-name entry) (symbol->string (car entry)))
@@ -123,24 +134,13 @@
 
 ;;
 
-(define (awk-regexp-quote s)
-  (call-with-string-io
-   s (lambda ()
-       (let loop ()
-         (let ((char (read-char)))
-           (unless (eof-object? char)
-             (when (char=? #\/ char)
-               (write-char #\\))
-             (write-char char)
-             (loop)))))))
-
 (define (awk/string entry)
   (let ((name (entry-name entry)))
     (list (cons name
                 (string-append
                  "awk"
-                 " '/^\\(" (awk-regexp-quote name) " .*\\)$/"
-                 " {sub(/^\\([a-z/-]+ \"/, \"\", $0);"
+                 " '/^\\(" (regexp-quote name) " .*\\)$/"
+                 " {sub(/^\\([a-z.-]+ \"/, \"\", $0);"
                  " sub(/\".*/, \"\", $0);"
                  " print $0}'")))))
 
@@ -149,8 +149,8 @@
     (list (cons name
                 (string-append
                  "awk"
-                 " '/^\\(" (awk-regexp-quote name) " .*\\)$/"
-                 " {sub(/^\\([a-z/-]+ /, \"\", $0);"
+                 " '/^\\(" (regexp-quote name) " .*\\)$/"
+                 " {sub(/^\\([a-z.-]+ /, \"\", $0);"
                  " sub(/\\)$/, \"\", $0);"
                  " print $0}'")))))
 
@@ -160,9 +160,9 @@
            (cons (string-append top "-" sub)
                  (string-append
                   "awk"
-                  " '/^\\(" (awk-regexp-quote top)
-                  " .*\\(" (awk-regexp-quote sub) " .*\\).*\\)$/"
-                  " {sub(/.*\\(" (awk-regexp-quote sub) " /, \"\", $0);"
+                  " '/^\\(" (regexp-quote top)
+                  " .*\\(" (regexp-quote sub) " .*\\).*\\)$/"
+                  " {sub(/.*\\(" (regexp-quote sub) " /, \"\", $0);"
                   " sub(/\\).*/, \"\", $0);"
                   " print $0}'")))
          (entry-subs entry))))
@@ -173,20 +173,20 @@
   (let ((name (entry-name entry)))
     (list (cons name
                 (string-append
-                 "grep '^(" name " \".*\".*)$'"
+                 "grep '^(" (regexp-quote name) " \".*\".*)$'"
                  " | "
                  "sed"
-                 " -e 's@^([a-z/-]* \"@@'"
+                 " -e 's@^([a-z.-]* \"@@'"
                  " -e 's@\".*@@'")))))
 
 (define (grep-sed/symbol entry)
   (let ((name (entry-name entry)))
     (list (cons name
                 (string-append
-                 "grep '^(" name " .*)$'"
+                 "grep '^(" (regexp-quote name) " .*)$'"
                  " | "
                  "sed"
-                 " -e 's@^([a-z/-]* @@'"
+                 " -e 's@^([a-z.-]* @@'"
                  " -e 's@)$@@'")))))
 
 (define (grep-sed/subsymbols entry)
@@ -194,10 +194,11 @@
     (map (lambda (sub)
            (cons (string-append top "-" sub)
                  (string-append
-                  "grep '^(" top " .*(" sub " .*).*)$'"
+                  "grep '^(" (regexp-quote top)
+                  " .*(" (regexp-quote sub) " .*).*)$'"
                   " | "
                   "sed"
-                  " -e 's@^.*(" sub " @@'"
+                  " -e 's@^.*(" (regexp-quote sub) " @@'"
                   " -e 's@).*@@'")))
          (entry-subs entry))))
 
@@ -207,14 +208,16 @@
   (let ((name (entry-name entry)))
     (list (cons name
                 (string-append
-                 " | Select-String -Pattern '^\\(" name " \"([^\"]*)\"\\)$'"
+                 " | Select-String -Pattern"
+                 " '^\\(" (regexp-quote name) " \"([^\"]*)\"\\)$'"
                  " | ForEach-Object {$_.Matches[0].Groups[1].Value}")))))
 
 (define (powershell/symbol entry)
   (let ((name (entry-name entry)))
     (list (cons name
                 (string-append
-                 " | Select-String -Pattern '^\\(" name " (.*)\\)$'"
+                 " | Select-String -Pattern"
+                 " '^\\(" (regexp-quote name) " (.*)\\)$'"
                  " | ForEach-Object {$_.Matches[0].Groups[1].Value}")))))
 
 (define (powershell/subsymbols entry)
@@ -223,7 +226,8 @@
            (cons (string-append top "-" sub)
                  (string-append
                   " | Select-String -Pattern"
-                  " '^\\(" top " .*\\(" sub " (.*?)\\).*\\)$'"
+                  " '^\\(" (regexp-quote top)
+                  " .*\\(" (regexp-quote sub) " (.*?)\\).*\\)$'"
                   " | ForEach-Object {$_.Matches[0].Groups[1].Value}")))
          (entry-subs entry))))
 
