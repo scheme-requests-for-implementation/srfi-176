@@ -208,7 +208,7 @@ static struct value *build_version_alist(void) {
   push(&tail, list2(symbol("command"), string("fantastic-scheme")));
   push(&tail, list2(symbol("website"), string("https://example.com/scheme")));
   push(&tail, pair(symbol("languages"), symbols(languages)));
-  push(&tail, pair(symbol("encodings"), symbols(encodings)));
+  push(&tail, pair(symbol("encodings"), strings(encodings)));
   push(&tail, list2(symbol("install-dir"), string("/home/wiley/.local")));
 
   push(&tail, list2(symbol("scheme/id"), symbol("fantastic")));
