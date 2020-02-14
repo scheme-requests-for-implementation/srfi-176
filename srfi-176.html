@@ -1216,6 +1216,8 @@ printf("%zu\n", BITSIZEOF(void *));
   <p>This property can be used to expose one or more
   <strong>run-time</strong> environment variables from the
   operating system.</p>
+  <p>On Windows, environment variable names are case-insensitive
+  and all <em>symbol</em>s should be normalizd to uppercase.</p>
   <p><strong>Note:</strong> <em>symbol</em> is part of the property
   name, not a separate symbol.</p>
   <p><strong>Note:</strong> Environment variables whose names are
