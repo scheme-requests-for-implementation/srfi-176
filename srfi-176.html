@@ -788,7 +788,8 @@ int main(void)
   <p>Otherwise it shall exit with a failure exit code. On Unix and
   Windows, exit code 0 means success and codes 1..100 are safe to
   use for indicating failure.</p>
-  <h3>Other version flags and multiple commands</h3>
+  <h3 id="_other_version_flags_and_multiple_commands">Other version
+  flags and multiple commands</h3>
   <p>All interpreter and compiler commands supplied by the
   implementation must support the <code>-V</code> flag as the only
   argument.</p>
@@ -801,8 +802,8 @@ int main(void)
   commands supplied by the implementation are also encouraged to
   support the same version flags, but are not required to.</p>
   <p>The version output is allowed to differ between commands.</p>
-  <h3 id="_effect_of_other_flags_on_version_output">Effect of
-  non-version flags on version information</h3>
+  <h3 id="_effect_of_non_version_flags_on_version_information">
+  Effect of non-version flags on version information</h3>
   <p>The <code>-V</code> output may change if other flags are also
   given on the command line. For example, <code>fantastic-scheme -V
   -r r6rs</code> and <code>fantastic-scheme -V -r r7rs</code> could
