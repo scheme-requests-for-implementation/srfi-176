@@ -1087,8 +1087,8 @@ echo ')'</pre>
   missing features as bugs.</p>
   <p>The implementation does not need to list every SRFI it
   supports, as there may be situations where that is hard to
-  define. The absence of a number does not say anything about
-  whether or not that SRFI is supported.</p>
+  define. The absence of a number does not conclusively prove that
+  SRFI is not supported.</p>
   <p>Examples:</p>
   <pre>(scheme.srfi)
 (scheme.srfi 0 1 13 14 176)
@@ -1150,9 +1150,9 @@ echo ')'</pre>
   <p>(<strong>c.type-bits</strong> (<em>symbol</em>
   <em>integer</em>) …​)</p>
   <p>Tells the sizes of C data types. Each <em>symbol</em> is the
-  name of a C type and <em>integer</em> is a positive integer
-  giving the width of the type in bits. The size of type
-  <code>t</code> can be determined in C using:</p>
+  name of a C type and <em>integer</em> gives giving the width of
+  the type in bits. The size of type <code>t</code> can be
+  determined in C using:</p>
   <pre>#include &lt;limits.h&gt;  // For CHAR_BIT
 #define BITSIZEOF(t) (sizeof(t) * CHAR_BIT)
 printf("%zu\n", BITSIZEOF(void *));
@@ -1218,7 +1218,7 @@ printf("%zu\n", BITSIZEOF(void *));
   <strong>run-time</strong> environment variables from the
   operating system.</p>
   <p>On Windows, environment variable names are case-insensitive
-  and all <em>symbol</em>s should be normalizd to uppercase.</p>
+  and should be normalizd to uppercase for this SRFI.</p>
   <p><strong>Note:</strong> <em>symbol</em> is part of the property
   name, not a separate symbol.</p>
   <p><strong>Note:</strong> Environment variables whose names are
@@ -1326,7 +1326,7 @@ not even for buoyancy or fitness for high-velocity landings at sea.
  (fantastic.phase-of-the-moon waxing-crescent))
 </pre>
   <h2 id="_implementation">Implementation</h2>
-  <p>Writing the version information is as simple as calling
+  <p>Writing the version information can be as simple as calling
   <strong>write</strong> or equivalent with suitable input.</p>
   <p>The following is a fully functional parser.</p>
   <pre>
@@ -1351,8 +1351,8 @@ not even for buoyancy or fitness for high-velocity landings at sea.
     <li>Code to produce date/timestamps in the correct format from
     C and Unix shell.</li>
     <li>A sample main program for a Scheme implementation,
-    Fantastic Scheme, written in C, and a Unix build script to
-    write various information about the build environment into a C
+    Fantastic Scheme, written in C, and a Unix build script that
+    writes various information about the build environment into a C
     file during the build process. The main program collects all
     version information into into a Scheme alist, which is
     validated for LOSE compatibility and then written to
