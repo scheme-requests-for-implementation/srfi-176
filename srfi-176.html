@@ -789,13 +789,18 @@ int main(void)
   Windows, exit code 0 means success and codes 1..100 are safe to
   use for indicating failure.</p>
   <h3>Other version flags and multiple commands</h3>
-  <p>If the implementation has separate interpreter and compiler
-  commands, both of those must support the <code>-V</code> flag as
-  the only argument.</p>
-  <p>Any other commands supplied by the implementation are also
-  encouraged to support the flag, but are not required to.</p>
-  <p>The version output is allowed to differ between all these
-  commands.</p>
+  <p>All interpreter and compiler commands supplied by the
+  implementation must support the <code>-V</code> flag as the only
+  argument.</p>
+  <p>The implementation may additionally support <code>-v</code>,
+  <code>-version</code>, <code>--version</code> and/or other
+  version flags, but none of these are required. To present a
+  simple interface to users, all version flags should ideally give
+  the same output, but that is not required either.</p>
+  <p>Besides the compiler and interpreter commands, any other
+  commands supplied by the implementation are also encouraged to
+  support the same version flags, but are not required to.</p>
+  <p>The version output is allowed to differ between commands.</p>
   <h3 id="_effect_of_other_flags_on_version_output">Effect of
   non-version flags on version information</h3>
   <p>The <code>-V</code> output may change if other flags are also
