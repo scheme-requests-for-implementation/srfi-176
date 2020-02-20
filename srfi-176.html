@@ -1202,8 +1202,8 @@ printf("%zu\n", BITSIZEOF(void *));
   <p>This property can be used to expose one or more Java <a href=
   "https://docs.oracle.com/javase/7/docs/api/java/lang/System.html#getProperties()">
   system properties</a>.</p>
-  <p><strong>The value of this property is determined at run time,
-  not at build time.</strong></p>
+  <p><em>The value of this property is determined at run time, not
+  at build time.</em></p>
   <p><strong>Note:</strong> <em>symbol</em> is part of the property
   name, not a separate symbol.</p>
   <p><strong>Note:</strong> System properties whose names are not
@@ -1223,8 +1223,8 @@ printf("%zu\n", BITSIZEOF(void *));
   <p>(<strong>os.env.</strong><em>symbol</em> <em>string</em>)</p>
   <p>This property can be used to expose one or more environment
   variables from the operating system.</p>
-  <p><strong>The value of this property is determined at run time,
-  not at build time.</strong></p>
+  <p><em>The value of this property is determined at run time, not
+  at build time.</em></p>
   <p>On Windows, environment variable names are case-insensitive
   and should be normalizd to uppercase for this SRFI.</p>
   <p><strong>Note:</strong> <em>symbol</em> is part of the property
@@ -1248,8 +1248,8 @@ printf("%zu\n", BITSIZEOF(void *));
     <li><code>release</code> (<code>uname -r</code>)</li>
     <li><code>machine</code> (<code>uname -m</code>)</li>
   </ul>
-  <p><strong>The value of this property is determined at run time,
-  not at build time.</strong></p>
+  <p><em>The value of this property is determined at run time, not
+  at build time.</em></p>
   <p>Examples:</p>
   <pre>(os.uname "Linux" "5.4.11_1" "x86_64")
 (os.uname "Darwin" "18.7.0" "x86_64")
