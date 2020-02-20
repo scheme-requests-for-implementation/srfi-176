@@ -1198,10 +1198,11 @@ printf("%zu\n", BITSIZEOF(void *));
   <h4 id="_java_virtual_machine_properties">Java virtual machine
   properties</h4>
   <p>(<strong>jvm.</strong><em>symbol</em> <em>string</em>)</p>
-  <p>This property can be used to expose one or more
-  <strong>run-time</strong> Java <a href=
+  <p>This property can be used to expose one or more Java <a href=
   "https://docs.oracle.com/javase/7/docs/api/java/lang/System.html#getProperties()">
   system properties</a>.</p>
+  <p><strong>The value of this property is determined at run time,
+  not at build time.</strong></p>
   <p><strong>Note:</strong> <em>symbol</em> is part of the property
   name, not a separate symbol.</p>
   <p><strong>Note:</strong> System properties whose names are not
@@ -1219,9 +1220,10 @@ printf("%zu\n", BITSIZEOF(void *));
   <h4 id="_operating_system_properties">Operating system
   properties</h4>
   <p>(<strong>os.env.</strong><em>symbol</em> <em>string</em>)</p>
-  <p>This property can be used to expose one or more
-  <strong>run-time</strong> environment variables from the
-  operating system.</p>
+  <p>This property can be used to expose one or more environment
+  variables from the operating system.</p>
+  <p><strong>The value of this property is determined at run time,
+  not at build time.</strong></p>
   <p>On Windows, environment variable names are case-insensitive
   and should be normalizd to uppercase for this SRFI.</p>
   <p><strong>Note:</strong> <em>symbol</em> is part of the property
@@ -1237,8 +1239,7 @@ printf("%zu\n", BITSIZEOF(void *));
 </pre>
   <p>(<strong>os.uname</strong> <em>string</em> <em>string</em>
   <em>string</em>)</p>
-  <p>Three <em>string</em>s from the <strong>run-time</strong> Unix
-  <a href=
+  <p>Three <em>string</em>s from the Unix <a href=
   "https://pubs.opengroup.org/onlinepubs/9699919799/functions/uname.html">
   <code>utsname</code></a> structure in this order:</p>
   <ul>
@@ -1246,6 +1247,8 @@ printf("%zu\n", BITSIZEOF(void *));
     <li><code>release</code> (<code>uname -r</code>)</li>
     <li><code>machine</code> (<code>uname -m</code>)</li>
   </ul>
+  <p><strong>The value of this property is determined at run time,
+  not at build time.</strong></p>
   <p>Examples:</p>
   <pre>(os.uname "Linux" "5.4.11_1" "x86_64")
 (os.uname "Darwin" "18.7.0" "x86_64")
