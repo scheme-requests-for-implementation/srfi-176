@@ -465,18 +465,8 @@
   as an alias for <code>--no-yield</code> but makes an exception
   and treats <code>racket -V</code> with no other arguments as a
   version flag.) It is a strong standard for a version flag among
-  Unix programs in general. <a href=
-  "http://www.catb.org/esr/writings/taoup/html/ch10s05.html#id2948149">
-  <em>The Art of Unix Programming</em>, Chapter 10</a> says:</p>
-  <blockquote>
-    <p><code>-V</code>: Version (without argument). Display
-    program’s version on standard output and exit (often also
-    prints compiled-in configuration details as well). Examples:
-    gcc(1), flex(1), hostname(1), many others. It would be quite
-    surprising for this switch to be used in any other way.</p>
-  </blockquote>
-  <p><em>Hence we choose the upper-case <code>-V</code> flag for
-  this SRFI.</em></p>
+  Unix programs in general. <em>Hence we choose the upper-case
+  <code>-V</code> flag for this SRFI.</em></p>
   <h4 id="_parser_friendly_output_format">Parser-friendly output
   format</h4>
   <p>Many Scheme/Lisp implementations and other Unix tools output
@@ -890,6 +880,10 @@ int main(void)
   Scheme implementation with a <code>-V</code> version flag writing
   only to standard output, no output lines starting with
   <code>(</code> already conforms to this SRFI.</p>
+  <p>The order in which the properties are given does not matter.
+  Writers should not write properties with duplicate names; readers
+  should pick the first property matching a given property
+  name.</p>
   <h4 id="_general_properties">General properties</h4>
   <p>(<strong>command</strong> <em>string…​</em>)</p>
   <p>The command names for some Schemes differ on different
