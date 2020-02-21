@@ -880,6 +880,10 @@ int main(void)
   Scheme implementation with a <code>-V</code> version flag writing
   only to standard output, no output lines starting with
   <code>(</code> already conforms to this SRFI.</p>
+  <p>The order in which the properties are given does not matter.
+  Writers should not write properties with duplicate names; readers
+  should pick the first property matching a given property
+  name.</p>
   <h4 id="_general_properties">General properties</h4>
   <p>(<strong>command</strong> <em>string…​</em>)</p>
   <p>The command names for some Schemes differ on different
