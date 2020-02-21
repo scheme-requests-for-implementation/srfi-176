@@ -788,16 +788,22 @@ int main(void)
   <p>Otherwise it shall exit with a failure exit code. On Unix and
   Windows, exit code 0 means success and codes 1..100 are safe to
   use for indicating failure.</p>
-  <h3>Other version flags and multiple commands</h3>
-  <p>If the implementation has separate interpreter and compiler
-  commands, both of those must support the <code>-V</code> flag as
-  the only argument.</p>
-  <p>Any other commands supplied by the implementation are also
-  encouraged to support the flag, but are not required to.</p>
-  <p>The version output is allowed to differ between all these
-  commands.</p>
-  <h3 id="_effect_of_other_flags_on_version_output">Effect of
-  non-version flags on version information</h3>
+  <h3 id="_other_version_flags_and_multiple_commands">Other version
+  flags and multiple commands</h3>
+  <p>All interpreter and compiler commands supplied by the
+  implementation must support the <code>-V</code> flag as the only
+  argument.</p>
+  <p>The implementation may additionally support <code>-v</code>,
+  <code>-version</code>, <code>--version</code> and/or other
+  version flags, but none of these are required. To present a
+  simple interface to users, all version flags should ideally give
+  the same output, but that is not required either.</p>
+  <p>Besides the compiler and interpreter commands, any other
+  commands supplied by the implementation are also encouraged to
+  support the same version flags, but are not required to.</p>
+  <p>The version output is allowed to differ between commands.</p>
+  <h3 id="_effect_of_non_version_flags_on_version_information">
+  Effect of non-version flags on version information</h3>
   <p>The <code>-V</code> output may change if other flags are also
   given on the command line. For example, <code>fantastic-scheme -V
   -r r6rs</code> and <code>fantastic-scheme -V -r r7rs</code> could
@@ -1034,7 +1040,7 @@ int main(void)
   <p>List of files with uncommitted changes:</p>
   <pre>
 printf '(build.git.modified';
-git diff-files --name-only 2&gt;/dev/null | head | xargs -n 1 printf ' "%s"';
+git diff-index --name-only HEAD 2&gt;/dev/null | head | xargs -n 1 printf ' "%s"';
 echo ')'</pre>
   <p>Examples:</p>
   <pre>(build.git.tag "3.1.1")
@@ -1087,8 +1093,8 @@ echo ')'</pre>
   missing features as bugs.</p>
   <p>The implementation does not need to list every SRFI it
   supports, as there may be situations where that is hard to
-  define. The absence of a number does not say anything about
-  whether or not that SRFI is supported.</p>
+  define. The absence of a number does not conclusively prove that
+  SRFI is not supported.</p>
   <p>Examples:</p>
   <pre>(scheme.srfi)
 (scheme.srfi 0 1 13 14 176)
@@ -1150,9 +1156,9 @@ echo ')'</pre>
   <p>(<strong>c.type-bits</strong> (<em>symbol</em>
   <em>integer</em>) …​)</p>
   <p>Tells the sizes of C data types. Each <em>symbol</em> is the
-  name of a C type and <em>integer</em> is a positive integer
-  giving the width of the type in bits. The size of type
-  <code>t</code> can be determined in C using:</p>
+  name of a C type and <em>integer</em> gives giving the width of
+  the type in bits. The size of type <code>t</code> can be
+  determined in C using:</p>
   <pre>#include &lt;limits.h&gt;  // For CHAR_BIT
 #define BITSIZEOF(t) (sizeof(t) * CHAR_BIT)
 printf("%zu\n", BITSIZEOF(void *));
@@ -1182,9 +1188,9 @@ printf("%zu\n", BITSIZEOF(void *));
   <p>Examples (for completeness, some silly ones are included):</p>
   <pre>(c.type-bits)
 (c.type-bits (pointer 64))
-(c.type-bits (int 32) (long 8) (float 32) (double 64) (pointer 64) (size_t 64))
+(c.type-bits (int 32) (long 64) (float 32) (double 64) (pointer 64) (size_t 64))
 (c.type-bits (struct-timespec 128) (struct-timespec-pointer 64) (time_t 64))
-(c.type-bits (long 64) (long-long 8) (intmax_t 64) (intmax_t-pointer 64))
+(c.type-bits (long 64) (long-long 64) (intmax_t 64) (intmax_t-pointer 64))
 (c.type-bits (long-double 128) (long-double-pointer 64))
 (c.type-bits (char-pointer-pointer 32) (jmp_buf 416))
 (c.type-bits (TCHAR 8) (DWORD 32) (WIN32_FIND_DATA 2560))
@@ -1193,10 +1199,11 @@ printf("%zu\n", BITSIZEOF(void *));
   <h4 id="_java_virtual_machine_properties">Java virtual machine
   properties</h4>
   <p>(<strong>jvm.</strong><em>symbol</em> <em>string</em>)</p>
-  <p>This property can be used to expose one or more
-  <strong>run-time</strong> Java <a href=
+  <p>This property can be used to expose one or more Java <a href=
   "https://docs.oracle.com/javase/7/docs/api/java/lang/System.html#getProperties()">
   system properties</a>.</p>
+  <p><em>The value of this property is determined at run time, not
+  at build time.</em></p>
   <p><strong>Note:</strong> <em>symbol</em> is part of the property
   name, not a separate symbol.</p>
   <p><strong>Note:</strong> System properties whose names are not
@@ -1214,11 +1221,12 @@ printf("%zu\n", BITSIZEOF(void *));
   <h4 id="_operating_system_properties">Operating system
   properties</h4>
   <p>(<strong>os.env.</strong><em>symbol</em> <em>string</em>)</p>
-  <p>This property can be used to expose one or more
-  <strong>run-time</strong> environment variables from the
-  operating system.</p>
+  <p>This property can be used to expose one or more environment
+  variables from the operating system.</p>
+  <p><em>The value of this property is determined at run time, not
+  at build time.</em></p>
   <p>On Windows, environment variable names are case-insensitive
-  and all <em>symbol</em>s should be normalizd to uppercase.</p>
+  and should be normalizd to uppercase for this SRFI.</p>
   <p><strong>Note:</strong> <em>symbol</em> is part of the property
   name, not a separate symbol.</p>
   <p><strong>Note:</strong> Environment variables whose names are
@@ -1232,8 +1240,7 @@ printf("%zu\n", BITSIZEOF(void *));
 </pre>
   <p>(<strong>os.uname</strong> <em>string</em> <em>string</em>
   <em>string</em>)</p>
-  <p>Three <em>string</em>s from the <strong>run-time</strong> Unix
-  <a href=
+  <p>Three <em>string</em>s from the Unix <a href=
   "https://pubs.opengroup.org/onlinepubs/9699919799/functions/uname.html">
   <code>utsname</code></a> structure in this order:</p>
   <ul>
@@ -1241,6 +1248,8 @@ printf("%zu\n", BITSIZEOF(void *));
     <li><code>release</code> (<code>uname -r</code>)</li>
     <li><code>machine</code> (<code>uname -m</code>)</li>
   </ul>
+  <p><em>The value of this property is determined at run time, not
+  at build time.</em></p>
   <p>Examples:</p>
   <pre>(os.uname "Linux" "5.4.11_1" "x86_64")
 (os.uname "Darwin" "18.7.0" "x86_64")
@@ -1326,7 +1335,7 @@ not even for buoyancy or fitness for high-velocity landings at sea.
  (fantastic.phase-of-the-moon waxing-crescent))
 </pre>
   <h2 id="_implementation">Implementation</h2>
-  <p>Writing the version information is as simple as calling
+  <p>Writing the version information can be as simple as calling
   <strong>write</strong> or equivalent with suitable input.</p>
   <p>The following is a fully functional parser.</p>
   <pre>
@@ -1351,8 +1360,8 @@ not even for buoyancy or fitness for high-velocity landings at sea.
     <li>Code to produce date/timestamps in the correct format from
     C and Unix shell.</li>
     <li>A sample main program for a Scheme implementation,
-    Fantastic Scheme, written in C, and a Unix build script to
-    write various information about the build environment into a C
+    Fantastic Scheme, written in C, and a Unix build script that
+    writes various information about the build environment into a C
     file during the build process. The main program collects all
     version information into into a Scheme alist, which is
     validated for LOSE compatibility and then written to
