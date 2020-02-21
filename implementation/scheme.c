@@ -1,5 +1,7 @@
 #ifdef SCHEME_UNIX
+#include <sys/stat.h>
 #include <sys/utsname.h>
+#include <unistd.h>
 #endif
 
 #include <ctype.h>
@@ -160,6 +162,36 @@ static struct value *build_uname_list(void) {
 static struct value *build_uname_list(void) { return 0; }
 #endif
 
+#ifdef SCHEME_UNIX
+static const char *fdtype(int fd) {
+  struct stat st;
+
+  if (fstat(fd, &st) == 0) {
+    if (S_ISFIFO(st.st_mode)) {
+      return "pipe";
+    }
+    if (S_ISSOCK(st.st_mode)) {
+      return "socket";
+    }
+    if (S_ISREG(st.st_mode)) {
+      return "file";
+    }
+    if (S_ISCHR(st.st_mode) || S_ISBLK(st.st_mode)) {
+      return isatty(fd) ? "terminal" : "device";
+    }
+  }
+  return "unknown";
+}
+#else
+static const char *fdtype(int fd) { return "unknown"; }
+#endif
+
+static struct value *build_stdio_list(void) {
+  return pair(symbol(fdtype(STDIN_FILENO)),
+              pair(symbol(fdtype(STDOUT_FILENO)),
+                   pair(symbol(fdtype(STDERR_FILENO)), 0)));
+}
+
 static struct value *build_c_type_bits_list(void) {
   struct value *head;
   struct value *tail;
@@ -235,6 +267,7 @@ static struct value *build_version_alist(void) {
   push(&tail,
        pair(symbol("build.git.modified"), strings(env_build_git_modified)));
 
+  push(&tail, pair(symbol("os.stdio"), build_stdio_list()));
   push(&tail, pair(symbol("os.uname"), build_uname_list()));
 
   push(&tail, list2(symbol("os.env.LANG"), string(getenv("LANG"))));
