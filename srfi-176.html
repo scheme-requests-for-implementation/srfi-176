@@ -913,6 +913,9 @@ int main(void)
   Typically, this is the directory that has <code>bin</code> and
   <code>lib</code> subdirectories, but the meaning is
   implementation-dependent.</p>
+  <p>This directory is often set by a build-time option called
+  <em>prefix</em> in the implementation's configure script or
+  makefile.</p>
   <p>(<strong>languages</strong> <em>symbol…​</em>)</p>
   <p>The set of programming languages supported by the
   implementation. Symbols denote set membership.</p>
@@ -943,7 +946,11 @@ int main(void)
   <p>Each <em>string</em> is the <a href=
   "https://www.iana.org/assignments/character-sets/">IANA name</a>
   of a character encoding known to be supported by this build of
-  the Scheme implementation. The names are case-insensitive.</p>
+  the Scheme implementation. The names are case-insensitive. It is
+  permitted to list more than one alias for the same encoding.</p>
+  <p>The default encoding selected at start-up time should come
+  first in the list. The default may change if other command line
+  options or environment variables are given.</p>
   <p>The implementation may also support other encodings not listed
   here, either natively or via extensions.</p>
   <p>Examples:</p>
@@ -1232,6 +1239,32 @@ printf("%zu\n", BITSIZEOF(void *));
   <pre>(os.env.LANG "en_US.UTF-8")
 (os.env.TERM "xterm-256color")
 </pre>
+  <p>(<strong>os.stdio</strong> <em>symbol</em> <em>symbol</em>
+  <em>symbol</em>)</p>
+  <p>Three <em>symbol</em>s in this order:</p>
+  <ul>
+    <li>File type of standard input (stdin, Unix file descriptor
+    0)</li>
+    <li>File type of standard output (stdout, Unix file descriptor
+    1)</li>
+    <li>File type of standard error (stderr, Unix file descriptor
+    2)</li>
+  </ul>
+  <p>Each <em>symbol</em> shall give the type of the port in the
+  current environment. The following choices are standard:</p>
+  <ul>
+    <li><code>terminal</code></li>
+    <li><code>device</code></li>
+    <li><code>socket</code></li>
+    <li><code>file</code></li>
+    <li><code>pipe</code></li>
+    <li><code>unknown</code></li>
+  </ul>
+  <p>Knowing the types can be useful for debugging unusual I/O
+  behavior in a particular environment.</p>
+  <p>Examples:</p>
+  <pre>(os.stdio device pipe pipe)
+(os.stdio socket terminal file)</pre>
   <p>(<strong>os.uname</strong> <em>string</em> <em>string</em>
   <em>string</em>)</p>
   <p>Three <em>string</em>s from the Unix <a href=
@@ -1293,6 +1326,7 @@ not even for buoyancy or fitness for high-velocity landings at sea.
 (build.git.branch "for-draft-3")
 (build.git.commit "96d6322")
 (build.git.modified "implementation/scheme.c")
+(os.stdio terminal terminal terminal)
 (os.uname "Darwin" "18.7.0" "x86_64")
 (os.env.LANG "en_FI.UTF-8")
 (os.env.TERM "dumb")
@@ -1323,6 +1357,7 @@ not even for buoyancy or fitness for high-velocity landings at sea.
  (build.git.branch "for-draft-3")
  (build.git.commit "96d6322")
  (build.git.modified "implementation/scheme.c")
+ (os.stdio terminal terminal terminal)
  (os.uname "Darwin" "18.7.0" "x86_64")
  (os.env.LANG "en_FI.UTF-8")
  (os.env.TERM "dumb")
