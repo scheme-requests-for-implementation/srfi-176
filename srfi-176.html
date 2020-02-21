@@ -946,7 +946,11 @@ int main(void)
   <p>Each <em>string</em> is the <a href=
   "https://www.iana.org/assignments/character-sets/">IANA name</a>
   of a character encoding known to be supported by this build of
-  the Scheme implementation. The names are case-insensitive.</p>
+  the Scheme implementation. The names are case-insensitive. It is
+  permitted to list more than one alias for the same encoding.</p>
+  <p>The default encoding selected at start-up time should come
+  first in the list. The default may change if other command line
+  options or environment variables are given.</p>
   <p>The implementation may also support other encodings not listed
   here, either natively or via extensions.</p>
   <p>Examples:</p>
