@@ -942,19 +942,24 @@ int main(void)
   derivatives and non-Scheme languages.</p>
   <p>Examples:</p>
   <pre>(languages scheme r6rs r7rs)</pre>
-  <p>(<strong>encodings</strong> <em>string…</em>)</p>
-  <p>Each <em>string</em> is the <a href=
-  "https://www.iana.org/assignments/character-sets/">IANA name</a>
-  of a character encoding known to be supported by this build of
-  the Scheme implementation. The names are case-insensitive. It is
-  permitted to list more than one alias for the same encoding.</p>
-  <p>The default encoding selected at start-up time should come
-  first in the list. The default may change if other command line
-  options or environment variables are given.</p>
+  <p>(<strong>encodings</strong> <em>symbol…</em>)</p>
+  <p>Each <em>symbol</em> is the <strong>lowercase</strong>
+  <a href="https://www.iana.org/assignments/character-sets/">IANA
+  name</a> of a character encoding known to be supported by this
+  build of the Scheme implementation.</p>
+  <p>All encoding names in the IANA list can be represented as LOSE
+  symbols except for names with a year suffix: e.g.
+  <code>ISO_8859-1:1987</code>.</p>
+  <p>It is permitted to list more than one alias for the same
+  encoding.</p>
+  <p>The <strong>default encoding</strong> selected at start-up
+  time should come <strong>first</strong> in the list. The default
+  may change based on command line options, environment variables
+  or other environmental factors.</p>
   <p>The implementation may also support other encodings not listed
   here, either natively or via extensions.</p>
   <p>Examples:</p>
-  <pre>(encodings "UTF-8" "ISO-8859-1")</pre>
+  <pre>(encodings utf-8 iso-8859-1)</pre>
   <p>(<strong>version</strong> <em>string</em>)</p>
   <p>A free-form version string in the native format preferred by
   the implementor. No portable information can be reliably parsed
@@ -1306,7 +1311,7 @@ not even for buoyancy or fitness for high-velocity landings at sea.
 (command "fantastic-scheme")
 (website "https://example.com/scheme")
 (languages scheme r5rs r6rs r7rs)
-(encodings "utf-8" "iso-8859-1")
+(encodings utf-8 iso-8859-1)
 (install-dir "/home/wiley/.local")
 (scheme.id fantastic)
 (scheme.srfi 0 1 2 176)
@@ -1337,7 +1342,7 @@ not even for buoyancy or fitness for high-velocity landings at sea.
   <pre>((command "fantastic-scheme")
  (website "https://example.com/scheme")
  (languages scheme r5rs r6rs r7rs)
- (encodings "utf-8" "iso-8859-1")
+ (encodings utf-8 iso-8859-1)
  (install-dir "/home/wiley/.local")
  (scheme.id fantastic)
  (scheme.srfi 0 1 2 176)
